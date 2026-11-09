@@ -541,10 +541,11 @@
       "name": "妙应寺",
       "aliases": [
         "白塔寺",
-        "白塔"
+        "白塔",
+        "妙应寺白塔"
       ],
       "district": "西城区",
-      "address_hint": "西城区阜成门内大街171号",
+      "address_hint": "西城区阜成门内大街171号（北京市白塔寺管理处）",
       "overview": "始建于元代，以白塔闻名，为尼泊尔工匠阿尼哥主持修建，是北京现存最早的藏传佛塔之一。",
       "deities": [
         "释迦牟尼"
@@ -560,11 +561,17 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362679/483700/743575655/index.html",
+          "publisher": "北京市文物局（北京市白塔寺管理处）",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -573,7 +580,7 @@
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
         "白塔寺（妙应寺）公众号"
@@ -581,11 +588,18 @@
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "白塔寺，现为博物馆性质开放，周一闭馆，需购票。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；开放时段：9:00-17:00（16:30 停止入馆）；管理方为北京市白塔寺管理处；每周一例行闭馆（遇节假日另行通知）；是否需预约与门票价格本次未核到官方明文，以官方公告为准",
       "lat": 39.92389,
       "lng": 116.35694,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%BA%94%E5%AF%BA"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%BA%94%E5%AF%BA",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://wwj.beijing.gov.cn/bjww/362679/483700/743575655/index.html",
+        "note": "管理方为北京市白塔寺管理处；每周一例行闭馆（遇节假日另行通知）；是否需预约与门票价格本次未核到官方明文，以官方公告为准"
+      }
     },
     {
       "id": "tianningsi",
@@ -2162,7 +2176,7 @@
       "wish_recommendable": true,
       "open_status": "normal",
       "closure_rule": [],
-      "address_hint": "石景山区八大处三山庵与龙泉庵之间的山腰",
+      "address_hint": "石景山区八大处路3号（八大处公园内，三山庵与龙泉庵之间）",
       "overview": "八大处「三山八刹十二景」中的著名一刹，始建辽宋，原名隐寂寺，清康熙五十一年（1712）改名大悲寺；2011 年颁发宗教活动场所登记证，为北京市级文物保护单位。",
       "deities": [],
       "wish_themes": [
