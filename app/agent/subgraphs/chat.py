@@ -24,7 +24,7 @@ from app.agent.crisis_rules import has_crisis_signal
 from app.agent.router import current_turn_inputs, intent_result_for
 from app.tools.prompt_data import UNTRUSTED_DATA_RULE
 
-PERSONA = load_prompt("chat.persona", "v2")
+PERSONA = load_prompt("chat.persona", "v3")
 
 CRISIS_NOTE = load_prompt("chat.crisis_note", "v1")
 HOTLINE_MARK = "010-82951332"
@@ -190,12 +190,15 @@ def node_chat(state: AgentState) -> dict[str, Any]:
         from app import db
         from app.agent.memory.profile import remember_name
         from app.agent.context_assembler import conversation_state
+        from app.agent.temple_context import remember_temple_fields
 
         with db.memory_transaction():
             conversation = conversation_state(state)
             turns = conversation["turns"]
             remember_name(uid, msg, thread_id=tid,
                           previous_turn=turns[-1] if turns else None)
+            # Temple-guide vertical: wish / origin / companions / travel prefs.
+            remember_temple_fields(uid, msg)
             # Only carry context validated before this name update across
             # its revision bump. Other invalidations still discard history.
             conversation["memory_rev"] = int(db.get_profile(uid).get("memory_rev", 0))
@@ -203,6 +206,42 @@ def node_chat(state: AgentState) -> dict[str, Any]:
     mem = assemble_context(state, query=msg)
     if mem:
         system += "\n\n" + mem
+    temple_payload = None
+    review_payload = None
+    travel_payload = None
+    citation_ok = True
+    if not crisis:
+        from app.agent.temple_context import build_temple_context
+
+        # Grounded, curated rows for temple turns; None for anything else.
+        built = build_temple_context(msg, state.get("profile") or load_profile(state))
+        if built:
+            system += built["block"]
+            temple_payload = built["payload"]
+            # 评测/诊断用：记录本次注入的资料，便于核对回答是否接地
+            from app.agent.temple_context import set_last_payload
+
+            set_last_payload(temple_payload)
+
+        # 问口碑时才去搜公开分享（默认关闭；搜不到就不注入，不占额度也不编）
+        from app.agent.reviews import build_review_payload, render_review_block
+
+        review_payload = build_review_payload(msg, state.get("profile") or load_profile(state))
+        if review_payload:
+            system += render_review_block(review_payload)
+
+        # 行前：只有问路线/天气时才请求地图与天气（带缓存与额度）
+        from app.agent.travel_context import build_travel_payload, render_travel_block
+
+        travel_payload = build_travel_payload(msg, state.get("profile") or load_profile(state))
+        if travel_payload:
+            system += render_travel_block(travel_payload)
+
+        if temple_payload or review_payload or travel_payload:
+            from app.agent.temple_context import set_last_grounding
+
+            set_last_grounding({"temple": temple_payload, "reviews": review_payload,
+                                "travel": travel_payload})
     ask = None
     if not msg:
         reply = EMPTY_REPLY
@@ -230,7 +269,12 @@ def node_chat(state: AgentState) -> dict[str, Any]:
                 logging.getLogger("crisis").warning("crisis_reply_fixed_block elapsed=%.1fs", _time.monotonic() - t_start)
         else:
             from app.agent.crawl_tools import source_context, CRAWL_TOOLS
-            if result.rule_id in {"model_tool:" + name for name in CRAWL_TOOLS}:
+
+            # 寺庙话题已经有策展好的资料：不要再跑通用网页搜索。
+            # 一是多余（我们的数据可核），二是它要真联网，实测一次 +15 秒，
+            # 直接破坏「5–10 秒出答案」的承诺，还会把不可信网页塞进来。
+            if temple_payload is None and result.rule_id in {
+                    "model_tool:" + name for name in CRAWL_TOOLS}:
                 system += source_context(msg, state)
             raw = chat_text(
                 system,
@@ -246,6 +290,42 @@ def node_chat(state: AgentState) -> dict[str, Any]:
         reply, ask = split_reply(raw)
         # Guard before anything is persisted to memory (summary/episodic feed later prompts).
         reply = guard_text(reply, user_id=uid, profile=profile, inputs=(msg,), where="chat_reply")
+        # 引用校验：编造的链接直接删，资料里没有的价格/距离/时间标记出来并加提示。
+        if (temple_payload or review_payload) and reply:
+            from app.agent.domain.verify import verify_citation
+            from app.agent.harness import context as trace_ctx
+
+            grounded_payload = {
+                "temple": temple_payload,
+                "reviews": review_payload,
+                "travel": travel_payload,
+            }
+            checked = verify_citation(reply, grounded_payload, where="chat_reply")
+            reply = checked["text"]
+            rep = checked["report"]
+            citation_ok = bool(rep["ok"])
+            if not rep["ok"]:
+                trace_ctx.record_guardrail({
+                    "guardrail": "citation_check",
+                    "urls_removed": len(rep["urls_removed"]),
+                    "unsupported_numbers": len(rep["unsupported_numbers"]),
+                    "kinds": ",".join(sorted({h["kind"] for h in rep["unsupported_numbers"]})),
+                    "payload_has_unverified_sources": rep["payload_has_unverified_sources"],
+                })
+                if rep["unsupported_numbers"]:
+                    reply = reply.rstrip() + "\n\n（上面几个数字我在资料里没核到出处，以官方公告为准。）"
+
+            if review_payload and review_payload.get("items"):
+                from app.agent.reviews import REVIEW_FOOTER, verify_review_claims
+
+                claims = verify_review_claims(reply)
+                if not claims["ok"]:
+                    trace_ctx.record_guardrail({
+                        "guardrail": "review_claim",
+                        "hits": len(claims["hits"]),
+                        "words": ",".join(sorted({h["word"] for h in claims["hits"]})),
+                    })
+                reply = reply.rstrip() + "\n\n" + REVIEW_FOOTER
         if crisis:
             ask = None
             # The hotline footer is appended after the leak guard so it can never be dropped.
@@ -271,9 +351,37 @@ def node_chat(state: AgentState) -> dict[str, Any]:
             assistant_text=reply or "",
             thread_id=tid,
         )
+    card = None
+    if temple_payload:
+        from app.agent.temple_card import build_card
+        from app.agent.travel_context import travel_card
+
+        card = build_card(temple_payload, reviews=review_payload,
+                          travel=travel_card(travel_payload))
+    if temple_payload or review_payload:
+        from app.agent import temple_metrics
+
+        candidates = len(card["items"]) if card else 0
+        degraded = bool(
+            (temple_payload or {}).get("missing")
+            or (temple_payload or {}).get("origin_missing")
+            or any(i.get("sources_status") != "verified" for i in (temple_payload or {}).get("items", []))
+            or (review_payload or {}).get("status") not in (None, "ok")
+            or bool((travel_payload or {}).get("notes"))
+        )
+        temple_metrics.record(
+            kind=(card or {}).get("kind", "").replace("temple_", "") or "detail",
+            wish=str((temple_payload or {}).get("query", {}).get("message_theme") or ""),
+            candidates=candidates,
+            citation_ok=bool(locals().get("citation_ok", True)),
+            degraded=degraded,
+            review_items=len((review_payload or {}).get("items") or []),
+            latency_ms=int((_time.monotonic() - t_start) * 1000),
+        )
     return {
         "conversation_context": record_turn(state, msg, reply or "", compress=not crisis),
         "profile": load_profile(state),
         "messages": [{"role": "assistant", "content": reply}],
         "ask": ask,
+        "temple_card": card,
     }

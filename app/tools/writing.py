@@ -42,7 +42,10 @@ def guess_kind(request: str) -> str:
 
 
 def _profile_facts(profile: dict[str, Any]) -> dict[str, Any]:
-    keep = ("name", "city", "occupation", "interests", "preferences", "facts")
+    keep = (
+        "name", "city", "occupation", "wish", "origin",
+        "travel_preferences", "companions", "interests", "preferences", "facts",
+    )
     return {k: profile[k] for k in keep if profile.get(k)}
 
 

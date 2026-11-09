@@ -1,0 +1,2043 @@
+{
+  "meta": {
+    "schema_version": "v6",
+    "city": "北京",
+    "scope": "城近郊",
+    "updated_at": "2026-11-07",
+    "checked_at": "2026-11-07",
+    "count": 30,
+    "recommendable_count": 27,
+    "note": "资料整理自公开信息，逐条标注来源与核对日期；未核实字段一律标 unverified，不写成事实。开放时间、门票、预约方式随时可能变化，一律以官方渠道最新公告为准。民间说法只作口碑参考，不代表灵验承诺。",
+    "wish_policy": "「平安」不作为寺庙标签：用户只说平安时，按「可推荐 + 距离 + 氛围」给默认候选。其余心愿必须有说法与依据：claim 是民俗/文献说法，basis 是场所事实（殿宇/神像），两者分别标注，不把民俗升格为事实。",
+    "source_policy": "sources 只放可程序核验的网页（政府/官网/协会），带核对日期；微信公众号等无法核验的渠道放进 finder_hint（去哪问），不作为引用。",
+    "evidence_policy": "依据分两层：place_facts 是可核的场所事实；wish_themes[].claim 是「人们来求什么」的民俗用法，不因为殿宇有文献记载就把民俗升格为事实。",
+    "visitable_count": 28,
+    "status_policy": "status 区分宗教活动场所 / 文博点 / 景区·民间信仰 / 遗址 / 不开放 / 文化市场；religious_registered 标明是否登记宗教活动场所（null=待核）。「景区」和「文博点」可以参观，但不当成上香许愿的地方。",
+    "recommend_policy": "wish_recommendable = 能否作为许愿推荐；visitable = 能否去参观。两列分开，避免「可推荐」含义不清。",
+    "coord_policy": "坐标仅取自维基百科坐标接口或维基数据 P625；取不到就留空，距离计算退回区县并明确告知用户，绝不按印象补数字。"
+  },
+  "temples": [
+    {
+      "id": "yonghegong",
+      "name": "雍和宫",
+      "aliases": [
+        "雍和宫喇嘛庙"
+      ],
+      "district": "东城区",
+      "address_hint": "雍和宫大街12号，地铁2/5号线雍和宫站",
+      "overview": "北京保存最完整、规模最大的藏传佛教寺院，清康熙年间建，原为雍亲王府，乾隆年间改为喇嘛庙，今为全国重点文物保护单位。",
+      "deities": [
+        "宗喀巴大师",
+        "释迦牟尼",
+        "绿度母",
+        "白度母"
+      ],
+      "wish_themes": [
+        {
+          "theme": "事业",
+          "role": "primary",
+          "source_url": "",
+          "claim": "旅游平台攻略与民间口碑都指法轮殿求事业；另有永佑殿西配殿求学业的说法。",
+          "claim_evidence": "folk",
+          "basis": "法轮殿",
+          "basis_source": "https://www.visitbeijing.com.cn/article/4MJTb9gldk5"
+        }
+      ],
+      "atmosphere": "香火最旺、人气最高，殿宇宏伟，节假日常需排队，氛围庄严而热烈。",
+      "transport": "地铁2号线、5号线雍和宫站，多路公交可达。",
+      "accessibility": "院落较平整，但各殿有台阶，轮椅部分可达；人多时行动不便者宜错峰。",
+      "visit_note": "香火最旺，节假日常需排队；现多需线上预约，具体开放时段与购票方式请以官方公众号最新公告为准。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=5",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://www.visitbeijing.com.cn/article/4MJTb9gldk5",
+          "publisher": "北京旅游网（攻略）",
+          "kind": "media",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "reservation",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "藏传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "雍和宫游客信众服务 公众号",
+        "北京市佛教协会 官网"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "香火最旺，节假日限流；现需线上预约购票，开放时段与止票时间以官方公众号公告为准。",
+      "lat": 39.94694,
+      "lng": 116.41111,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E9%9B%8D%E5%92%8C%E5%AE%AB"
+    },
+    {
+      "id": "tanzhesi",
+      "name": "潭柘寺",
+      "aliases": [],
+      "district": "门头沟区",
+      "address_hint": "门头沟区潭柘寺镇，近戒台寺",
+      "overview": "北京地区历史最悠久的寺院之一，素有「先有潭柘寺，后有北京城」之说，始建于西晋，历代为皇家寺院。",
+      "deities": [
+        "释迦牟尼",
+        "观世音菩萨"
+      ],
+      "wish_themes": [
+        {
+          "theme": "事业",
+          "role": "secondary",
+          "source_url": "",
+          "claim": "皇家寺院背景，民间有求仕途的说法，但具体指向不一致（观音殿、帝王树绕树三圈等）。",
+          "claim_evidence": "folk",
+          "basis": "",
+          "basis_source": ""
+        }
+      ],
+      "atmosphere": "深山古刹，古树众多（帝王树、配王树），清幽宁静，四季景色佳。",
+      "transport": "市区乘车约1–1.5小时，宜自驾或乘公交（931路等）前往。",
+      "accessibility": "地处山区，台阶与坡道较多，体力要求较高，行动不便者需量力。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=36",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "潭柘寺 公众号"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "开放时间与门票以官方公告为准。",
+      "lat": 39.90417,
+      "lng": 116.02417,
+      "coord_note": "",
+      "coord_source": "https://www.wikidata.org/wiki/Q1815062"
+    },
+    {
+      "id": "jietaisi",
+      "name": "戒台寺",
+      "aliases": [],
+      "district": "门头沟区",
+      "address_hint": "门头沟区永定镇，近潭柘寺",
+      "overview": "以全国最大的戒坛闻名，始建于隋代，与潭柘寺并称，历史上为授戒之所。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "古松众多，环境清幽，游客相对潭柘寺少，更显宁静。",
+      "transport": "与潭柘寺相距不远，宜自驾或乘公交前往。",
+      "accessibility": "山地寺院，有台阶与坡道，体力要求中等偏高。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=37",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "戒台寺 公众号"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "开放时间与门票以官方公告为准。",
+      "lat": 39.86888,
+      "lng": 116.08025,
+      "coord_note": "",
+      "coord_source": "https://www.wikidata.org/wiki/Q1688939"
+    },
+    {
+      "id": "hongluosi",
+      "name": "红螺寺",
+      "aliases": [],
+      "district": "怀柔区",
+      "address_hint": "怀柔区红螺东路2号",
+      "overview": "始建于东晋，为北方佛教名刹，以「红螺仙女」传说得名，山林环抱。",
+      "deities": [
+        "观世音菩萨",
+        "释迦牟尼"
+      ],
+      "wish_themes": [
+        {
+          "theme": "姻缘",
+          "role": "primary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%BA%A2%E8%9E%BA%E5%AF%BA",
+          "claim": "民间流传在千手观音殿求姻缘，网络攻略里出现最多。",
+          "claim_evidence": "folk",
+          "basis": "中院千手观音殿（千手观音）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E7%BA%A2%E8%9E%BA%E5%AF%BA"
+        },
+        {
+          "theme": "求子",
+          "role": "secondary",
+          "source_url": "",
+          "claim": "民间也有到此求子的说法。",
+          "claim_evidence": "folk",
+          "basis": "",
+          "basis_source": ""
+        }
+      ],
+      "atmosphere": "山清水秀，竹林与古寺相映，环境宜人，适合半日游。",
+      "transport": "市区车程约1小时，宜自驾；亦有公交可达怀柔城区后换乘。",
+      "accessibility": "山间寺院，有坡道台阶，体力要求中等。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E7%BA%A2%E8%9E%BA%E5%AF%BA",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "url": "http://hongluosi.com/",
+          "publisher": "红螺寺景区官网",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "scenic",
+      "status_label": "景区/民间信仰",
+      "open_status": "reservation",
+      "closure_rule": [],
+      "recommend_note": "此处可参观，但不是上香许愿的宗教活动场所。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [
+        {
+          "name": "千手观音殿",
+          "deity": "千手观音",
+          "themes": [
+            "姻缘"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%BA%A2%E8%9E%BA%E5%AF%BA",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "红螺寺官网自我标识为「景区官网」，并注明「谢绝带香入园」，景区门票需预约。",
+          "source": "http://hongluosi.com/",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "红螺寺景区 公众号",
+        "hongluosi.com"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "景区官网标注「谢绝带香入园」（庙区提供免费香），门票需预约；开放时段以景区公告为准。",
+      "lat": 40.37259,
+      "lng": 116.6203,
+      "coord_note": "",
+      "coord_source": "https://www.wikidata.org/wiki/Q2406089"
+    },
+    {
+      "id": "fayuansi",
+      "name": "法源寺",
+      "aliases": [
+        "悯忠寺"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区法源寺前街7号",
+      "overview": "北京现存最古老的寺院之一，始建于唐代，原为悯忠寺，今为中国佛学院所在地。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "闹中取静，文化气息浓厚，游客少而清幽，春日丁香闻名。",
+      "transport": "地铁7号线广安门内站，公交可达。",
+      "accessibility": "院落平缓，台阶不多，较适合行动不便者。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zgfxy.cn/fys",
+          "publisher": "中国佛学院官网",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "中国佛学院官网：法源寺始建于唐贞观十九年（645），寺内有天王殿、大雄宝殿、悯忠阁、毗卢殿、观音殿、藏经楼等殿堂；1983 年被定为佛教重点寺院，2001 年列为全国重点文物保护单位。",
+          "source": "https://zgfxy.cn/fys",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "法源寺 / 中国佛学院 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "中国佛学院官网未公布开放信息；佛学院在此办学，是否对普通游客开放需电话确认。",
+      "lat": 39.88484,
+      "lng": 116.36963,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E6%B3%95%E6%BA%90%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+    },
+    {
+      "id": "guangjisi",
+      "name": "广济寺",
+      "aliases": [],
+      "district": "西城区",
+      "address_hint": "西城区阜成门内大街25号",
+      "overview": "始建于金代，今为中国佛教协会所在地，位于市中心。",
+      "deities": [
+        "释迦牟尼",
+        "观世音菩萨"
+      ],
+      "wish_themes": [
+        {
+          "theme": "姻缘",
+          "role": "primary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29",
+          "claim": "网络攻略称圆通殿求姻缘灵验。",
+          "claim_evidence": "folk",
+          "basis": "圆通殿（即观音殿，供观音菩萨）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+        }
+      ],
+      "atmosphere": "位于闹市，香火旺但规模不大，氛围亲切。",
+      "transport": "地铁4号线西四站附近，交通便利。",
+      "accessibility": "院落平缓，可达性较好。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [
+        {
+          "name": "圆通殿（观音殿）",
+          "deity": "观音菩萨",
+          "themes": [
+            "姻缘"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "中国佛教协会 官网"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "公开攻略称免费、无需预约（约 7:00–16:30），未见官方页面，建议电话复核。",
+      "lat": 39.92425,
+      "lng": 116.37245,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+    },
+    {
+      "id": "guanghuasi",
+      "name": "广化寺",
+      "aliases": [],
+      "district": "西城区",
+      "address_hint": "西城区后海鸦儿胡同31号",
+      "overview": "始建于元代，位于什刹海后海北岸，是北京内城著名的古刹。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "临后海，环境清幽，兼具市井与禅意。",
+      "transport": "地铁8号线什刹海站，沿后海步行可达。",
+      "accessibility": "胡同内步行可达，院落平缓。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=14",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "广化寺 公众号"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "有多个来源称平时不对游客开放，仅在农历初一、十五及佛菩萨圣诞开放；具体以寺院或佛协公告为准。",
+      "lat": 39.94104,
+      "lng": 116.3905,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E5%8C%96%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+    },
+    {
+      "id": "zhihuasi",
+      "name": "智化寺",
+      "aliases": [
+        "文博交流馆"
+      ],
+      "district": "东城区",
+      "address_hint": "东城区禄米仓胡同5号",
+      "overview": "明代太监王振所建家庙，保存有著名的「京音乐」与明代转轮藏，为全国重点文物保护单位。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "藏于胡同中，古乐与建筑闻名，游客少，适合静心。",
+      "transport": "地铁2号线朝阳门站，公交可达。",
+      "accessibility": "院落不大，台阶不多。",
+      "visit_note": "现为文博开放场所，需通过官方公众号提前预约购票（至多提前3个开放日），现场不再售票；京音乐演出时间固定，出行前请核实场次。",
+      "sources": [
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362771/hxqbaqzckfbwg/dcq/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "reservation",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "列入北京市文物局核心区（东城区）备案且正常开放博物馆名单，名称：北京文博交流馆（北京市智化寺管理处）。",
+          "source": "https://wwj.beijing.gov.cn/bjww/362771/hxqbaqzckfbwg/dcq/index.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "finder_hint": [
+        "北京文博交流馆（智化寺）公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "文博开放场所，需公众号提前预约购票（至多提前 3 个开放日），现场不售票。",
+      "lat": 39.91616,
+      "lng": 116.42588,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E6%99%BA%E5%8C%96%E5%AF%BA"
+    },
+    {
+      "id": "miaoyingsi",
+      "name": "妙应寺",
+      "aliases": [
+        "白塔寺",
+        "白塔"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区阜成门内大街171号",
+      "overview": "始建于元代，以白塔闻名，为尼泊尔工匠阿尼哥主持修建，是北京现存最早的藏传佛塔之一。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "白塔地标，胡同风情浓厚，周边咖啡馆与老北京生活气息交织。",
+      "transport": "地铁2号线阜成门站，交通便利。",
+      "accessibility": "院落平缓，可达性好。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%BA%94%E5%AF%BA",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "藏传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "白塔寺（妙应寺）公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "白塔寺，现为博物馆性质开放，周一闭馆，需购票。",
+      "lat": 39.92389,
+      "lng": 116.35694,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%BA%94%E5%AF%BA"
+    },
+    {
+      "id": "tianningsi",
+      "name": "天宁寺",
+      "aliases": [
+        "天宁寺塔"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区天宁寺前街甲3号",
+      "overview": "北京城内的尼众寺院，建筑坐北朝南，殿宇为清代重修，自南向北依次为山门殿、弥陀殿及东西配殿；寺内天宁寺塔为辽代古塔，是北京现存最古老的建筑之一。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "古塔高耸，环境安静，游客少。",
+      "transport": "地铁7号线广安门内站，公交可达。",
+      "accessibility": "院落平缓。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=16",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "category": "汉传佛教（尼众）",
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教（尼众）",
+      "generic_wish_ok": true,
+      "halls": [
+        {
+          "name": "山门殿、弥陀殿",
+          "deity": "弥陀",
+          "themes": [],
+          "evidence_type": "reference",
+          "source_url": "https://www.beijingfojiao.com/index.php?c=show&id=16",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "北京市佛教协会 官网（寺院介绍）"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "尼众寺院，是否对普通游客开放待核。",
+      "lat": 39.89511,
+      "lng": 116.34593,
+      "coord_note": "取天宁寺塔坐标（塔在寺内）",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A9%E5%AE%81%E5%AF%BA%E5%A1%94%20%28%E5%8C%97%E4%BA%AC%29"
+    },
+    {
+      "id": "dazhongsi",
+      "name": "大钟寺",
+      "aliases": [
+        "觉生寺",
+        "古钟博物馆"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区北三环西路甲31号",
+      "overview": "因寺内明永乐大钟闻名，今为古钟博物馆，逢年节有撞钟祈福活动。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "以古钟收藏与展示为主，文化氛围浓。",
+      "transport": "地铁13号线大钟寺站，交通便利。",
+      "accessibility": "院落平缓，可达性好。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%92%9F%E5%AF%BA",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "category": "汉传佛教（现为古钟博物馆）",
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "大钟寺古钟博物馆 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "古钟博物馆，周一闭馆，需购票。",
+      "lat": 39.96876,
+      "lng": 116.33794,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%92%9F%E5%AF%BA"
+    },
+    {
+      "id": "wofosi",
+      "name": "卧佛寺",
+      "aliases": [
+        "十方普觉寺"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区香山脚下北京植物园内",
+      "overview": "始建于唐代，因元代铜铸卧佛闻名，位于北京植物园内。",
+      "deities": [
+        "释迦牟尼卧佛"
+      ],
+      "wish_themes": [
+        {
+          "theme": "学业",
+          "role": "primary",
+          "source_url": "",
+          "claim": "因「卧佛」谐音 offer，近年学生来求学业与求职。",
+          "claim_evidence": "folk",
+          "basis": "卧佛殿（释迦牟尼卧像）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%8D%A7%E4%BD%9B%E5%AF%BA"
+        }
+      ],
+      "atmosphere": "位于植物园内，古木参天，环境清幽，可顺带游园。",
+      "transport": "地铁西郊线到植物园站，步行入园。",
+      "accessibility": "植物园内步行较远，寺内台阶不多。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%8D%A7%E4%BD%9B%E5%AF%BA",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "scenic",
+      "status_label": "景区/民间信仰",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "此处可参观，但不是上香许愿的宗教活动场所。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "国家植物园 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "位于国家植物园内，进入需植物园门票；是否为宗教活动场所待核，按参观场所看待更稳。",
+      "lat": 40.00727,
+      "lng": 116.20683,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8D%81%E6%96%B9%E6%99%AE%E8%A7%89%E5%AF%BA"
+    },
+    {
+      "id": "dajuesi",
+      "name": "大觉寺",
+      "aliases": [
+        "大觉寺与团城"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区苏家坨镇大觉寺路9号",
+      "overview": "始建于辽代，以古玉兰、银杏闻名，为京西古刹。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "古玉兰与千年银杏闻名，春日赏花、秋日赏叶者多，环境雅致。",
+      "transport": "市区车程约1小时，宜自驾或公交前往。",
+      "accessibility": "山间寺院，有坡道台阶。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：北京大觉寺与团城管理处。",
+          "source": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "finder_hint": [
+        "北京大觉寺 公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "文博开放场所（北京大觉寺与团城管理处），开放时间以官方公告为准。",
+      "lat": 40.05247,
+      "lng": 116.10657,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E8%A7%89%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+    },
+    {
+      "id": "lingguangsi",
+      "name": "灵光寺",
+      "aliases": [],
+      "district": "石景山区",
+      "address_hint": "石景山区八大处公园内二处",
+      "overview": "位于八大处，因供奉佛牙舍利塔闻名，为重要佛教活动场所。",
+      "deities": [
+        "释迦牟尼（佛牙舍利）"
+      ],
+      "wish_themes": [],
+      "atmosphere": "地处八大处山林间，庄严肃穆，香客与游客交织。",
+      "transport": "市区乘车约40–60分钟，公交可达八大处公园。",
+      "accessibility": "公园内需爬山或乘缆车，体力要求中等。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "http://www.lingguangsi.com/index.php/Article/view/id/207.htm",
+          "publisher": "灵光寺官网",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "八大处一带的姻缘说法多指向大悲寺（资料库已收录），灵光寺更偏平安与健康。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "灵光寺官网：灵光寺是八大处现存最重要的一座寺院，始建于唐大历年间（766–779）。",
+          "source": "http://www.lingguangsi.com/index.php/Article/view/id/207.htm",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "八大处公园 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "官网有寺院通告与佛牙舍利瞻礼安排；进园需八大处公园门票，具体票价待核。",
+      "lat": 39.95252,
+      "lng": 116.18161,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%81%B5%E5%85%89%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+    },
+    {
+      "id": "yunjusi",
+      "name": "云居寺",
+      "aliases": [
+        "石经山"
+      ],
+      "district": "房山区",
+      "address_hint": "房山区大石窝镇水头村",
+      "overview": "以石经闻名，藏有万余块石刻佛经，为世界文化遗产预备项目，始建于隋代。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "石经文化厚重，环境清幽，游客相对少。",
+      "transport": "市区车程约1.5小时，宜自驾或乘公交。",
+      "accessibility": "山地寺院，有坡道台阶。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=27",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "云居寺 公众号"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "开放时间与门票以官方公告为准。",
+      "lat": null,
+      "lng": null,
+      "coord_note": "暂未取到可靠坐标，距离按区县估算",
+      "coord_source": ""
+    },
+    {
+      "id": "fahaisi",
+      "name": "法海寺",
+      "aliases": [
+        "法海寺壁画"
+      ],
+      "district": "石景山区",
+      "address_hint": "石景山区模式口翠微山南麓",
+      "overview": "明代寺院，以保存完好的明代壁画闻名，艺术价值极高。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "壁画艺术震撼，环境清幽，需预约参观。",
+      "transport": "地铁11号线模式口站附近（6号线金安桥站换乘11号线），公交可达。",
+      "accessibility": "山脚寺院，有台阶坡道。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://www.bjsjs.gov.cn/sjsfc/sjswwjd/202502/t20250206_475968.shtml",
+          "publisher": "北京市石景山区人民政府",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "normal",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "石景山区政府：开放时间 09:00–16:30（16:00 停止售票），每周一闭馆、法定节假日正常开放；普通入馆门票 20 元（优惠价 10 元），参观免预约。",
+          "source": "https://www.bjsjs.gov.cn/sjsfc/sjswwjd/202502/t20250206_475968.shtml",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "石景山区政府：明代壁画真迹票 100 元，须通过「石景山文旅」微信公众号或「石景山文E」app 提前预约七日内场次。",
+          "source": "https://www.bjsjs.gov.cn/sjsfc/sjswwjd/202502/t20250206_475968.shtml",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "法海寺壁画艺术馆 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "官方：开放 09:00–16:30（16:00 停止售票），周一闭馆、节假日正常开放；普通门票 20 元、参观免预约；壁画真迹 100 元需预约。",
+      "lat": 39.94255,
+      "lng": 116.1599,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E6%B3%95%E6%B5%B7%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+    },
+    {
+      "id": "biyunsi",
+      "name": "碧云寺",
+      "aliases": [],
+      "district": "海淀区",
+      "address_hint": "海淀区香山公园内",
+      "overview": "始建于元代，位于香山，内有孙中山纪念堂与金刚宝座塔。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "香山景致优美，秋日红叶闻名，游客多。",
+      "transport": "地铁西郊线香山站，步行可达。",
+      "accessibility": "香山内需爬山，体力要求中等。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://www.xiangshan-park.cn/cn/tabs/showdetail.aspx?tabid=700011&iid=29622",
+          "publisher": "香山公园官网",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "normal",
+      "closure_rule": [
+        "周一闭馆（法定节假日除外）"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "香山公园官网：碧云寺 2023 年 11 月因保护性修缮临时关闭，现已恢复开放；每周一闭馆（法定节假日除外）。",
+          "source": "https://www.xiangshan-park.cn/cn/tabs/showdetail.aspx?tabid=700011&iid=29622",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "香山公园官网：4 月 1 日–11 月 15 日 8:00 开门、17:00 停止进入、17:30 关门；11 月 16 日–次年 3 月 31 日 8:30 开门、16:30 停止进入、17:00 关门；需单独购票。",
+          "source": "https://www.xiangshan-park.cn/cn/tabs/showdetail.aspx?tabid=700011&iid=29622",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "香山公园 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "官方：每周一闭馆（法定节假日除外）；需单独购票；4/1–11/15 8:00–17:30，11/16–3/31 8:30–17:00。",
+      "lat": 39.99601,
+      "lng": 116.18585,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%A2%A7%E4%BA%91%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+    },
+    {
+      "id": "wutasi",
+      "name": "五塔寺",
+      "aliases": [
+        "真觉寺",
+        "石刻博物馆",
+        "北京石刻艺术博物馆",
+        "真觉寺金刚宝座塔"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区五塔寺村24号",
+      "overview": "明代金刚宝座塔，今为北京石刻艺术博物馆所在地。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "石刻与古塔结合，文化氛围浓，环境安静。",
+      "transport": "地铁4号线国家图书馆站，步行可达。",
+      "accessibility": "院落平缓。",
+      "visit_note": "同一地点有两个运营主体：石刻艺术博物馆（售票、周一闭馆）与五塔寺公园（免费开放），两者开放时间不同，去之前先确认你要进哪一个。",
+      "sources": [
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "藏传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：北京石刻艺术博物馆。",
+          "source": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "finder_hint": [
+        "北京石刻艺术博物馆 公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "同一地点两个运营主体：石刻艺术博物馆（售票、周一闭馆）与五塔寺公园（免费），开放时间不同。",
+      "lat": 39.94492,
+      "lng": 116.33035,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%9C%9F%E8%A7%89%E5%AF%BA"
+    },
+    {
+      "id": "wanshousi",
+      "name": "万寿寺",
+      "aliases": [
+        "北京艺术博物馆",
+        "万寿寺博物馆"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区西三环北路",
+      "overview": "明代皇家寺院，有「京西小故宫」之称，今为北京艺术博物馆。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "建筑精美，艺术藏品丰富，文化氛围浓。",
+      "transport": "地铁16号线万寿寺站，交通便利。",
+      "accessibility": "院落平缓。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：万寿寺博物馆。",
+          "source": "https://wwj.beijing.gov.cn/bjww/362771/362772/index.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "finder_hint": [
+        "北京艺术博物馆 公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "北京艺术博物馆，周一闭馆，需购票。",
+      "lat": 39.94528,
+      "lng": 116.30523,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E4%B8%87%E5%AF%BF%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+    },
+    {
+      "id": "dahuisi",
+      "name": "大慧寺",
+      "aliases": [],
+      "district": "海淀区",
+      "address_hint": "海淀区大慧寺路",
+      "overview": "明代寺院，以精美的明代彩塑二十八诸天闻名。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "仅存一座大悲宝殿，被居民区包围，不对公众开放。",
+      "transport": "公交可达。",
+      "accessibility": "不对外开放，无参访条件。",
+      "visit_note": "不具备常规参访条件，请勿作为出行目的地。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%85%A7%E5%AF%BA",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "closed",
+      "status_label": "不开放",
+      "open_status": "closed",
+      "closure_rule": [],
+      "recommend_note": "现仅存大悲宝殿，长期未对公众开放，不建议列入寻访推荐。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "北京市文物局 公告"
+      ],
+      "religious_registered": false,
+      "visitable": false,
+      "wish_recommendable": false,
+      "open_note": "长期未对公众开放。",
+      "lat": 39.9531,
+      "lng": 116.3295,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%85%A7%E5%AF%BA"
+    },
+    {
+      "id": "baiyunguan",
+      "name": "白云观",
+      "aliases": [
+        "白云观"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区白云观街9号",
+      "overview": "北京最大的道教宫观，全真派祖庭之一，始建于唐代。",
+      "deities": [
+        "丘处机",
+        "财神",
+        "碧霞元君"
+      ],
+      "wish_themes": [
+        {
+          "theme": "求子",
+          "role": "primary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "claim": "民间到元君殿向送子娘娘、催生娘娘求子。",
+          "claim_evidence": "reference",
+          "basis": "元君殿（送子娘娘、催生娘娘、眼光娘娘、天花娘娘）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+        },
+        {
+          "theme": "学业",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "claim": "民间到文昌殿求学业、考试顺利。",
+          "claim_evidence": "reference",
+          "basis": "文昌殿（文昌帝君）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+        },
+        {
+          "theme": "健康",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "claim": "民间到药王殿求祛病健康。",
+          "claim_evidence": "reference",
+          "basis": "药王殿（药王）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+        },
+        {
+          "theme": "财运",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "claim": "民间到财神殿求财。",
+          "claim_evidence": "reference",
+          "basis": "财神殿（财神）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+        }
+      ],
+      "atmosphere": "道教宫观，香火旺，年节庙会热闹，氛围独特。",
+      "transport": "地铁1号线木樨地站附近，公交可达。",
+      "accessibility": "院落较平缓，可达性好。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "道教",
+      "generic_wish_ok": true,
+      "halls": [
+        {
+          "name": "元君殿",
+          "deity": "催生娘娘、送子娘娘、眼光娘娘、天花娘娘",
+          "themes": [
+            "求子"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "文昌殿",
+          "deity": "文昌帝君",
+          "themes": [
+            "学业"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "药王殿",
+          "deity": "药王",
+          "themes": [
+            "健康"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "财神殿",
+          "deity": "财神",
+          "themes": [
+            "财运"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "北京白云观 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "公开攻略称门票 10 元、无需预约，未见官方页面，建议电话复核。",
+      "lat": 39.8989,
+      "lng": 116.338,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+    },
+    {
+      "id": "dongyuemiao",
+      "name": "东岳庙",
+      "aliases": [
+        "北京民俗博物馆",
+        "民俗博物馆"
+      ],
+      "district": "朝阳区",
+      "address_hint": "朝阳区朝阳门外大街141号",
+      "overview": "元代始建，供奉东岳大帝，今为北京民俗博物馆。",
+      "deities": [
+        "东岳大帝"
+      ],
+      "wish_themes": [
+        {
+          "theme": "姻缘",
+          "role": "primary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "claim": "民间到月老殿求姻缘。",
+          "claim_evidence": "reference",
+          "basis": "西路月老殿（月老）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99"
+        },
+        {
+          "theme": "健康",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "claim": "民间到药王殿求健康。",
+          "claim_evidence": "reference",
+          "basis": "药王殿（药王）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99"
+        },
+        {
+          "theme": "学业",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "claim": "民间到文昌殿求学业。",
+          "claim_evidence": "reference",
+          "basis": "后罩楼文昌殿（文昌帝君）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99"
+        }
+      ],
+      "atmosphere": "民俗文化氛围浓，古建保存完好，年节活动丰富。",
+      "transport": "地铁2/6号线朝阳门站，交通便利。",
+      "accessibility": "院落平缓。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "道教",
+      "generic_wish_ok": false,
+      "halls": [
+        {
+          "name": "月老殿",
+          "deity": "月老",
+          "themes": [
+            "姻缘"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "文昌殿",
+          "deity": "文昌帝君",
+          "themes": [
+            "学业"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "药王殿",
+          "deity": "药王",
+          "themes": [
+            "健康"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "2008 年 5 月 3 日恢复道教活动场所并颁发宗教活动场所登记证；2015 年 5 月 16 日正式悬挂宗教活动场所标识牌。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "庙内同时设有北京民俗博物馆，形成两套管理班子并存。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "北京民俗博物馆 公众号"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "现为北京民俗博物馆，同时自 2008 年起恢复为道教活动场所；两套管理班子并存，中路神像区由道教界管理。",
+      "lat": 39.92361,
+      "lng": 116.43778,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99"
+    },
+    {
+      "id": "huodeshenmiao",
+      "name": "火德真君庙",
+      "aliases": [
+        "什刹海火神庙",
+        "火神庙",
+        "火德庙"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区地安门外大街77号",
+      "overview": "始建于唐代，位于什刹海畔，供奉火神。",
+      "deities": [
+        "火德真君",
+        "财神"
+      ],
+      "wish_themes": [
+        {
+          "theme": "财运",
+          "role": "primary",
+          "source_url": "",
+          "claim": "民间有到火神庙求财的说法，但殿宇依据未核实——官方页面列出的殿堂为隆恩殿、火祖殿、斗姥阁、万岁景命阁。",
+          "claim_evidence": "folk",
+          "basis": "",
+          "basis_source": ""
+        }
+      ],
+      "atmosphere": "临什刹海，闹中取静，环境宜人。",
+      "transport": "地铁8号线什刹海站，步行可达。",
+      "accessibility": "院落平缓。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "http://www.taoist.org.cn/getDjzsById.do?id=460",
+          "publisher": "中国道教协会",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "url": "https://www.bjxch.gov.cn/zt/schjmp/xxxq/pnidpv932676.html",
+          "publisher": "北京市西城区人民政府",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "normal",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "道教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "中国道教协会：火神庙（敕建火德真君庙）位于地安门外、什刹海旁，始建于唐贞观六年（632）；庙宇由中国道教协会筹资修复，作为道教活动场所对外开放。",
+          "source": "http://www.taoist.org.cn/getDjzsById.do?id=460",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "西城区政府：火德真君庙位于地安门外大街 77 号，1984 年列为北京市文物保护单位；2001–2005 年腾退修缮后交由中国道教协会管理使用并对外开放。",
+          "source": "https://www.bjxch.gov.cn/zt/schjmp/xxxq/pnidpv932676.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "中国道教协会：火神庙主体建筑自南向北为隆恩殿（供王灵官）、火祖殿（供火德荧惑星君）、斗姥阁、万岁景命阁（玉皇阁）。",
+          "source": "http://www.taoist.org.cn/getDjzsById.do?id=460",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "北京火神庙 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "官方：已交由中国道教协会管理并对外开放；具体开放时段与是否收费尚未核实。",
+      "lat": 39.93546,
+      "lng": 116.38936,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%9C%B0%E5%AE%89%E9%97%A8%E7%81%AB%E7%A5%9E%E5%BA%99"
+    },
+    {
+      "id": "miaofengshan",
+      "name": "妙峰山",
+      "aliases": [
+        "娘娘庙"
+      ],
+      "district": "门头沟区",
+      "address_hint": "门头沟区妙峰山镇",
+      "overview": "以碧霞元君（娘娘）庙闻名，是华北地区重要的民间信仰活动地。",
+      "deities": [
+        "碧霞元君"
+      ],
+      "wish_themes": [
+        {
+          "theme": "求子",
+          "role": "primary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "claim": "庙会期间向碧霞元君与子孙娘娘、送生娘娘求子。",
+          "claim_evidence": "reference",
+          "basis": "灵感宫（碧霞元君、眼光/子孙/斑疹/送生娘娘）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+        },
+        {
+          "theme": "姻缘",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "claim": "过去青年男女到月老殿求婚姻。",
+          "claim_evidence": "reference",
+          "basis": "月老殿（月下老人）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+        },
+        {
+          "theme": "财运",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "claim": "民间到财神殿向赵公明求财。",
+          "claim_evidence": "reference",
+          "basis": "财神殿（赵公明）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+        },
+        {
+          "theme": "健康",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "claim": "民间到药王殿求健康。",
+          "claim_evidence": "reference",
+          "basis": "药王殿（药王扁鹊）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+        },
+        {
+          "theme": "学业",
+          "role": "secondary",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "claim": "民间到回香阁文昌殿求学业。",
+          "claim_evidence": "reference",
+          "basis": "回香阁东厢殿（文昌帝君）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+        }
+      ],
+      "atmosphere": "山高景阔，庙会与民间信仰活动有特色。",
+      "transport": "市区车程约1.5小时，宜自驾。",
+      "accessibility": "山路为主，体力要求高。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "scenic",
+      "status_label": "景区/民间信仰",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "此处可参观，但不是上香许愿的宗教活动场所。",
+      "sect": "民间信仰",
+      "generic_wish_ok": true,
+      "halls": [
+        {
+          "name": "灵感宫",
+          "deity": "碧霞元君、子孙娘娘、送生娘娘",
+          "themes": [
+            "求子"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "月老殿",
+          "deity": "月老",
+          "themes": [
+            "姻缘"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "文昌殿",
+          "deity": "文昌帝君",
+          "themes": [
+            "学业"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "药王殿",
+          "deity": "药王",
+          "themes": [
+            "健康"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "name": "财神殿",
+          "deity": "三霄娘娘",
+          "themes": [
+            "财运"
+          ],
+          "evidence_type": "reference",
+          "source_url": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "妙峰山自重新对外开放之后，一直没有僧人或道士进驻，并非宗教活动场所，只是旅游景区。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "娘娘庙主要建筑：山门殿、正殿（灵感宫）、地藏殿、药王殿、观音殿、月老殿、财神殿、王三奶奶殿；庙外另有回香阁。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "回香阁东厢殿为文昌殿，供奉文昌帝君；回香阁在灵感宫以北约 100 米。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "text": "财神殿位于灵感宫东路殿堂，供奉赵公明像。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "妙峰山 公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "是景区与民间信仰庙宇，并非宗教活动场所（无僧道进驻）；庙会期间香火最盛。",
+      "lat": 39.9757,
+      "lng": 116.05024,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+    },
+    {
+      "id": "kongmiao",
+      "name": "孔庙和国子监",
+      "aliases": [
+        "北京孔庙",
+        "孔庙",
+        "国子监",
+        "孔庙国子监"
+      ],
+      "district": "东城区",
+      "address_hint": "东城区国子监街：孔庙13号、国子监15号（两处相邻）",
+      "overview": "元明清三代祭孔的场所，与国子监相邻，为全国重点文物保护单位。",
+      "deities": [
+        "孔子"
+      ],
+      "wish_themes": [
+        {
+          "theme": "学业",
+          "role": "primary",
+          "source_url": "",
+          "claim": "民众到孔庙祈求考试顺利是长期民俗。",
+          "claim_evidence": "folk",
+          "basis": "大成殿（孔子）＋国子监（元明清最高学府）",
+          "basis_source": "https://wwj.beijing.gov.cn/bjww/362771/362779/dspqgzdwwbhdw/523286/index.html"
+        }
+      ],
+      "atmosphere": "古柏参天，文化底蕴深厚，庄重安静。",
+      "transport": "地铁2/5号线雍和宫站，步行可达。",
+      "accessibility": "院落平缓，可达性好。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/362771/362779/dspqgzdwwbhdw/523286/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "url": "http://kmgzj.com/",
+          "publisher": "孔庙和国子监博物馆官网",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%9B%BD%E5%AD%90%E7%9B%91",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "category": "儒家/文庙",
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "unverified",
+      "closure_rule": [
+        "周一闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "儒家",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "北京市文物局「北京孔庙」页面记录：东城区国子监街13号，孔庙和国子监博物馆。",
+          "source": "https://wwj.beijing.gov.cn/bjww/362771/362779/dspqgzdwwbhdw/523286/index.html",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "text": "孔庙和国子监博物馆官网提供「预约购票」入口与闭馆时间公告。",
+          "source": "http://kmgzj.com/",
+          "evidence_type": "official",
+          "checked_at": "2026-11-06"
+        },
+        {
+          "text": "国子监是元明清三代国家最高学府所在地，与孔庙一墙之隔（「左庙右学」）。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%9B%BD%E5%AD%90%E7%9B%91",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "孔庙和国子监博物馆 官网",
+        "孔庙和国子监博物馆 公众号"
+      ],
+      "religious_registered": false,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "文博开放场所，周一闭馆，需预约购票。",
+      "lat": 39.94511,
+      "lng": 116.40831,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%AD%94%E5%BA%99"
+    },
+    {
+      "id": "lidaidiwangmiao",
+      "name": "历代帝王庙",
+      "aliases": [
+        "帝王庙"
+      ],
+      "district": "西城区",
+      "address_hint": "西城区阜成门内大街131号",
+      "overview": "明清两代祭祀历代帝王的皇家庙宇，建筑规格高。",
+      "deities": [
+        "历代帝王"
+      ],
+      "wish_themes": [],
+      "atmosphere": "皇家庙宇气派，游客少，安静庄重。",
+      "transport": "地铁4号线西四站附近，交通便利。",
+      "accessibility": "院落平缓。",
+      "visit_note": "为文博开放场所，多数周一闭馆、可能需要预约或购票，请以官方公告为准。",
+      "sources": [
+        {
+          "url": "https://bjszwhg.org.cn/detail/13732",
+          "publisher": "北京数字文化馆（北京市文化馆）",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "status": "heritage",
+      "status_label": "文博点",
+      "open_status": "normal",
+      "closure_rule": [
+        "周一闭馆",
+        "周二闭馆"
+      ],
+      "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
+      "sect": "无",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [
+        {
+          "text": "北京数字文化馆场馆页：历代帝王庙博物馆开放时间周三至周日 9:00–16:00，周一、周二闭馆（法定节假日除外）；地址西城区阜成门内大街 131 号。",
+          "source": "https://bjszwhg.org.cn/detail/13732",
+          "evidence_type": "official",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "finder_hint": [
+        "北京数字文化馆 场馆页（官网 lddwm.com 当前 503，暂不可用）",
+        "北京历代帝王庙博物馆 公众号"
+      ],
+      "religious_registered": null,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "官方：周三至周日 9:00–16:00，周一、周二闭馆（法定节假日除外）；咨询电话 010-66120186。",
+      "lat": 39.92361,
+      "lng": 116.36125,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8E%86%E4%BB%A3%E5%B8%9D%E7%8E%8B%E5%BA%99"
+    },
+    {
+      "id": "cishousi",
+      "name": "慈寿寺",
+      "aliases": [
+        "玲珑塔",
+        "玲珑公园"
+      ],
+      "district": "海淀区",
+      "address_hint": "海淀区西八里庄",
+      "overview": "明代万历年间为太后祝寿而建，今仅存慈寿寺塔（玲珑塔）。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "仅存的玲珑塔位于玲珑公园内，公园环境清静，适合散步看塔。",
+      "transport": "地铁6号线慈寿寺站，步行可达。",
+      "accessibility": "公园地面平缓，塔周边可行走；不是寺院参访。",
+      "visit_note": "不具备常规参访条件，请勿作为出行目的地。",
+      "sources": [
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E6%85%88%E5%AF%BF%E5%AF%BA%E5%A1%94",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "relic",
+      "status_label": "遗址",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "寺院建筑已在清代焚毁，现仅存慈寿寺塔（玲珑塔），位于玲珑公园内，不是可参访的寺院。",
+      "sect": "汉传佛教",
+      "generic_wish_ok": false,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "玲珑公园 管理方公告"
+      ],
+      "religious_registered": false,
+      "visitable": false,
+      "wish_recommendable": false,
+      "open_note": "仅存慈寿寺塔（玲珑塔），位于玲珑公园内。",
+      "lat": 39.92662,
+      "lng": 116.28933,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E6%85%88%E5%AF%BF%E5%AF%BA%E5%A1%94"
+    },
+    {
+      "id": "hepingsi",
+      "name": "和平寺",
+      "aliases": [],
+      "district": "昌平区",
+      "address_hint": "昌平区南口镇花塔村",
+      "overview": "始建于唐代，为京北古刹，相传由尉迟恭监建。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "地处山间，清幽安静，游客少。",
+      "transport": "市区车程约1小时，宜自驾。",
+      "accessibility": "山间寺院，有坡道台阶。",
+      "visit_note": "开放时间、门票与预约方式以官方渠道最新公告为准，出发前再确认一次。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=41",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "",
+      "sect": "汉传佛教",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "北京市佛教协会 官网（寺院介绍）"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_note": "开放时间与门票以官方公告为准。",
+      "lat": null,
+      "lng": null,
+      "coord_note": "暂未取到可靠坐标，距离按区县估算",
+      "coord_source": ""
+    },
+    {
+      "id": "tongjiaosi",
+      "name": "通教寺",
+      "aliases": [],
+      "district": "东城区",
+      "address_hint": "东城区东直门内北小街针线胡同",
+      "overview": "北京著名的比丘尼寺院，位于东直门内。",
+      "deities": [
+        "释迦牟尼"
+      ],
+      "wish_themes": [],
+      "atmosphere": "闹中取静，尼寺清幽。",
+      "transport": "地铁2/13号线东直门站，步行可达。",
+      "accessibility": "胡同内步行，院落平缓。",
+      "visit_note": "尼众道场，以清修为主；开放时间在不同渠道说法不一（有说仅上午、有说只在初一十五、结夏安居期间不开放），出发前务必电话核实。",
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=10",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-06"
+        }
+      ],
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "open_status": "unverified",
+      "closure_rule": [],
+      "recommend_note": "尼众道场、以清修为主，开放信息四处不一，用户很可能白跑，第一版暂不纳入许愿推荐。",
+      "sect": "汉传佛教（尼众）",
+      "generic_wish_ok": true,
+      "halls": [],
+      "sources_status": "verified",
+      "checked_at": "2026-11-07",
+      "place_facts": [],
+      "finder_hint": [
+        "北京市佛教协会 官网（寺院介绍）"
+      ],
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": false,
+      "open_note": "有多个媒体来源称仅在农历初一、十五 8:30–16:00 开放，平日闭门清修；属媒体来源，建议电话复核。",
+      "lat": 39.94429,
+      "lng": 116.42626,
+      "coord_note": "",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E9%80%9A%E6%95%99%E5%AF%BA"
+    },
+    {
+      "id": "dabeisi",
+      "name": "大悲寺",
+      "aliases": [
+        "八大处大悲寺",
+        "隐寂寺"
+      ],
+      "district": "石景山区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "status_label": "宗教活动场所",
+      "religious_registered": true,
+      "visitable": true,
+      "wish_recommendable": true,
+      "open_status": "unverified",
+      "closure_rule": [],
+      "address_hint": "石景山区八大处三山庵与龙泉庵之间的山腰",
+      "overview": "八大处「三山八刹十二景」中的著名一刹，始建辽宋，原名隐寂寺，清康熙五十一年（1712）改名大悲寺；2011 年颁发宗教活动场所登记证，为北京市级文物保护单位。",
+      "deities": [],
+      "wish_themes": [
+        {
+          "theme": "姻缘",
+          "role": "primary",
+          "claim": "八大处一带流传的姻缘说法多指向大悲寺（同处八大处的灵光寺更偏平安、健康）。",
+          "claim_evidence": "folk",
+          "basis": "大悲阁／观音殿（观世音菩萨）",
+          "basis_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%82%B2%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+        }
+      ],
+      "generic_wish_ok": true,
+      "halls": [],
+      "place_facts": [
+        {
+          "text": "维基百科：大悲寺建于辽金，明嘉靖二十九年（1550）在两层大殿后新建大悲阁供奉观世音菩萨；是八大处中继灵光寺之后第二座恢复为宗教活动场所的寺庙。",
+          "source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%82%B2%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29",
+          "evidence_type": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://www.beijingfojiao.com/index.php?c=show&id=19",
+          "publisher": "北京市佛教协会",
+          "kind": "official",
+          "checked_at": "2026-11-07"
+        },
+        {
+          "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E6%82%B2%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29",
+          "publisher": "维基百科",
+          "kind": "reference",
+          "checked_at": "2026-11-07"
+        }
+      ],
+      "sources_status": "verified",
+      "finder_hint": [
+        "八大处公园 公众号"
+      ],
+      "atmosphere": "位于八大处山腰，环境清幽，是八大处诸寺之一。",
+      "transport": "八大处公园内，市区乘车约 40–60 分钟可达公园，园内步行上山。",
+      "accessibility": "公园内需爬山或乘缆车，体力要求中等。",
+      "visit_note": "位于八大处公园内，需公园门票；开放时间以官方公告为准。",
+      "recommend_note": "",
+      "checked_at": "2026-11-07",
+      "lat": 39.9537,
+      "lng": 116.18,
+      "coord_note": "取八大处公园坐标，寺在园内需步行",
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%85%AB%E5%A4%A7%E5%A4%84"
+    }
+  ]
+}

@@ -8,16 +8,22 @@ from typing import Any, Optional
 from app import db
 
 # Generic personal profile fields shown in prompts and on the memory card.
-SCALAR_FIELDS = ("name", "city", "tz", "occupation")
-LIST_FIELDS = ("interests", "preferences", "facts")
+# Temple-guide vertical adds: wish (心愿), origin (出发地), travel_preferences
+# (出行偏好), companions (同行人).
+SCALAR_FIELDS = ("name", "city", "tz", "occupation", "wish", "origin")
+LIST_FIELDS = ("interests", "preferences", "facts", "travel_preferences", "companions")
 LABELS = {
     "name": "姓名",
     "city": "城市",
     "tz": "时区",
     "occupation": "职业",
+    "wish": "心愿",
+    "origin": "出发地",
     "interests": "兴趣",
     "preferences": "偏好",
     "facts": "备注",
+    "travel_preferences": "出行偏好",
+    "companions": "同行人",
     "dialogue_summary": "对话摘要",
 }
 
@@ -165,9 +171,13 @@ def snapshot(user_id: str) -> dict[str, Any]:
         "city": display_text(str(p.get("city") or "")),
         "tz": display_text(str(p.get("tz") or "")),
         "occupation": display_text(str(p.get("occupation") or "")),
+        "wish": display_text(str(p.get("wish") or "")),
+        "origin": display_text(str(p.get("origin") or "")),
         "interests": _clean_items(p.get("interests"), 30),
         "preferences": _clean_items(p.get("preferences"), 30),
         "facts": _clean_items(p.get("facts"), 40),
+        "travel_preferences": _clean_items(p.get("travel_preferences"), 30),
+        "companions": _clean_items(p.get("companions"), 30),
         "dialogue_summary": display_text(str(p.get("dialogue_summary") or ""))[:800],
         "last_summary_kind": p.get("last_summary_kind") or "",
         "previous_cities": [
@@ -195,6 +205,14 @@ def format_for_prompt(user_id: str) -> str:
         )
     if s.get("occupation"):
         parts.append(f"职业：{s['occupation']}")
+    if s.get("wish"):
+        parts.append(f"心愿：{s['wish']}")
+    if s.get("origin"):
+        parts.append(f"出发地：{s['origin']}")
+    if s.get("travel_preferences"):
+        parts.append("出行偏好：" + "；".join(s["travel_preferences"][:20]))
+    if s.get("companions"):
+        parts.append("同行人：" + "、".join(s["companions"][:20]))
     if s.get("interests"):
         parts.append("兴趣：" + "、".join(s["interests"][:20]))
     if s.get("preferences"):

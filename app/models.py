@@ -12,6 +12,11 @@ class ProfileBody(BaseModel):
     city: Optional[str] = None
     tz: Optional[str] = None
     occupation: Optional[str] = None
+    # Temple-guide vertical memory fields
+    wish: Optional[str] = None
+    origin: Optional[str] = None
+    travel_preferences: list[str] = Field(default_factory=list)
+    companions: list[str] = Field(default_factory=list)
     interests: list[str] = Field(default_factory=list)
     preferences: list[str] = Field(default_factory=list)
     facts: list[str] = Field(default_factory=list)
