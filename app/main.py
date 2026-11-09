@@ -6,6 +6,7 @@ from app.data_access import system_scope
 
 import os
 from datetime import datetime
+import threading
 from pathlib import Path
 from typing import Any, Optional
 
@@ -78,6 +79,39 @@ app.include_router(admin_router)
 from app.session_identity import SESSION_COOKIE, SessionIdentityMiddleware, new_anonymous_user_id, session_user  # noqa: E402
 
 app.add_middleware(SessionIdentityMiddleware, router=app.router)
+
+
+# 会话级限流：只护 /api/chat，防止误触循环或刷量。默认关闭（0），上线建议 30/分钟。
+_CHAT_HITS: dict[str, list[float]] = {}
+_CHAT_HITS_LOCK = threading.Lock()
+
+
+def _chat_rate_limit() -> int:
+    try:
+        return max(0, int(os.getenv("CHAT_RATE_PER_MIN") or 0))
+    except ValueError:
+        return 0
+
+
+def _rate_limited(uid: str) -> bool:
+    limit = _chat_rate_limit()
+    if not limit or not uid:
+        return False
+    import time as _time
+
+    now = _time.time()
+    with _CHAT_HITS_LOCK:
+        hits = [t for t in _CHAT_HITS.get(uid, []) if now - t < 60]
+        if len(hits) >= limit:
+            _CHAT_HITS[uid] = hits
+            return True
+        hits.append(now)
+        _CHAT_HITS[uid] = hits
+        if len(_CHAT_HITS) > 5000:      # 防止字典无限增长
+            for key in list(_CHAT_HITS)[:1000]:
+                if not _CHAT_HITS.get(key):
+                    _CHAT_HITS.pop(key, None)
+        return False
 
 
 @app.post("/api/session")
@@ -724,6 +758,8 @@ def _chat_intent_response(out: dict[str, Any], intent: str, user_id: str = "") -
     data["continue_card"] = state.get("pending_continue")
     if intent == "chat" and state.get("ask"):
         data["ask"] = state.get("ask")
+    if intent == "chat" and state.get("temple_card"):
+        data["temple_card"] = state.get("temple_card")
     if state.get("error"):
         data["error"] = state.get("error")
     return ApiResponse(thread_id=out["thread_id"], status="chat", data=data)
@@ -850,6 +886,18 @@ def continue_budget(body: ContinueTaskRequest, uid: str = Depends(require_user))
 
 @app.post("/api/chat")
 def chat(body: ChatRequest) -> ApiResponse:
+    from app.data_access import current_user
+
+    # 身份来自中间件建立的会话作用域（不信任请求体）
+    try:
+        uid = current_user() or (body.user_id or "")
+    except Exception:
+        uid = body.user_id or ""
+    if _rate_limited(str(uid)):
+        raise HTTPException(
+            status_code=429,
+            detail={"code": "rate_limited",
+                    "message": f"一分钟内提问太频繁了（上限 {_chat_rate_limit()} 次），稍等一下再问"})
     return turn_results.run(body.request_id, lambda: _chat(body))
 
 
@@ -1172,6 +1220,31 @@ def memory_forget(user_id: str, body: MemoryForgetBody) -> ApiResponse:
             detail={"code": exc.code, "message": exc.message},
         ) from exc
     return ApiResponse(status="memory", data=view)
+
+
+class TempleReportRequest(BaseModel):
+    temple: str
+    field: str = ""
+    note: str = ""
+
+
+@app.post("/api/temple/report")
+def temple_report(payload: TempleReportRequest, request: Request):
+    """用户发现资料有误时提交（只存寺名/字段/描述，不存身份）。"""
+    from app.data_access import temple_reports
+
+    uid = session_user(request)
+    if not uid:
+        raise HTTPException(401, detail={"code": "login_required", "message": "请先刷新页面再提交"})
+    temple = (payload.temple or "").strip()
+    if not temple:
+        raise HTTPException(400, detail={"code": "temple_required", "message": "请说明是哪座寺庙"})
+    result = temple_reports.add(temple, payload.field, payload.note)
+
+    from app.agent.domain import temples as domain
+
+    known = domain.get_temple(temple) is not None
+    return ApiResponse(status="temple_report", data={**result, "known_temple": known})
 
 
 @app.get("/api/tools")

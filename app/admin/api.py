@@ -57,3 +57,19 @@ def changes(limit: int = Query(50, ge=1, le=200), offset: int = Query(0, ge=0)):
         return {"items": [{c.name: getattr(row, c.name) for c in AdminChangeLog.__table__.columns}
                           for row in s.scalars(select(AdminChangeLog).order_by(
                               AdminChangeLog.id.desc()).offset(offset).limit(limit))]}
+
+
+@router.get("/temple/reports", dependencies=[Depends(require_scope("users:read"))])
+def temple_reports(limit: int = 50):
+    """用户提交的资料纠错（不含任何身份信息）。"""
+    from app.data_access import temple_reports as store
+
+    return {"items": store.list_open(limit)}
+
+
+@router.get("/temple/metrics", dependencies=[Depends(require_scope("users:read"))])
+def temple_metrics(days: int = 7):
+    """寺庙向导的领域指标（只给聚合值，不含任何用户内容）。"""
+    from app.agent import temple_metrics as metrics
+
+    return metrics.summary(max(1, min(int(days), 90))).as_dict()
