@@ -503,7 +503,7 @@ def ensure_defaults():
     if _BOOTSTRAPPED:
         return
     for module in (
-        "app.db", "app.tools.writing", "app.tools.crawl",
+        "app.db", "app.tools.writing", "app.tools.crawl", "app.tools.temple", "app.tools.bocha",
         "app.agent.memory", "app.agent.memory.episodic", "app.agent.memory.summary", "app.agent.memory.card",
         "app.agent.memory.retrieval",
         "app.agent.proactive.jobs", "app.agent.schedules.tools",

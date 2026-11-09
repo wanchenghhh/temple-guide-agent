@@ -1,5 +1,5 @@
 {
-  "source_commit": "generic-agent rewrite (31 tools, memory_facts_search flag-gated)",
+  "source_commit": "temple-guide v6 + bocha search (35 tools)",
   "names": [
     "draft_text",
     "fetch_feed",
@@ -30,9 +30,13 @@
     "schedule.update",
     "search_social",
     "summarize_turn",
+    "temple_detail",
+    "temple_search",
+    "temple_trip_plan",
     "web_fetch",
-    "web_search"
+    "web_search",
+    "web_search_bocha"
   ],
-  "catalog_sha256": "45e8994f2fd677a8200b1cdae7a4d7bc5c3654e3c939d7686c4f2727eeba81e4",
+  "catalog_sha256": "4507f8ac62d8a081300d2c98bf02693bacb85d98ad1e41a3dec225cca4031cdc",
   "model_catalog_sha256": "5eece99b8dd3d428705ec972d15d1d79f662bd0178e3af1c6661f15486d3149d"
 }

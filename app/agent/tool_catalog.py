@@ -30,6 +30,10 @@ _ROWS = {
 'memory_episode_delete': ('删除记忆卡中的事件并刷新记忆版本。 Delete a card event and update memory revision.', '用户从记忆卡明确删除一条事件时使用。 Use for deletion from an event card.', '不要用来清空所有事实和全部事件。 Do not erase the entire memory collection.', 10),
 'memory_forget': ('经明确确认后清除用户档案和事件记忆。 Erase profile and event memory after confirmation.', '用户明确选择全部遗忘并确认时使用。 Use after explicit confirmation to forget everything.', '只纠正或删除单条记忆时不要使用。 Do not use for a single correction or deletion.', 30),
 'summarize_turn': ('把一轮对话加入后台摘要任务队列。 Enqueue a conversation turn for background summarization.', '一轮对话结束且需要保留摘要时使用。 Use after a turn worth summarizing.', '不会立即返回摘要，不用于读取历史。 Do not expect an immediate summary or history read.', 10),
+'temple_search': ('按心愿、区域或关键词检索北京寺庙候选。 Search curated Beijing temples by wish theme, district or keyword.', '用户有心愿或想找某类寺庙时使用。 Use when the user asks which temple suits a wish or area.', '匹配不到时不凑数；指定了具体寺庙时改用 temple_detail。 Never pad candidates.', 10),
+'temple_detail': ('读取一座寺庙的结构化详情。 Read one temple’s structured detail.', '用户想了解某座寺庙时使用。 Use to explain a named temple.', '不代替官方公告；未收录则如实说暂未查到。 Do not treat opening hours as final.', 10),
+'web_search_bocha': ('用博查搜公开网页，只返回标题、摘要与链接。 Search public pages via Bocha (title/snippet/url only).', '需要找公开分享或官方页面作为线索时使用。 Use to find public sources or candidate official pages.', '结果是不可信摘要，不能当事实，也不替代官方公告。 Never treat snippets as facts.', 25),
+'temple_trip_plan': ('给出去某座寺庙的路线、耗时、天气（v1 示例数据）。 Draft a route and weather note for a temple visit.', '用户问怎么去、多久、天气时使用。 Use for pre-visit logistics.', 'v1 是示例数据，不是实时路况与预报。 Not live data; always say临行复核.', 10),
 'proactive.deliver': ('向本人已绑定的渠道发送一条提醒。 Deliver one reminder to the owner’s bound channel.', '提醒已准备好且收件渠道属于当前用户时使用。 Use for a prepared reminder to a verified owner channel.', '不能向未绑定渠道或其他用户发送。 Do not deliver to unbound channels or other users.', 20),
 }
 

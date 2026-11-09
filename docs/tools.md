@@ -74,3 +74,11 @@
 | `get_hn` | 读取或搜索 Hacker News 热帖 | `read` | 否 |
 | `search_social` | 经官方 X API 或搜索引擎查询 Reddit 讨论 | `read` | 否 |
 | `summarize_turn` | 把一轮对话加入后台摘要任务队列 | `self_write` | 否 |
+| `temple_detail` | 读取一座寺庙的结构化详情 | `read` | 否 |
+| `web_search_bocha` | 用博查搜公开网页，只返回标题、摘要与链接 | `read` | 否 |
+| `temple_search` | 按心愿、区域或关键词检索北京寺庙候选 | `read` | 否 |
+| `temple_trip_plan` | 给出去某座寺庙的路线、耗时、天气（v1 示例数据） | `read` | 否 |
+
+`temple_*` 是寺庙寻访垂直领域的只读工具：资料来自 `app/agent/domain/temples.json`
+的人工策划条目，不调用网络；每条都带 `disclaimer`，上层必须原样保留，
+不得当作祈愿承诺。
