@@ -59,14 +59,59 @@ def add(temple: str, field: str, note: str) -> dict[str, Any]:
         return {"id": row.id, "duplicate": False}
 
 
+STATUSES = ("open", "resolved", "rejected")
+
+
+def _row(item: "TempleReport") -> dict[str, Any]:
+    return {"id": item.id, "temple": item.temple, "field": item.field, "note": item.note,
+            "status": item.status, "created_at": item.created_at}
+
+
 def list_open(limit: int = 50) -> list[dict[str, Any]]:
     with _session() as session:
         rows = session.execute(
             select(TempleReport).where(TempleReport.status == "open")
             .order_by(TempleReport.id.desc()).limit(max(1, min(int(limit), 200)))
         ).scalars().all()
-    return [{"id": r.id, "temple": r.temple, "field": r.field, "note": r.note,
-             "created_at": r.created_at} for r in rows]
+    return [_row(r) for r in rows]
+
+
+def list_reports(status: str = "", limit: int = 100) -> list[dict[str, Any]]:
+    """按状态列出（空字符串＝全部）。"""
+    statement = select(TempleReport).order_by(TempleReport.id.desc()).limit(max(1, min(int(limit), 500)))
+    if status:
+        if status not in STATUSES:
+            raise ValueError(f"status must be one of {STATUSES}")
+        statement = statement.where(TempleReport.status == status)
+    with _session() as session:
+        return [_row(r) for r in session.execute(statement).scalars().all()]
+
+
+def set_status(report_id: int, status: str) -> dict[str, Any] | None:
+    """标记处理结果：resolved（已改数据）/ rejected（核查后无问题）。"""
+    if status not in STATUSES:
+        raise ValueError(f"status must be one of {STATUSES}")
+    with _session() as session:
+        row = session.get(TempleReport, int(report_id))
+        if row is None:
+            return None
+        row.status = status
+        session.commit()
+        return _row(row)
+
+
+def counts() -> dict[str, int]:
+    """按状态与寺庙聚合，供运营看板上看「哪座被报得最多」。"""
+    with _session() as session:
+        rows = session.execute(select(TempleReport)).scalars().all()
+    by_status = {status: 0 for status in STATUSES}
+    by_temple: dict[str, int] = {}
+    for row in rows:
+        by_status[row.status] = by_status.get(row.status, 0) + 1
+        if row.status == "open":
+            by_temple[row.temple] = by_temple.get(row.temple, 0) + 1
+    return {"total": len(rows), **{f"status_{k}": v for k, v in by_status.items()},
+            "by_temple": dict(sorted(by_temple.items(), key=lambda x: -x[1]))}
 
 
 def clear_all() -> None:

@@ -107,7 +107,7 @@ python scripts/backup_data.py --keep 7        # 生成 data/backups/*.tar.gz
 | 记忆卡可查看 / 修改 / 删除 | ✅ `/api/memory/{uid}/card` |
 | 不索取病史、婚姻状况等隐私 | ✅ 提示词红线 + 求子不替代医疗 |
 | 不保存聊天里的密码 | ✅ 隐私门拦在进图之前 |
-| 数据纠错入口 | ✅ 卡片「资料有误？」→ `POST /api/temple/report` |
+| 数据纠错入口 | ✅ 卡片「资料有误？」→ `POST /api/temple/report`；处理台 `scripts/triage_reports.py`（待处理/按寺庙聚合/标记/导出 CSV） |
 
 ## 8. 上线动作（按顺序）
 

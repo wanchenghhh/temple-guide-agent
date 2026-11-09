@@ -60,11 +60,23 @@ def changes(limit: int = Query(50, ge=1, le=200), offset: int = Query(0, ge=0)):
 
 
 @router.get("/temple/reports", dependencies=[Depends(require_scope("users:read"))])
-def temple_reports(limit: int = 50):
-    """用户提交的资料纠错（不含任何身份信息）。"""
+def temple_reports(limit: int = 50, status: str = "open"):
+    """用户提交的资料纠错（不含任何身份信息）。status 为空则返回全部。"""
     from app.data_access import temple_reports as store
 
-    return {"items": store.list_open(limit)}
+    return {"items": store.list_reports(status, limit), "counts": store.counts()}
+
+
+@router.post("/temple/reports/{report_id}/status")
+def temple_report_status(report_id: int, status: str,
+                         principal: AdminPrincipal = Depends(require_scope("users:write"))):
+    """标记处理结果：resolved / rejected（不改数据，只记状态）。"""
+    from app.data_access import temple_reports as store
+
+    row = store.set_status(report_id, status)
+    if row is None:
+        raise HTTPException(404, "报告不存在")
+    return {"item": row, "counts": store.counts()}
 
 
 @router.get("/temple/metrics", dependencies=[Depends(require_scope("users:read"))])

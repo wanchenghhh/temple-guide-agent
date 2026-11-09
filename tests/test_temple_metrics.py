@@ -144,3 +144,71 @@ def test_chat_rate_limit_blocks_after_threshold(client, fake_llm, monkeypatch):
     body = third.json()["detail"]
     assert body["code"] == "rate_limited" and "频繁" in body["message"]
     main_mod._CHAT_HITS.clear()
+
+
+# ── 反馈处理流转 ────────────────────────────────────────────────────────────
+
+def test_report_lifecycle_and_counts():
+    from app.data_access import temple_reports as store
+
+    store.clear_all()
+    first = store.add("万寿寺", "开放时间", "周一闭馆这条不对")
+    second = store.add("法源寺", "开放时间", "公众号说不对外")
+    assert store.counts()["status_open"] == 2
+
+    assert store.set_status(first["id"], "resolved")["status"] == "resolved"
+    assert store.set_status(second["id"], "rejected")["status"] == "rejected"
+
+    counts = store.counts()
+    assert counts["total"] == 2
+    assert counts["status_open"] == 0
+    assert counts["status_resolved"] == 1 and counts["status_rejected"] == 1
+    assert store.list_reports("open") == []
+    assert len(store.list_reports("")) == 2
+    store.clear_all()
+
+
+def test_unknown_status_is_rejected():
+    from app.data_access import temple_reports as store
+
+    store.clear_all()
+    row = store.add("潭柘寺", "门票", "票价不对")
+    with pytest.raises(ValueError):
+        store.set_status(row["id"], "whatever")
+    assert store.set_status(9999, "resolved") is None
+    store.clear_all()
+
+
+def test_triage_cli_lists_and_resolves(capsys):
+    import importlib.util
+    import sys as _sys
+    from pathlib import Path as _Path
+
+    from app.data_access import temple_reports as store
+
+    root = _Path(__file__).resolve().parent.parent
+    spec = importlib.util.spec_from_file_location(
+        "triage_reports", root / "scripts" / "triage_reports.py")
+    triage = importlib.util.module_from_spec(spec)
+    _sys.modules["triage_reports"] = triage
+    spec.loader.exec_module(triage)
+
+    store.clear_all()
+    row = store.add("万寿寺", "门票", "价格好像变了")
+    assert triage.main([]) == 0
+    out = capsys.readouterr().out
+    assert "待处理：1 条" in out and "万寿寺" in out
+
+    assert triage.main(["--resolve", str(row["id"])]) == 0
+    assert store.counts()["status_open"] == 0
+    store.clear_all()
+
+
+def test_admin_report_status_requires_admin(client):
+    r = client.post("/api/admin/temple/reports/1/status?status=resolved")
+    assert r.status_code in (401, 403, 503)
+
+
+def test_admin_report_listing_returns_counts(client):
+    r = client.get("/api/admin/temple/reports")
+    assert r.status_code in (401, 403, 503)
