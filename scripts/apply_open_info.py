@@ -38,7 +38,15 @@ SOURCE_KINDS = {
 METHODS = {
     "phone": "电话核对",
     "official_web": "官方页面核查",
+    "official_channel": "官方公众号核对",   # 官方渠道转述、无链接
     "media": "联网资料核查",
+}
+# 证据等级：官方三种口径都算 A；二手资料只能算 C
+METHOD_GRADE = {
+    "phone": "A",
+    "official_web": "A",
+    "official_channel": "A",
+    "media": "C",
 }
 
 OPEN_CHOICES = {
@@ -143,7 +151,7 @@ def apply(args: argparse.Namespace) -> int:
         temple["open_verified_at"] = date.today().isoformat()
         temple["open_evidence"] = {
             "method": args.method,
-            "grade": "A" if (args.source_kind == "official" or args.method == "phone") else "C",
+            "grade": METHOD_GRADE.get(args.method, "C"),
             "source": args.source or "",
             "note": (args.note or "")[:160],
         }

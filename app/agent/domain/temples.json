@@ -1307,7 +1307,7 @@
       ],
       "status": "religious_site",
       "status_label": "宗教活动场所",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [],
       "recommend_note": "",
       "sect": "道教",
@@ -1355,7 +1355,7 @@
         }
       ],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
         "北京白云观 公众号"
@@ -1363,11 +1363,18 @@
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "公开攻略称门票 10 元、无需预约，未见官方页面，建议电话复核。",
+      "open_note": "官方公众号核对（2026-11-09）：正常开放、全年不休观；无需预约，无网络售票，到门口购票入观；门票 10 元。开放时段：春夏（5/1-9/30）8:30-17:00（16:30 停止售票与进观）；秋冬（10/1-4/30）8:30-16:30（16:00 停止售票与进观）。另据官方 2025-12-02 公告：老律堂开光处已关闭。",
       "lat": 39.8989,
       "lng": 116.338,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%99%BD%E4%BA%91%E8%A7%82",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_channel",
+        "grade": "A",
+        "source": "",
+        "note": "白云观官方公众号：开放时段/不休观/门票10元/门口购票；2025-12-02 老律堂开光处关闭公告"
+      }
     },
     {
       "id": "dongyuemiao",

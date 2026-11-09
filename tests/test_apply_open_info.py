@@ -143,3 +143,21 @@ def test_dry_run_writes_nothing(sandbox, monkeypatch):
     code = _run(monkeypatch, "--temple", "广济寺", "--open", "yes", "--dry-run")
     assert code == 0
     assert sandbox.read_text(encoding="utf-8") == before
+
+
+def test_official_channel_counts_as_grade_a(sandbox, monkeypatch):
+    """用户从官方公众号核对（无链接）也是 A 级，但不能冒充网页来源。"""
+    _run(monkeypatch, "--temple", "白云观", "--open", "yes",
+         "--ticket", "10元", "--method", "official_channel",
+         "--note", "官方公众号核对")
+    temple = _temple(sandbox, "白云观")
+    assert temple["open_evidence"]["method"] == "official_channel"
+    assert temple["open_evidence"]["grade"] == "A"
+    assert temple["open_evidence"]["source"] == ""
+    assert "官方公众号核对" in temple["open_note"]
+    assert "电话核对" not in temple["open_note"]
+
+
+def test_media_method_stays_grade_c(sandbox, monkeypatch):
+    _run(monkeypatch, "--temple", "白云观", "--open", "yes", "--method", "media")
+    assert _temple(sandbox, "白云观")["open_evidence"]["grade"] == "C"
