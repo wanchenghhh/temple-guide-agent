@@ -6,8 +6,8 @@
   <meta name="color-scheme" content="light" />
   <meta name="theme-color" content="#FCFCFC" />
   <meta name="app-version" content="__APP_VERSION__" />
-  <title>Personal Agent</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23191919'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E5%8A%A9%3C/text%3E%3C/svg%3E" />
+  <title>寺庙寻访向导</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23191919'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E5%AF%BA%3C/text%3E%3C/svg%3E" />
   <link rel="preload" href="/static/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/static/design.css?v=__APP_VERSION__" />
   <link rel="stylesheet" href="/static/chat.css?v=__APP_VERSION__" />
@@ -30,8 +30,8 @@
 
   <header class="app-header chat-header">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">助</span>
-      <h1>Personal Agent</h1>
+      <span class="brand-mark" aria-hidden="true">寺</span>
+      <h1>寺庙寻访向导</h1>
     </div>
     <div class="debug-badges debug-only" id="debugBadges" aria-label="调试信息"></div>
     <span class="header-spacer"></span>
@@ -64,9 +64,9 @@
         </button>
         <div class="composer-inner">
           <div class="composer-shell" id="composerShell">
-            <label class="sr-only" for="composerInput">给小助发消息</label>
+            <label class="sr-only" for="composerInput">给向导发消息</label>
             <textarea id="composerInput" rows="1" enterkeyhint="send"
-              placeholder="和我聊聊，或者说「帮我写一封邮件」"
+              placeholder="说说你的心愿，或者问我某座寺庙"
               aria-describedby="composerHint"></textarea>
             <button type="submit" class="btn btn-primary btn-send" id="btnSend" aria-label="发送">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
@@ -99,7 +99,7 @@
             <button type="button" class="btn btn-ghost btn-sm" id="btnClearLocal">清除本机对话记录</button>
           </div>
           <p class="dw-note">档案保存在服务端；对话记录只保存在这台设备的浏览器里。</p>
-          <p class="dw-version">Personal Agent v__APP_VERSION__</p>
+          <p class="dw-version">寺庙寻访向导 v__APP_VERSION__</p>
         </section>
       </div>
     </aside>
@@ -118,7 +118,7 @@
     <div id="schedulesBody" class="drawer-body"></div>
   </dialog>
   <noscript>
-    <p class="noscript">需要开启 JavaScript 才能和小助对话。</p>
+    <p class="noscript">需要开启 JavaScript 才能和向导对话。</p>
   </noscript>
 </body>
 </html>

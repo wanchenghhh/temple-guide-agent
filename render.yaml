@@ -2,7 +2,7 @@
 # Docs: docs/deploy.md
 services:
   - type: web
-    name: personal-agent
+    name: temple-guide
     runtime: docker
     # Free plan has no persistent disk: DATA_DIR (/app/data, all SQLite data) is wiped
     # on every redeploy/restart. Demo only. For real users switch to a paid plan and add

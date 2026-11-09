@@ -41,7 +41,7 @@ class LangfuseClient:
                 auth=(self.cfg.public_key, self.cfg.secret_key),
                 timeout=self.cfg.timeout_s,
                 transport=self._transport,
-                headers={"User-Agent": "personal-agent-service-harness"},
+                headers={"User-Agent": "temple-guide-service-harness"},
             )
         return self._http
 

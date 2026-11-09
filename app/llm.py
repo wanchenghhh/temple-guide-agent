@@ -253,7 +253,7 @@ def routing_config() -> dict[str, Any]:
 
 
 def capabilities() -> dict[str, Any]:
-    """Skill/tool list for the Personal Agent shape."""
+    """Skill/tool list for the 寺庙寻访向导 shape."""
     return {
         "tools": [
             {

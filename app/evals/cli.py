@@ -5,7 +5,7 @@
   python -m app.evals.cli push-prompts [--label production] [--dry-run]
   python -m app.evals.cli evaluate-traces [--limit 50] [--hours 24] [--dry-run]
 
-``push-prompts`` publishes every registered system prompt (``personal-agent/<name>``,
+``push-prompts`` publishes every registered system prompt (``temple-guide/<name>``,
 label ``sha-<hash>``) and every judge rubric (``judge/<name>``, with ``{{input}}`` /
 ``{{output}}`` variables, usable as Langfuse evaluator templates). Version numbers
 are saved so new generations link to the Langfuse prompt.
@@ -52,7 +52,7 @@ def cmd_push_prompts(args: argparse.Namespace) -> int:
 
     items: list[dict[str, Any]] = []
     for name, v in registry().items():
-        items.append({"local": name, "name": f"personal-agent/{name}", "prompt": v["text"], "hash": v["hash"], "kind": "system"})
+        items.append({"local": name, "name": f"temple-guide/{name}", "prompt": v["text"], "hash": v["hash"], "kind": "system"})
     for r in RUBRICS.values():
         items.append(
             {
@@ -78,7 +78,7 @@ def cmd_push_prompts(args: argparse.Namespace) -> int:
             name=i["name"],
             prompt=i["prompt"],
             labels=labels,
-            config=i.get("config") or {"source": "personal-agent-service", "hash": i["hash"]},
+            config=i.get("config") or {"source": "temple-guide-service", "hash": i["hash"]},
             tags=[i["kind"]],
             commit_message=f"sync {i['hash']}",
         )

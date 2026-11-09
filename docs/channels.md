@@ -27,7 +27,7 @@ OpenClaw 桥接插件 (HTTP) ──┘   （归一化入站）       │        
 | `app/channels/feishu*.py` | 飞书长连接、卡片渲染、HTTP 备用回调 |
 | `app/channels/openclaw_wechat.py` | 微信入站解析、文本渲染、Gateway 推送 |
 | `app/channels/qq.py` | 预留的扩展示例，未实现 |
-| `integrations/openclaw-personal-agent-bridge/` | OpenClaw 插件，把微信消息交给本服务 |
+| `integrations/openclaw-temple-guide-bridge/` | OpenClaw 插件，把微信消息交给本服务 |
 
 ### 会话 thread
 
@@ -60,10 +60,10 @@ OpenClaw 桥接插件 (HTTP) ──┘   （归一化入站）       │        
 
 OpenClaw Gateway 通过腾讯官方插件 `@tencent-weixin/openclaw-weixin`（渠道 id `openclaw-weixin`）登录个人微信。
 
-- 入站：本仓库的插件 `personal-agent-bridge` 注册 `before_dispatch` 钩子，认领 `openclaw-weixin` 的消息，`POST /webhooks/openclaw/wechat`（Bearer `OPENCLAW_WEBHOOK_TOKEN`）。返回的 `reply` 文本由 OpenClaw 原样发出，不经过 OpenClaw 自己的 LLM。插件出任何错都仍然认领消息，防止消息落回 OpenClaw 默认 agent。
+- 入站：本仓库的插件 `temple-guide-bridge` 注册 `before_dispatch` 钩子，认领 `openclaw-weixin` 的消息，`POST /webhooks/openclaw/wechat`（Bearer `OPENCLAW_WEBHOOK_TOKEN`）。返回的 `reply` 文本由 OpenClaw 原样发出，不经过 OpenClaw 自己的 LLM。插件出任何错都仍然认领消息，防止消息落回 OpenClaw 默认 agent。
 - 选项：微信没有卡片，渲染成「回复数字选择：1. 确认 2. 拒绝」，回 `1` / `2` 或回选项文字都能识别。
 - 慢回复：超过 `OPENCLAW_SYNC_WAIT_SECONDS`（默认 12 秒）时先回「收到，正在处理」，结果稍后通过 `OPENCLAW_GATEWAY_URL/tools/invoke`（`message` 工具 `send`，Bearer `OPENCLAW_GATEWAY_TOKEN`）推送。绑定成功的通知也走这条路。没配 Gateway 推送时，同步一直等到出结果。
-- 安装与 OpenClaw 配置见 [插件 README](../integrations/openclaw-personal-agent-bridge/README.md)。
+- 安装与 OpenClaw 配置见 [插件 README](../integrations/openclaw-temple-guide-bridge/README.md)。
 
 ## 扩展新渠道（QQ 等）
 

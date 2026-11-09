@@ -49,9 +49,9 @@ def backup(data_dir: Path, out_dir: Path, keep: int) -> Path:
             path = data_dir / extra
             if path.exists():
                 shutil.copy2(path, stage / extra)
-        archive = out_dir / f"personal-agent-{stamp}.tar.gz"
+        archive = out_dir / f"temple-guide-{stamp}.tar.gz"
         with tarfile.open(archive, "w:gz") as tar:
-            tar.add(stage, arcname=f"personal-agent-{stamp}")
+            tar.add(stage, arcname=f"temple-guide-{stamp}")
     finally:
         shutil.rmtree(stage, ignore_errors=True)
 
@@ -62,7 +62,7 @@ def backup(data_dir: Path, out_dir: Path, keep: int) -> Path:
 def _prune(out_dir: Path, keep: int) -> None:
     if keep <= 0:
         return
-    archives = sorted(out_dir.glob("personal-agent-*.tar.gz"))
+    archives = sorted(out_dir.glob("temple-guide-*.tar.gz"))
     for old in archives[:-keep]:
         try:
             old.unlink()

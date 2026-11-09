@@ -172,7 +172,7 @@ def _build(cfg: LangfuseConfig, exporter: Any = None, *, sync: bool = False) -> 
         )
     resource = Resource.create(
         {
-            "service.name": "personal-agent-service",
+            "service.name": "temple-guide-service",
             "deployment.environment": cfg.environment,
             "service.version": cfg.release or "dev",
         }
@@ -191,7 +191,7 @@ def _build(cfg: LangfuseConfig, exporter: Any = None, *, sync: bool = False) -> 
                 export_timeout_millis=int(cfg.timeout_s * 1000),
             )
         )
-    return provider, provider.get_tracer("personal-agent-service.harness")
+    return provider, provider.get_tracer("temple-guide-service.harness")
 
 
 def _tracer() -> Any:

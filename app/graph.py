@@ -1,4 +1,4 @@
-"""LangGraph Personal Agent flow with human-in-the-loop confirm + agent loop.
+"""LangGraph 寺庙寻访向导 flow with human-in-the-loop confirm + agent loop.
 
 Nodes: chat, draft → await_confirm (interrupt), update_profile, wrap_up.
 HTTP APIs stay on ``run_action`` unchanged.

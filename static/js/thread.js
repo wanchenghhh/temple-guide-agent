@@ -212,12 +212,12 @@ export function assistantMessage(text, { scroll = true, animate = true, speak = 
   const row = h("div", { class: `msg msg-assistant${animate ? " enter" : ""}` }, [
     avatar(),
     h("div", { class: "bubble bubble-assistant" }, [
-      h("span", { class: "sr-only", text: "小助：" }),
+      h("span", { class: "sr-only", text: "向导：" }),
       collapsible(text, "bubble-text", { markdown: true }),
       onFeedback ? feedbackBar(feedback, onFeedback) : null,
     ]),
   ]);
-  if (speak) announce(`小助：${text}`);
+  if (speak) announce(`向导：${text}`);
   return append(row, { scroll });
 }
 
@@ -285,7 +285,7 @@ export function renderHero({ onChip, onMemory }) {
     h("h2", { id: "heroTitle", text: "今天有什么我可以帮忙的？" }),
     h("p", {
       class: "hero-sub",
-      text: "我是小助。直接和我聊就行：告诉我你的事，我会记住；要写邮件、消息或文章，我先出草稿，你确认后才算定稿。",
+      text: "我是你的寺庙寻访向导。说说你的心愿和所在地，我帮你挑能上香、离得近的寺庙，每条都带来源；查不到的我会直说。",
     }),
     h("p", {
       class: "hero-sub",

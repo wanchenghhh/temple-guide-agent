@@ -6,7 +6,7 @@
 
 打开（需已登录 Render，并授权 GitHub 仓库）：
 
-**https://render.com/deploy?repo=https://github.com/hubooooooo/Personal-Agent**（fork 后把仓库地址换成你自己的）
+**https://render.com/deploy?repo=https://github.com/wanchenghhh/temple-guide-agent**
 
 会读取根目录 `render.yaml` Blueprint，创建 Docker Web Service（free）。
 
@@ -73,8 +73,8 @@ python scripts/preflight.py --online
 ## 本地 Docker 自检（可选）
 
 ```bash
-docker build -t personal-agent .
-docker run --rm -p 8787:8787 -e KIMI_API_KEY=你的key personal-agent
+docker build -t temple-guide .
+docker run --rm -p 8787:8787 -e DEEPSEEK_API_KEY=你的key temple-guide
 # 打开 http://127.0.0.1:8787/
 ```
 

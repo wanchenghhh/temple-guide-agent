@@ -1,18 +1,18 @@
 <div align="center">
 
-# Personal Agent
+# 寺庙寻访向导
 
-**有长期记忆的个人助理底座**
+**有长期记忆的寺庙寻访助手**
 
-陪你聊、记住你说过的事、替你起草、按时提醒。<br>
-任何会产生后果的动作，都先给你一张确认卡。
+按心愿、所在地和出行偏好推荐可比较的寺庙，说清依据与取舍。<br>
+每条信息都带来源，查不到就说查不到。
 
 LangGraph · FastAPI · 原生 JS 前端 · 可二次开发 · MIT
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](Dockerfile)
-[![Version](https://img.shields.io/badge/version-0.8.2-informational.svg)](VERSION)
-[![Deploy to Render](https://img.shields.io/badge/Deploy-Render-46E3B7.svg)](https://render.com/deploy?repo=https://github.com/hubooooooo/Personal-Agent)
+[![Version](https://img.shields.io/badge/version-0.9.0-informational.svg)](VERSION)
+[![Deploy to Render](https://img.shields.io/badge/Deploy-Render-46E3B7.svg)](https://render.com/deploy?repo=https://github.com/wanchenghhh/temple-guide-agent)
 
 [快速开始](#快速开始) · [它能做什么](#它能做什么) · [工作原理](#工作原理) · [多渠道接入](#多渠道接入) · [安全与隐私](#安全与隐私) · [二次开发](#二次开发)
 
@@ -22,7 +22,7 @@ LangGraph · FastAPI · 原生 JS 前端 · 可二次开发 · MIT
 
 ## 为什么是它
 
-市面上的「个人助理」要么是一个聊天框，关掉就忘；要么能力很强，但你不敢把它接进飞书和微信。Personal Agent 想做的是中间那条路：
+市面上的「个人助理」要么是一个聊天框，关掉就忘；要么能力很强，但你不敢把它接进飞书和微信。寺庙寻访向导想做的是中间那条路：
 
 - **真的记得你。** 姓名、城市、职业、兴趣、偏好和你随口提过的事，会沉淀成一张可查看、可修改、可遗忘的记忆卡，而不是藏在某个向量库里。
 - **先确认，再行动。** 写草稿、建定时任务、调用外部工具，统统先出确认卡。它不会替你发消息、发邮件、提交表单，也不会在聊天里收你的密码和手机号。
@@ -82,7 +82,7 @@ LangGraph · FastAPI · 原生 JS 前端 · 可二次开发 · MIT
 需要 Python 3.12。
 
 ```bash
-git clone https://github.com/hubooooooo/Personal-Agent.git && cd Personal-Agent
+git clone https://github.com/wanchenghhh/temple-guide-agent.git && cd temple-guide-agent
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt -c requirements.lock
 cp .env.example .env
@@ -112,8 +112,8 @@ uvicorn app.main:app --host 0.0.0.0 --port 8787
 ### Docker
 
 ```bash
-docker build -t personal-agent .
-docker run --rm -p 8787:8787 -e AUTH_SECRET=换成随机串 -e KIMI_API_KEY=你的key personal-agent
+docker build -t temple-guide .
+docker run --rm -p 8787:8787 -e AUTH_SECRET=换成随机串 -e DEEPSEEK_API_KEY=你的key temple-guide
 ```
 
 ### Render 一键部署
@@ -162,7 +162,7 @@ flowchart LR
 | 渠道 | 开关 | 接入方式 |
 |------|------|----------|
 | 飞书 | `FEISHU_ENABLED=1` + `FEISHU_APP_ID` / `FEISHU_APP_SECRET` | 官方 SDK 长连接，**不需要公网地址**。见 [docs/feishu-长连接.md](docs/feishu-长连接.md) |
-| 微信 | `OPENCLAW_WECHAT_ENABLED=1` + `OPENCLAW_WEBHOOK_TOKEN` | OpenClaw Gateway + [桥接插件](integrations/openclaw-personal-agent-bridge/README.md) |
+| 微信 | `OPENCLAW_WECHAT_ENABLED=1` + `OPENCLAW_WEBHOOK_TOKEN` | OpenClaw Gateway + [桥接插件](integrations/openclaw-temple-guide-bridge/README.md) |
 | QQ 等 | 未实现 | 只留了 `ChannelAdapter` 接口（`app/channels/qq.py`），按 [CONTRIBUTING 第三层](CONTRIBUTING.md#第三层加渠道两到三天) 补 |
 
 渠道里的三条规则：
@@ -298,14 +298,14 @@ def weather_lookup(city: str, user_id: str = "") -> dict:
 | 工具 | [tools.md](docs/tools.md)（清单）· [tool-registry.md](docs/tool-registry.md)（机制）· [model-tool-selection.md](docs/model-tool-selection.md) |
 | 模型网关 | [llm-gateway.md](docs/llm-gateway.md) · [llm_models.example.json](docs/llm_models.example.json) |
 | 记忆与上下文 | [context-assembly.md](docs/context-assembly.md) · [vector-memory-write.md](docs/vector-memory-write.md) · [intent-confidence-validation.md](docs/intent-confidence-validation.md) |
-| 渠道 | [channels.md](docs/channels.md) · [feishu-长连接.md](docs/feishu-长连接.md) · [OpenClaw 桥](integrations/openclaw-personal-agent-bridge/README.md) |
+| 渠道 | [channels.md](docs/channels.md) · [feishu-长连接.md](docs/feishu-长连接.md) · [OpenClaw 桥](integrations/openclaw-temple-guide-bridge/README.md) |
 | 定时任务 | [schedules.md](docs/schedules.md) |
 | 部署与运维 | [deploy.md](docs/deploy.md) · [postgres-rls.md](docs/postgres-rls.md) · [langfuse.md](docs/langfuse.md) · [admin.md](docs/admin.md) |
 | 界面 | [DESIGN.md](DESIGN.md)（chat-only 单页，浅色，Geist 自托管） |
 
 ## 现状与边界
 
-- 当前版本 0.8.2，SQLite 单机即可跑，Postgres + RLS 已可用但未在生产长期验证。
+- 当前版本 0.9.0，SQLite 单机即可跑，Postgres + RLS 已可用但未在生产长期验证。
 - QQ 渠道只有接口位；向量记忆、主动调度、两个渠道、Langfuse 全部默认关闭，按需打开。
 - Render 免费实例无持久盘，仅适合演示。
 - 已知粗糙处与常见坑见 [CONTRIBUTING 第 5、6 节](CONTRIBUTING.md#5-已知的粗糙处)。

@@ -4,7 +4,7 @@ How OpenClaw is wired (researched against docs.openclaw.ai):
 
   * WeChat login / iLink long-poll / context tokens live in the Tencent plugin
     inside the Gateway (channel id ``openclaw-weixin``; aliases ``weixin``, ``wechat``).
-  * Inbound: our bridge plugin (``integrations/openclaw-personal-agent-bridge``)
+  * Inbound: our bridge plugin (``integrations/openclaw-temple-guide-bridge``)
     hooks ``before_dispatch`` — the Gateway's claim point before the model
     runs — and POSTs the message to ``/webhooks/openclaw/wechat``. It returns
     ``{handled: true, text}`` so OpenClaw sends our reply verbatim and its own

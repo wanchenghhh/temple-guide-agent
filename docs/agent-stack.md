@@ -1,4 +1,4 @@
-# Personal Agent 栈
+# 寺庙寻访向导 栈
 
 > LangGraph-centric · 显式循环预算 · 人在回路确认 · 三层记忆 · 主动调度
 

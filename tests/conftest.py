@@ -15,7 +15,7 @@ from typing import Any, Optional
 sys.modules.setdefault("conftest", sys.modules[__name__])
 
 # Isolated data dir + vault key must be in place before app modules import (DATA_DIR is read at import).
-_TMP = Path(tempfile.mkdtemp(prefix="personal-agent-tests-"))
+_TMP = Path(tempfile.mkdtemp(prefix="temple-guide-tests-"))
 os.environ["DATA_DIR"] = str(_TMP)
 # A filled .env must never leak real model keys into the suite: app.llm calls
 # load_dotenv() at import, which would re-add the keys scrubbed below.

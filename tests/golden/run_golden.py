@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Golden regression for the Personal Agent harness.
+"""Golden regression for the temple-guide harness.
 
     python tests/golden/run_golden.py                  # mock LLM (default, CI)
     python tests/golden/run_golden.py --mode live      # real LLM keys from env/.env

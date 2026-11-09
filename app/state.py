@@ -1,4 +1,4 @@
-"""LangGraph shared state for the Personal Agent flow."""
+"""LangGraph shared state for the 寺庙寻访向导 flow."""
 
 from __future__ import annotations
 

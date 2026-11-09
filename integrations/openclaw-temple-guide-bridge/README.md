@@ -1,13 +1,13 @@
-# openclaw-personal-agent-bridge
+# openclaw-temple-guide-bridge
 
-OpenClaw 插件：把个人微信（`@tencent-weixin/openclaw-weixin` 渠道）的私聊消息转给 personal-agent，
+OpenClaw 插件：把个人微信（`@tencent-weixin/openclaw-weixin` 渠道）的私聊消息转给 temple-guide，
 并把服务的回复**原样**发回微信。OpenClaw 自己的 LLM 不参与这些消息。
 
 ```
 微信 ──> openclaw-weixin 插件 ──> OpenClaw Gateway ──before_dispatch──> 本插件
                                                                          │ POST /webhooks/openclaw/wechat (Bearer)
                                                                          ▼
-                                                                personal-agent
+                                                                temple-guide
                                                                          │ 慢回复 / 绑定成功通知
 OpenClaw Gateway <── POST /tools/invoke {tool:"message", action:"send"} ─┘
 ```
@@ -28,8 +28,8 @@ openclaw plugins enable openclaw-weixin
 openclaw channels login --channel openclaw-weixin
 
 # 2. 本桥接插件（在仓库根目录执行）
-openclaw plugins install --link ./integrations/openclaw-personal-agent-bridge --force
-openclaw plugins enable personal-agent-bridge
+openclaw plugins install --link ./integrations/openclaw-temple-guide-bridge --force
+openclaw plugins enable temple-guide-bridge
 ```
 
 ## 配置（`~/.openclaw/openclaw.json`）
@@ -43,10 +43,10 @@ openclaw plugins enable personal-agent-bridge
   tools: { alsoAllow: ["message"] },
   plugins: {
     entries: {
-      "personal-agent-bridge": {
+      "temple-guide-bridge": {
         enabled: true,
         config: {
-          agentUrl: "http://127.0.0.1:8787",   // personal-agent 地址
+          agentUrl: "http://127.0.0.1:8787",   // temple-guide 地址
           token: "<OPENCLAW_WEBHOOK_TOKEN>",       // 与服务端一致
           // channels: ["openclaw-weixin"],        // 默认 openclaw-weixin / weixin / wechat
           // syncWaitSeconds: 12,                  // 与服务端 OPENCLAW_SYNC_WAIT_SECONDS 对齐

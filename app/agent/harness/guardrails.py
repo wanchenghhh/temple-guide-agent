@@ -1,4 +1,4 @@
-"""Harness guardrails for the Personal Agent.
+"""Harness guardrails for the 寺庙寻访向导.
 
 1) No leaks in outbound text: secrets, system prompts, other users, privacy sandbox
 2) Group chat never receives personal data

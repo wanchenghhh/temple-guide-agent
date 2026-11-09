@@ -172,7 +172,7 @@ def _wechat_on(monkeypatch, *, push: bool = False):
 
 
 def _plugin_payload(sender: str, text: str, **extra):
-    """Shape posted by integrations/openclaw-personal-agent-bridge."""
+    """Shape posted by integrations/openclaw-temple-guide-bridge."""
     return {
         "channel": "openclaw-weixin",
         "from": sender,

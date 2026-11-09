@@ -1,6 +1,6 @@
 {
-  "id": "personal-agent-bridge",
-  "name": "Personal Agent Bridge",
+  "id": "temple-guide-bridge",
+  "name": "Temple Guide Bridge",
   "activation": { "onStartup": true },
   "configSchema": {
     "type": "object",
@@ -8,11 +8,11 @@
     "properties": {
       "agentUrl": {
         "type": "string",
-        "description": "Base URL of personal-agent, e.g. http://127.0.0.1:8787"
+        "description": "Base URL of temple-guide, e.g. http://127.0.0.1:8787"
       },
       "token": {
         "type": "string",
-        "description": "Must equal OPENCLAW_WEBHOOK_TOKEN on personal-agent"
+        "description": "Must equal OPENCLAW_WEBHOOK_TOKEN on temple-guide"
       },
       "channels": {
         "type": "array",

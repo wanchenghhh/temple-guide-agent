@@ -46,7 +46,7 @@ SDK：`lark-oapi` 的 `lark.ws.Client` + `EventDispatcherHandler`。
 ## 启动
 
 ```bash
-cd personal-agent
+cd temple-guide
 source .venv/bin/activate
 # .env 已填 FEISHU_ENABLED=1 / FEISHU_APP_ID / FEISHU_APP_SECRET / PUBLIC_BASE_URL
 

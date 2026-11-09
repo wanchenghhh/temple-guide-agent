@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Personal Agent connectivity checklist — PASS/FAIL, never prints secrets.
+"""寺庙寻访向导 connectivity checklist — PASS/FAIL, never prints secrets.
 
 Checks (against local uvicorn by default):
   1) /health (LLM, Feishu, OpenClaw, feishu_ws)

@@ -1,4 +1,4 @@
-"""FastAPI entry — Personal Agent."""
+"""FastAPI entry — 寺庙寻访向导."""
 
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ STATIC = ROOT / "static"
 
 load_dotenv(ROOT / ".env")
 
-app = FastAPI(title="Personal Agent", version=__version__)
+app = FastAPI(title="寺庙寻访向导", version=__version__)
 app.router.route_class = AuditedAdminRoute
 
 # Browser chat from other origins (same-origin on Render also fine).
@@ -481,7 +481,7 @@ def health() -> dict[str, Any]:
 
     return {
         "ok": True,
-        "service": "personal-agent",
+        "service": "temple-guide",
         "llm": "live" if has_llm() else "mock",
         "fast": routing["fast"],
         "strong": routing["strong"],

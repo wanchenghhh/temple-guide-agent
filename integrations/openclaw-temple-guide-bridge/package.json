@@ -1,9 +1,9 @@
 {
-  "name": "openclaw-personal-agent-bridge",
+  "name": "openclaw-temple-guide-bridge",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "OpenClaw plugin: route WeChat (openclaw-weixin) messages to personal-agent",
+  "description": "OpenClaw plugin: route WeChat (openclaw-weixin) messages to temple-guide",
   "openclaw": {
     "extensions": ["./index.ts"]
   },

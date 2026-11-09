@@ -43,7 +43,7 @@ export function initDrawer(options) {
   $("drawerBody").append(
     h("p", { class: "drawer-tip", text: "可选项 — 不填也能用。在对话里告诉我，我会自动记住。" }),
     h("section", { class: "drawer-section", "aria-labelledby": "dwProfileTitle" }, [
-      h("h3", { class: "drawer-section-title", id: "dwProfileTitle", text: "小助记住了什么" }),
+      h("h3", { class: "drawer-section-title", id: "dwProfileTitle", text: "向导记住了什么" }),
       profileBox,
     ]),
     h("section", { class: "drawer-section", "aria-labelledby": "dwMemoryTitle" }, [

@@ -40,7 +40,7 @@ DNS：把 `langfuse.example.com`（替换成实际域名）的 A 记录指向测
 ## 3. 启动 Langfuse
 
 ```bash
-git clone <仓库地址> personal-agent && cd personal-agent
+git clone <仓库地址> temple-guide && cd temple-guide
 cp deploy/langfuse/.env.example deploy/langfuse/.env && chmod 600 deploy/langfuse/.env
 # 编辑 .env：所有 CHANGE_ME；ENCRYPTION_KEY 用 `openssl rand -hex 32`；
 # NEXTAUTH_URL=https://langfuse.example.com；
@@ -94,7 +94,7 @@ LLM_PRICE_CURRENCY=CNY
 python -m app.evals.cli push-prompts --label production
 ```
 
-把所有注册的系统提示词发布为 `personal-agent/<name>`（label `sha-<哈希>`），评审 rubric 发布为 `judge/<name>`。
+把所有注册的系统提示词发布为 `temple-guide/<name>`（label `sha-<哈希>`），评审 rubric 发布为 `judge/<name>`。
 版本号写入 `DATA_DIR/langfuse_prompts.json`，之后的 generation 会直接关联到 Langfuse prompt；
 没推送时 generation 仍带 `prompt_name` / `prompt_version`（内容哈希）元数据。
 
