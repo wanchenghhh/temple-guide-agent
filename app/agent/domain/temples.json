@@ -352,7 +352,7 @@
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "联网资料核查（2026-11-09）：仍待核实；网络攻略自相矛盾：一说免门票免预约、一说免费但需提前预约并限流3000人/提前3天；另有「周一闭馆维护」「入寺需预约码+身份证」等说法。中国佛学院在此办学，官方页面不写开放规则 → 必须电话确认（周二至周日 9:00-16:30 仅为攻略说法）",
+      "open_note": "联网资料核查（2026-11-09）：仍待核实；网络攻略口径（多篇一致，但无官方出处）：周二至周日 9:00-16:30（16:00 停止入场），周一闭馆维护；免费但称需提前预约、每天限流3000人。注意：此前另有版本称「免门票不用预约」，两者矛盾；中国佛学院在此办学，官方页面不写开放规则 → 必须电话或看「北京法源寺」公众号确认",
       "lat": 39.88484,
       "lng": 116.36963,
       "coord_note": "",
@@ -362,7 +362,7 @@
         "method": "media",
         "grade": "C",
         "source": "",
-        "note": "网络攻略自相矛盾：一说免门票免预约、一说免费但需提前预约并限流3000人/提前3天；另有「周一闭馆维护」「入寺需预约码+身份证」等说法。中国佛学院在此办学，官方页面不写开放规则 → 必须电话确认（周二至周日 9:00-16:30 仅为攻略说法）"
+        "note": "网络攻略口径（多篇一致，但无官方出处）：周二至周日 9:00-16:30（16:00 停止入场），周一闭馆维护；免费但称需提前预约、每天限流3000人。注意：此前另有版本称「免门票不用预约」，两者矛盾；中国佛学院在此办学，官方页面不写开放规则 → 必须电话或看「北京法源寺」公众号确认"
       }
     },
     {
@@ -401,7 +401,7 @@
       ],
       "status": "religious_site",
       "status_label": "宗教活动场所",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [],
       "recommend_note": "",
       "sect": "汉传佛教",
@@ -419,19 +419,27 @@
         }
       ],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
-        "中国佛教协会 官网"
+        "中国佛教协会 官网",
+        "广济寺 现场咨询"
       ],
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "公开攻略称免费、无需预约（约 7:00–16:30），未见官方页面，建议电话复核。",
+      "open_note": "网络整理口径（2026-11-09 记录，未经官方确认）：免费、无需预约，7:00–16:30。中国佛教协会在此，法会期间开放范围与时段可能调整；殿内部分区域（如大雄宝殿后壁指画区）普通游客不可入内。地址：西城区阜成门内大街25号。建议致电中国佛教协会或现场确认。",
       "lat": 39.92425,
       "lng": 116.37245,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E6%B5%8E%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "media",
+        "grade": "C",
+        "source": "",
+        "note": "网络整理口径，未经官方确认：免费、无需预约、7:00-16:30。中国佛教协会在此，法会期间可能调整；殿内部分区域（如大雄宝殿后壁指画区）普通游客不可入内"
+      }
     },
     {
       "id": "guanghuasi",
@@ -459,25 +467,35 @@
       "status": "religious_site",
       "status_label": "宗教活动场所",
       "open_status": "unverified",
-      "closure_rule": [],
+      "closure_rule": [
+        "仅农历初一、十五及佛菩萨诞辰纪念日开放"
+      ],
       "recommend_note": "",
       "sect": "汉传佛教",
       "generic_wish_ok": true,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
-        "广化寺 公众号"
+        "广化寺 公众号",
+        "北京市佛教协会 官网"
       ],
       "religious_registered": true,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "有多个来源称平时不对游客开放，仅在农历初一、十五及佛菩萨圣诞开放；具体以寺院或佛协公告为准。",
+      "open_note": "寺院公告口径（2026-11-09）：仅农历初一、十五及佛菩萨诞辰纪念日开放，6:30–16:00；平日不对游客开放（本寺非旅游景点）。地址：西城区鼓楼西大街鸦儿胡同31号。开放日与时段依农历/佛历，逐月不同，出发前看「广化寺」公众号或致电寺院确认。（公告含法师个人联系电话，出于隐私未收录）",
       "lat": 39.94104,
       "lng": 116.3905,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E5%8C%96%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%B9%BF%E5%8C%96%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%E5%B8%82%29",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_channel",
+        "grade": "A",
+        "source": "",
+        "note": "寺院公告口径：农历初一/十五/佛菩萨诞辰 6:30-16:00；平日不开放；个人手机号未收录"
+      }
     },
     {
       "id": "zhihuasi",
