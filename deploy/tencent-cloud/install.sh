@@ -42,6 +42,22 @@ else die "缺少 docker compose，请先安装"; fi
 echo "  docker: $(docker --version | head -1)"
 echo "  compose: $COMPOSE"
 
+say "内存检查：低于 2.5G 会自动加 2G swap（否则 Docker 构建容易 OOM）"
+MEM_MB=$(awk '/MemTotal/{printf "%d", $2/1024}' /proc/meminfo 2>/dev/null || echo 0)
+if [ "${MEM_MB:-0}" -lt 2560 ]; then
+  if [ ! -f /swapfile ]; then
+    echo "  检测到内存 ${MEM_MB}MB，创建 2G swap ..."
+    fallocate -l 2G /swapfile 2>/dev/null || dd if=/dev/zero of=/swapfile bs=1M count=2048 status=none
+    chmod 600 /swapfile && mkswap /swapfile >/dev/null && swapon /swapfile
+    grep -q '^/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+    echo "  swap 已启用：$(swapon --show=SIZE --noheadings | tr -d ' ')"
+  else
+    echo "  已有 /swapfile，跳过"
+  fi
+else
+  echo "  内存充足（${MEM_MB}MB），不需要 swap"
+fi
+
 say "2/5 准备代码目录 $APP_DIR"
 if [ -d "$APP_DIR/.git" ]; then
   git -C "$APP_DIR" fetch --all -q && git -C "$APP_DIR" reset --hard origin/main -q
