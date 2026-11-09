@@ -121,26 +121,35 @@
       ],
       "status": "religious_site",
       "status_label": "宗教活动场所",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [],
       "recommend_note": "",
       "sect": "汉传佛教",
       "generic_wish_ok": true,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
-        "潭柘寺 公众号"
+        "微信小程序「京西山水旅游」",
+        "景区售票窗口",
+        "潭柘寺景区 咨询电话 010-60861699"
       ],
       "religious_registered": true,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "开放时间与门票以官方公告为准。",
+      "open_note": "景区官方口径（2026-11-09 核对）：开放时间 8:30–16:30；无需预约，购票走微信「京西山水旅游」小程序、景区售票窗口或各OTA平台；购票后凭订单二维码扫码过闸入园、无需换票（身份证原件也可直接过闸）；龙潭区域暂不开放。景区咨询电话 010-60861699。门票价格本次未核到官方明文，以小程序/窗口当日公示为准。",
       "lat": 39.90417,
       "lng": 116.02417,
       "coord_note": "",
-      "coord_source": "https://www.wikidata.org/wiki/Q1815062"
+      "coord_source": "https://www.wikidata.org/wiki/Q1815062",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_channel",
+        "grade": "A",
+        "source": "",
+        "note": "潭柘寺景区官方口径：开放时间/购票渠道/扫码入园/龙潭暂不开放/咨询电话 010-60861699"
+      }
     },
     {
       "id": "jietaisi",
