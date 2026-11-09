@@ -419,7 +419,7 @@ function templeTitle(card, count) {
   if (card.kind === "temple_detail") return wish ? `${wish} · 这座寺庙` : "寺庙详情";
   if (card.kind === "temple_compare") return wish ? `${wish} · 两座对比` : "寺庙对比";
   if (card.generic_wish) {
-    return wish ? `${wish} · 按能上香挑的 ${count} 座` : `按能上香挑的 ${count} 座`;
+    return wish ? `${wish} · 祈福候选 ${count} 座` : `祈福候选 ${count} 座`;
   }
   return wish ? `${wish} · 候选 ${count} 座` : `候选 ${count} 座`;
 }
@@ -432,6 +432,33 @@ function templeWishLine(wish) {
     h("span", { class: `tag${wish.evidence === "民间口碑" ? " tag-amber" : ""}`, text: wish.evidence }),
     h("span", { class: "temple-claim", text: wish.claim || "" }),
   ]);
+}
+
+function templeBooking(booking) {
+  if (!booking) return null;
+  const box = h("div", { class: "temple-booking" });
+  const requirements = {
+    required: "资料记载需要预约，请先查看官方渠道。",
+    not_required: "资料记载无需预约，购票及当天安排仍请临行确认。",
+    mixed: "不同参观项目的预约要求不同，请核对你要参观的项目。",
+    unknown: "预约要求尚待核实，请先向官方渠道确认。",
+  };
+  box.append(h("p", { class: "temple-travel-title", text: "预约与购票" }));
+  box.append(note(requirements[booking.reservation] || requirements.unknown));
+  if (booking.window) box.append(note(`预约规则：${booking.window}`));
+  if (booking.booking_opens_on) box.append(note(`按资料规则推算的预约起始日期：${booking.booking_opens_on}，以官方实际放票为准。`));
+  if (booking.timing_note && ["required", "mixed"].includes(booking.reservation)) box.append(note(booking.timing_note));
+  if (booking.reservation !== "not_required") box.append(note(booking.availability_note));
+  if ((booking.channels || []).length) box.append(note(`核实渠道：${booking.channels.join("、")}`));
+  const details = h("details", {}, [h("summary", { text: "查看已收录规则" })]);
+  if (booking.recorded_rule) details.append(note(booking.recorded_rule));
+  if (booking.checked_at) details.append(h("p", { class: "card-foot", text: `资料核对日期：${booking.checked_at}` }));
+  if (/^https?:\/\//.test(booking.rule_source || "")) details.append(h("a", {
+    href: booking.rule_source, target: "_blank", rel: "noopener noreferrer",
+    class: "temple-source", text: "开放与预约规则来源",
+  }));
+  box.append(details);
+  return box;
 }
 
 function templeItem(item, index) {
@@ -448,7 +475,24 @@ function templeItem(item, index) {
   (item.wishes || []).forEach((wish) => rows.push(templeWishLine(wish)));
   if (item.recommend_note) rows.push(note(item.recommend_note, "warn"));
   if ((item.closure || []).length) rows.push(note(item.closure.join("、"), "warn"));
-  if (item.open_note) rows.push(h("p", { class: "card-note", text: item.open_note }));
+  const checks = item.condition_checks || [];
+  checks.filter((check) => check.condition !== "elderly" || !checks.some((c) => c.condition === "no_climbing")).forEach((check) => {
+    rows.push(note(check.text, check.status === "conflict" || check.status === "unknown" ? "warn" : ""));
+  });
+  if (checks.some((check) => check.evidence)) {
+    const evidence = h("details", {}, [h("summary", { text: "查看条件依据" })]);
+    const seen = new Set();
+    checks.forEach((check) => {
+      if (check.evidence && !seen.has(check.evidence)) {
+        evidence.append(h("p", { class: "card-foot", text: `资料描述：${check.evidence}` }));
+        seen.add(check.evidence);
+      }
+    });
+    rows.push(evidence);
+  }
+  const booking = templeBooking(item.booking_guidance);
+  if (booking) rows.push(booking);
+  else if (item.open_note) rows.push(h("p", { class: "card-note", text: item.open_note }));
   if (item.distance_note) rows.push(h("p", { class: "card-foot", text: item.distance_note }));
   if ((item.sources || []).length) {
     const links = item.sources.map((src, i) =>
@@ -532,6 +576,10 @@ export function templeCard(entry, ctx) {
   const items = Array.isArray(card.items) ? card.items.slice(0, 3) : [];
   const sub = [];
   if (card.origin_name) sub.push(`出发地：${card.origin_name}`);
+  if (card.conditions?.visit_date) sub.push(`计划日期：${card.conditions.visit_date}`);
+  if (card.conditions?.elderly) sub.push("长辈同行");
+  if (card.conditions?.no_climbing) sub.push("少爬山、少走路");
+  if (card.conditions?.quiet) sub.push("偏好安静");
   if (card.origin_note) sub.push(card.origin_note);
   const { root } = cardShell("temple", {
     title: templeTitle(card, items.length),

@@ -24,7 +24,7 @@ from app.agent.crisis_rules import has_crisis_signal
 from app.agent.router import current_turn_inputs, intent_result_for
 from app.tools.prompt_data import UNTRUSTED_DATA_RULE
 
-PERSONA = load_prompt("chat.persona", "v3")
+PERSONA = load_prompt("chat.persona", "v5")
 
 CRISIS_NOTE = load_prompt("chat.crisis_note", "v1")
 HOTLINE_MARK = "010-82951332"
@@ -210,14 +210,21 @@ def node_chat(state: AgentState) -> dict[str, Any]:
     review_payload = None
     travel_payload = None
     citation_ok = True
+    temple_session = {}
+    resolved_message = msg
     if not crisis:
         from app.agent.temple_context import build_temple_context
 
         # Grounded, curated rows for temple turns; None for anything else.
-        built = build_temple_context(msg, state.get("profile") or load_profile(state))
+        built = build_temple_context(
+            msg, state.get("profile") or load_profile(state),
+            session=conversation.get("temple_session") or {},
+        )
         if built:
             system += built["block"]
             temple_payload = built["payload"]
+            temple_session = built["session"]
+            resolved_message = built["resolved_message"]
             # 评测/诊断用：记录本次注入的资料，便于核对回答是否接地
             from app.agent.temple_context import set_last_payload
 
@@ -226,14 +233,17 @@ def node_chat(state: AgentState) -> dict[str, Any]:
         # 问口碑时才去搜公开分享（默认关闭；搜不到就不注入，不占额度也不编）
         from app.agent.reviews import build_review_payload, render_review_block
 
-        review_payload = build_review_payload(msg, state.get("profile") or load_profile(state))
+        lookup_message = "" if (temple_payload or {}).get("clarification") else resolved_message
+        review_payload = build_review_payload(lookup_message, {**(state.get("profile") or load_profile(state)),
+                                                                **temple_session})
         if review_payload:
             system += render_review_block(review_payload)
 
         # 行前：只有问路线/天气时才请求地图与天气（带缓存与额度）
         from app.agent.travel_context import build_travel_payload, render_travel_block
 
-        travel_payload = build_travel_payload(msg, state.get("profile") or load_profile(state))
+        travel_payload = build_travel_payload(lookup_message, {**(state.get("profile") or load_profile(state)),
+                                                                **temple_session})
         if travel_payload:
             system += render_travel_block(travel_payload)
 
@@ -276,14 +286,18 @@ def node_chat(state: AgentState) -> dict[str, Any]:
             if temple_payload is None and result.rule_id in {
                     "model_tool:" + name for name in CRAWL_TOOLS}:
                 system += source_context(msg, state)
-            raw = chat_text(
-                system,
-                f"{context}\n{msg}" if context else msg,
-                task="chat",
-                # No key configured: show the offline placeholder (it says how to
-                # configure a model) instead of pretending the model was slow.
-                fallback=FALLBACK_REPLY if has_llm() else "",
-            )
+            clarification = (temple_payload or {}).get("clarification")
+            if clarification:
+                raw = clarification
+            else:
+                raw = chat_text(
+                    system,
+                    f"{context}\n{msg}" if context else msg,
+                    task="chat",
+                    # No key configured: show the offline placeholder (it says how to
+                    # configure a model) instead of pretending the model was slow.
+                    fallback=FALLBACK_REPLY if has_llm() else "",
+                )
         # Scan before parsing can discard or rewrite leaked prompt text.
         profile = load_profile(state)
         raw = guard_text(raw, user_id=uid, profile=profile, inputs=(msg,), where="chat_raw")
@@ -378,8 +392,12 @@ def node_chat(state: AgentState) -> dict[str, Any]:
             review_items=len((review_payload or {}).get("items") or []),
             latency_ms=int((_time.monotonic() - t_start) * 1000),
         )
+    saved_context = record_turn(state, msg, reply or "", compress=not crisis)
+    saved_context.pop("temple_session", None)
+    if temple_session and not crisis:
+        saved_context["temple_session"] = temple_session
     return {
-        "conversation_context": record_turn(state, msg, reply or "", compress=not crisis),
+        "conversation_context": saved_context,
         "profile": load_profile(state),
         "messages": [{"role": "assistant", "content": reply}],
         "ask": ask,

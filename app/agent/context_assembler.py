@@ -98,8 +98,11 @@ def conversation_state(state: dict[str, Any]) -> dict[str, Any]:
     saved = state.get("conversation_context") or {}
     if (saved.get("user_id"), saved.get("thread_id"), saved.get("memory_rev")) != (uid, tid, revision):
         saved = {}
-    return {"user_id": uid, "thread_id": tid, "memory_rev": revision,
-            "summary": str(saved.get("summary") or ""), "turns": list(saved.get("turns") or [])}
+    context = {"user_id": uid, "thread_id": tid, "memory_rev": revision,
+               "summary": str(saved.get("summary") or ""), "turns": list(saved.get("turns") or [])}
+    if saved.get("temple_session"):
+        context["temple_session"] = dict(saved["temple_session"])
+    return context
 
 
 def assemble_context(state: dict[str, Any], *, query: str,

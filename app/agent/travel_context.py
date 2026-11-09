@@ -17,6 +17,7 @@ from typing import Any, Optional
 from app.agent import temple_context as tc
 from app.agent.domain import origins as origin_index
 from app.tools import travel
+from app.agent.domain.visit_dates import parse_visit_date
 
 TRAVEL_WORDS = (
     "怎么去", "怎么走", "多久", "多远", "路线", "地铁", "公交", "打车", "自驾",
@@ -47,21 +48,7 @@ def _mode(message: str) -> str:
 
 
 def _visit_date(message: str) -> str:
-    text = message or ""
-    for token in ("今天", "明天", "后天"):
-        if token in text:
-            from datetime import date, timedelta
-
-            offset = {"今天": 0, "明天": 1, "后天": 2}[token]
-            return (date.today() + timedelta(days=offset)).isoformat()
-    import re
-
-    match = re.search(r"(\d{1,2})\s*月\s*(\d{1,2})\s*[日号]", text)
-    if match:
-        from datetime import date
-
-        return f"{date.today().year}-{int(match.group(1)):02d}-{int(match.group(2)):02d}"
-    return ""
+    return parse_visit_date(message)['date']
 
 
 def _origin_point(origin_text: str) -> tuple[Optional[dict[str, Any]], Optional[tuple[float, float]]]:
@@ -90,7 +77,10 @@ def build_travel_payload(message: str, profile: dict[str, Any] | None = None) ->
         return None
     profile = profile or {}
     origin_text = tc.detect_origin(message) or str(profile.get("origin") or "").strip()
-    visit_date = _visit_date(message)
+    parsed_date = parse_visit_date(message)
+    if parsed_date['clarification']:
+        return None
+    visit_date = parsed_date['date'] if parsed_date['mentioned'] else str(profile.get('visit_date') or '')
 
     payload: dict[str, Any] = {"temple": temple["name"], "origin_text": origin_text,
                                "visit_date": visit_date, "route": None, "weather": None,

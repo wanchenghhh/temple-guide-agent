@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Any
 
 from app.agent.domain import origins
+from app.agent.domain.visit_conditions import assess_conditions
 
 _DATA_PATH = Path(__file__).resolve().parent / "temples.json"
 
@@ -122,6 +123,8 @@ def search_temples(
     limit: int = 3,
     include_unrecommendable: bool = False,
     origin: dict[str, Any] | None = None,
+    nearest_first: bool = False,
+    conditions: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Return up to ``limit`` temples matching wish theme / district / keyword.
 
@@ -135,10 +138,17 @@ def search_temples(
     dist = (district or "").strip()
     kw = (keyword or "").strip().lower()
 
-    scored: list[tuple[int, float, int, dict[str, Any]]] = []
+    scored: list[tuple[tuple, int, float, int, dict[str, Any]]] = []
     inf = float("inf")
     for order, t in enumerate(all_temples()):
         if not include_unrecommendable and not t.get("wish_recommendable", False):
+            continue
+        if t.get("open_status") == "closed":
+            continue
+        if generic and t.get("status") not in PRAYER_STATUSES:
+            continue
+        fit = assess_conditions(t, conditions)
+        if fit["excluded"]:
             continue
         score = 0
         # 能上香的地方优先：文博点/景区可参观，但不是上香许愿的地方。
@@ -173,14 +183,17 @@ def search_temples(
         km_key = inf if km is None else km
 
         if theme and not generic:
-            scored.append((score, km_key, order, t))
+            scored.append((fit["priority"], score, km_key, order, t))
         elif dist or kw:
             if score > 0:
-                scored.append((score, km_key, order, t))
+                scored.append((fit["priority"], score, km_key, order, t))
         else:
             # 默认项也带上「能不能上香」的分，再按距离排
-            scored.append((score, km_key, order, t))
+            scored.append((fit["priority"], score, km_key, order, t))
 
     # 依据强度优先；同分再比距离（没坐标的排后面）；最后按数据顺序稳定输出。
-    scored.sort(key=lambda x: (-x[0], x[1], x[2]))
-    return [t for _, _, _, t in scored[: max(1, min(int(limit or 3), 5))]]
+    if nearest_first and origin is not None:
+        scored.sort(key=lambda x: (x[0], x[2], -x[1], x[3]))
+    else:
+        scored.sort(key=lambda x: (x[0], -x[1], x[2], x[3]))
+    return [entry[4] for entry in scored[: max(1, min(int(limit or 3), 5))]]

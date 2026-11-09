@@ -156,6 +156,9 @@ def check_distance(reply: str, payload: dict[str, Any] | None, case: Case) -> Ch
     has_km = "公里" in reply or re.search(r"\d\s*(?:km|KM)", reply) is not None
     self_admitted = any(w in reply for w in ("算不了", "没有坐标", "没给具体", "无法计算", "查一下更准"))
     if case.expect_distance:
+        clarification = (payload or {}).get("clarification")
+        if clarification and clarification in reply and not (payload or {}).get("items") and not has_km:
+            return CheckResult("distance", True, "本轮先澄清必要条件，尚未给候选")
         if self_admitted:
             return CheckResult("distance", True, "已说明算不了距离")
         if has_km and ("直线" in reply or "非行车" in reply):
@@ -398,13 +401,15 @@ def pipeline_responder(case: Case) -> dict[str, Any]:
     if payload is None:
         return {"reply": "这个问题我这边没有资料可依，先不给你编。", "payload": None}
 
+    if payload.get("clarification"):
+        return {"reply": payload["clarification"], "payload": payload}
     items = payload.get("items", [])
     if not items:
         return {"reply": payload.get("missing", "没有匹配的候选，先不凑数。"), "payload": payload}
 
     parts: list[str] = []
     if payload.get("query", {}).get("generic_wish"):
-        parts.append("没有专门针对这个心愿的寺庙，下面按能上香、离得近给候选。")
+        parts.append("想为自己或家人祈福，可以结合出发地和参访条件选择。")
     for item in items[:3]:
         bits = [f"**{item['name']}**（{item['district']}"]
         if item.get("distance_km") is not None:

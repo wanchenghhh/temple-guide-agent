@@ -52,6 +52,8 @@ def _item(item: dict[str, Any]) -> dict[str, Any]:
         "recommend_note": item.get("recommend_note", ""),
         "distance_km": distance if isinstance(distance, (int, float)) else None,
         "distance_note": item.get("distance_note", ""),
+        "condition_checks": list(item.get("condition_checks") or []),
+        "booking_guidance": item.get("booking_guidance"),
         "wishes": wishes,
         "open_note": item.get("open_note", ""),
         "closure": list(item.get("closure_rule") or [])[:3],
@@ -95,6 +97,9 @@ def build_card(payload: dict[str, Any] | None,
         return None
     mode = payload.get("mode") or "recommend"
     items = [_item(i) for i in (payload.get("items") or [])[:MAX_ITEMS]]
+    if payload.get("query", {}).get("generic_wish") and mode == "recommend":
+        for item in items:
+            item["wishes"] = []
     if not items:
         return None
     query = payload.get("query") or {}
@@ -109,6 +114,7 @@ def build_card(payload: dict[str, Any] | None,
         "wish": wish,
         "generic_wish": bool(query.get("generic_wish")),
         "origin_name": query.get("origin_matched") or "",
+        "conditions": query.get("conditions") or {},
         "origin_note": payload.get("origin_note", ""),
         "generic_note": payload.get("generic_note", ""),
         "items": items,
