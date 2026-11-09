@@ -266,33 +266,38 @@ class SummaryScheduler:
         try:
             from app import db
 
-            with db.memory_transaction():
-                revision = int((profile_mem.get(job.user_id) or {}).get("memory_rev", 0))
-                if revision != job.memory_rev:
-                    logger.debug("stale summary dropped")
-                    return {"ok": True, "dropped": True}
-                merged = profile_mem.merge(
-                    job.user_id,
-                    {
-                        "dialogue_summary": text,
-                        "last_summary_kind": job.kind,
-                    },
-                )
-                ev = episodic.write_event(
-                    job.user_id,
-                    "summary",
-                    text,
-                    tags=["summary", job.kind, "memory"],
-                    payload={
-                        "kind": job.kind,
-                        "chars": len(text),
-                        **(job.extra or {}),
-                    },
-                    thread_id=str(job.thread_id or ""),
-                )
-                if decisions:
-                    write_path.apply_decisions(decisions, thread_id=job.thread_id,
-                                               source_event_id=ev.get("id"))
+            # Never commit the profile row inside another node's staging window:
+            # the optimistic apply would fail closed and surface as a failed turn.
+            from app.business_stage import background_write_window
+
+            with background_write_window(15.0):
+                with db.memory_transaction():
+                    revision = int((profile_mem.get(job.user_id) or {}).get("memory_rev", 0))
+                    if revision != job.memory_rev:
+                        logger.debug("stale summary dropped")
+                        return {"ok": True, "dropped": True}
+                    merged = profile_mem.merge(
+                        job.user_id,
+                        {
+                            "dialogue_summary": text,
+                            "last_summary_kind": job.kind,
+                        },
+                    )
+                    ev = episodic.write_event(
+                        job.user_id,
+                        "summary",
+                        text,
+                        tags=["summary", job.kind, "memory"],
+                        payload={
+                            "kind": job.kind,
+                            "chars": len(text),
+                            **(job.extra or {}),
+                        },
+                        thread_id=str(job.thread_id or ""),
+                    )
+                    if decisions:
+                        write_path.apply_decisions(decisions, thread_id=job.thread_id,
+                                                   source_event_id=ev.get("id"))
         except Exception as exc:
             logger.error(
                 "summary failed user=%s thread=%s kind=%s attempt=%s err=%s",

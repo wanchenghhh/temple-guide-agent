@@ -72,6 +72,13 @@ def _apply(changes):
                 predicate = [c == value for c, value in zip(table.primary_key, key)]
                 current = connection.execute(table.select().where(*predicate)).mappings().first()
                 if (dict(current) if current is not None else None) != old:
+                    import logging
+
+                    logging.getLogger("app.staging").warning(
+                        "business apply conflict table=%s had_row=%s action=%s",
+                        table.name, old is not None,
+                        "insert" if old is None else ("delete" if new is None else "update"),
+                    )
                     raise BusinessCommitFailure("concurrent business update")
                 if old is None:
                     connection.execute(table.insert().values(**new))
@@ -83,6 +90,21 @@ def _apply(changes):
         except Exception:
             connection.rollback()
             raise
+
+
+def staged_row(session, table, key):
+    """暂存库里按主键读一行：只给 staging 的变更跟踪用（不碰业务库）。"""
+    from app.data_access.session import ScopedSession
+    if not isinstance(session, ScopedSession):
+        raise TypeError("Private workspaces require ScopedSession")
+    return _row_by_pk(session.connection(), table, key)
+
+
+def _row_by_pk(connection, table, key):
+    """按主键读一行（不带 owner 过滤：这是暂存库的原始行，用于冲突检测）。"""
+    predicate = [column == value for column, value in zip(table.primary_key, key)]
+    row = connection.execute(table.select().where(*predicate)).mappings().first()
+    return dict(row) if row is not None else None
 
 
 def prepare_workspace():
@@ -104,11 +126,10 @@ def prepare_workspace():
             source.driver_connection.backup(private)
         finally:
             source.close()
-        # Baseline is local: no live read transaction survives setup.
-        with engine.connect() as connection:
-            before = {table.name: _rows(connection, table) for table in tables}
+        # 不再整库取「before」快照：改动行由 before_flush 钩子按主键即时记录，
+        # 开销从 O(全库) 降到 O(本次写入行数)。
     except Exception as exc:
         engine.dispose()
         raise BusinessCommitFailure("business staging setup failed") from exc
 
-    return engine, tables, before
+    return engine, tables
