@@ -69,6 +69,8 @@ class AgentState(TypedDict, total=False):
     pending_redraft: bool
     # --- Structured question cards (chat) ---
     ask: Optional[dict[str, Any]]
+    # --- 寺庙推荐/详情卡片（chat） ---
+    temple_card: Optional[dict[str, Any]]
     reply_to: Optional[dict[str, Any]]
     crisis_detected: bool
     channel: str

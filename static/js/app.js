@@ -77,6 +77,25 @@ function onClearLocal() {
   focusComposer();
 }
 
+/* 一次性隐私告知：只在本机存标记；「看看记住了什么」直接打开记忆卡。 */
+function initPrivacyNotice() {
+  const banner = $("privacyBanner");
+  if (!banner) return;
+  const KEY = "pa.privacy.seen.v1";
+  let seen = false;
+  try { seen = localStorage.getItem(KEY) === "1"; } catch { seen = false; }
+  if (!seen) banner.hidden = false;
+  const dismiss = () => {
+    banner.hidden = true;
+    try { localStorage.setItem(KEY, "1"); } catch { /* 隐私模式下忽略 */ }
+  };
+  $("privacyDismiss")?.addEventListener("click", dismiss);
+  $("privacyOpenMemory")?.addEventListener("click", () => {
+    dismiss();
+    askMemory();
+  });
+}
+
 async function boot() {
   if (DEBUG) document.body.classList.add("is-debug");
   initThread();
@@ -84,6 +103,7 @@ async function boot() {
   initComposer({ onSubmit: sendComposer });
   initDrawer({ onUserChange, onProfileEdited: noteProfileEdited, onClearLocal });
   $("btnMemory").addEventListener("click", () => askMemory());
+  initPrivacyNotice();
 
   try {
     await ensureSession();

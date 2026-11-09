@@ -16,6 +16,18 @@
 <body class="app chat-app">
   <a class="skip-link" href="#composerInput">跳到输入框</a>
 
+  <!-- 一次性告知：只在本机记一个标记，不发给服务端 -->
+  <div class="privacy-banner" id="privacyBanner" hidden>
+    <p class="privacy-text">
+      你告诉我的心愿、出发地和同行人会被记住，用来下次直接给你推荐；
+      可以随时在「记忆」里查看、修改或删除。
+    </p>
+    <div class="privacy-actions">
+      <button type="button" class="btn btn-quiet btn-sm" id="privacyOpenMemory">看看记住了什么</button>
+      <button type="button" class="btn btn-primary btn-sm" id="privacyDismiss">知道了</button>
+    </div>
+  </div>
+
   <header class="app-header chat-header">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true">助</span>

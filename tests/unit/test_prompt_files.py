@@ -14,7 +14,7 @@ from app.prompts import file_version, load_prompt
 
 
 @pytest.mark.parametrize("name,version,text", [
-    ("chat.persona", "v2", PERSONA),
+    ("chat.persona", "v3", PERSONA),
     ("chat.crisis_note", "v1", CRISIS_NOTE),
     ("chat.risk_classifier", "v1", _RISK_SYS),
     ("chat.ask_guide", "v2", ASK_GUIDE),

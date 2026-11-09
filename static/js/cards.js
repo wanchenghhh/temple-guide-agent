@@ -411,3 +411,169 @@ export function memoryCard(entry, ctx) {
   paint();
   return root;
 }
+
+/* ---------------- Temple recommendation / detail card ---------------- */
+
+function templeTitle(card, count) {
+  const wish = card.wish || "";
+  if (card.kind === "temple_detail") return wish ? `${wish} · 这座寺庙` : "寺庙详情";
+  if (card.kind === "temple_compare") return wish ? `${wish} · 两座对比` : "寺庙对比";
+  if (card.generic_wish) {
+    return wish ? `${wish} · 按能上香挑的 ${count} 座` : `按能上香挑的 ${count} 座`;
+  }
+  return wish ? `${wish} · 候选 ${count} 座` : `候选 ${count} 座`;
+}
+
+function templeWishLine(wish) {
+  const bits = [h("strong", { text: wish.theme })];
+  if (wish.basis) bits.push(h("span", { class: "temple-basis", text: `（${wish.basis}）` }));
+  return h("p", { class: "temple-wish" }, [
+    ...bits,
+    h("span", { class: `tag${wish.evidence === "民间口碑" ? " tag-amber" : ""}`, text: wish.evidence }),
+    h("span", { class: "temple-claim", text: wish.claim || "" }),
+  ]);
+}
+
+function templeItem(item, index) {
+  const headTags = [tag(item.place_type || "寺庙", item.prayable ? "" : "tag-amber")];
+  if (item.distance_km != null) headTags.push(tag(`直线 ${item.distance_km} km`));
+  const rows = [
+    h("div", { class: "temple-head" }, [
+      h("span", { class: "temple-index", text: String(index + 1) }),
+      h("h4", { class: "temple-name", text: item.name }),
+      item.district ? h("span", { class: "temple-district", text: item.district }) : null,
+      h("div", { class: "card-tags" }, headTags),
+    ]),
+  ];
+  (item.wishes || []).forEach((wish) => rows.push(templeWishLine(wish)));
+  if (item.recommend_note) rows.push(note(item.recommend_note, "warn"));
+  if ((item.closure || []).length) rows.push(note(item.closure.join("、"), "warn"));
+  if (item.open_note) rows.push(h("p", { class: "card-note", text: item.open_note }));
+  if (item.distance_note) rows.push(h("p", { class: "card-foot", text: item.distance_note }));
+  if ((item.sources || []).length) {
+    const links = item.sources.map((src, i) =>
+      h("a", {
+        class: "temple-source",
+        href: src.url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        text: src.publisher || `来源 ${i + 1}`,
+      })
+    );
+    rows.push(h("p", { class: "card-foot" }, [h("span", { text: "来源：" }), ...links]));
+  } else {
+    rows.push(h("p", { class: "card-foot", text: "来源：暂未核实，请以官方公告为准" }));
+  }
+  return h("div", { class: "temple-item" }, rows);
+}
+
+function templeTravel(travel) {
+  if (!travel) return null;
+  const box = h("div", { class: "temple-travel" });
+  box.append(h("p", { class: "temple-travel-title", text: "行前信息" }));
+  const route = travel.route;
+  if (route) {
+    const bits = [`${route.mode || "路线"}`];
+    if (route.distance_km != null) bits.push(`约 ${route.distance_km} 公里`);
+    if (route.duration_min != null) bits.push(`约 ${route.duration_min} 分钟`);
+    box.append(h("p", { class: "temple-travel-row" }, [
+      h("span", { class: "tag", text: "路线" }),
+      h("span", { text: bits.join(" · ") }),
+      h("span", { class: "temple-review-date", text: route.checked_at || "" }),
+    ]));
+  }
+  const weather = travel.weather;
+  if (weather) {
+    const temp = weather.temp_min != null && weather.temp_max != null
+      ? `${weather.temp_min}~${weather.temp_max}℃` : "";
+    box.append(h("p", { class: "temple-travel-row" }, [
+      h("span", { class: "tag", text: "天气" }),
+      h("span", { text: [weather.date, weather.text, temp, weather.wind].filter(Boolean).join(" · ") }),
+      h("span", { class: "temple-review-date", text: weather.checked_at || "" }),
+    ]));
+  }
+  (travel.notes || []).forEach((text) => box.append(h("p", { class: "card-note", text })));
+  box.append(h("p", { class: "card-foot", text: "路线耗时与天气是接口给的预计值，出发前请再查一次。" }));
+  return box;
+}
+
+function templeReviews(reviews) {
+  const wrap = h("div", { class: "temple-reviews" });
+  wrap.append(h("p", { class: "temple-reviews-title", text: "网友怎么说" }));
+  if (!reviews || !Array.isArray(reviews.items) || !reviews.items.length) {
+    wrap.append(h("p", { class: "card-foot", text: (reviews && reviews.empty_note) || "没有找到相关的公开分享" }));
+    return wrap;
+  }
+  reviews.items.forEach((item) => {
+    wrap.append(
+      h("div", { class: "temple-review" }, [
+        h("p", { class: "temple-review-head" }, [
+          h("span", { class: `tag${item.ugc ? " tag-amber" : ""}`, text: item.site || "网页" }),
+          item.published ? h("span", { class: "temple-review-date", text: item.published }) : null,
+          h("a", {
+            class: "temple-source",
+            href: item.url,
+            target: "_blank",
+            rel: "noopener noreferrer",
+            text: "原文",
+          }),
+        ]),
+        h("p", { class: "temple-review-title", text: item.title || "" }),
+        item.snippet ? h("p", { class: "temple-review-snippet", text: item.snippet }) : null,
+      ])
+    );
+  });
+  wrap.append(h("p", { class: "card-foot", text: "以上是网友公开分享，不是事实陈述，也不代表祈愿结果。" }));
+  return wrap;
+}
+
+export function templeCard(entry, ctx) {
+  const card = entry.data.card || {};
+  const items = Array.isArray(card.items) ? card.items.slice(0, 3) : [];
+  const sub = [];
+  if (card.origin_name) sub.push(`出发地：${card.origin_name}`);
+  if (card.origin_note) sub.push(card.origin_note);
+  const { root } = cardShell("temple", {
+    title: templeTitle(card, items.length),
+    sub: sub.join(" · "),
+    tags: [tag(`${items.length} 座`, "tag-amber")],
+    restored: ctx.restored,
+    label: "寺庙候选",
+  });
+  if (card.generic_note) root.append(note(card.generic_note));
+  if (card.missing) root.append(note(card.missing, "warn"));
+  items.forEach((item, i) => root.append(templeItem(item, i)));
+  const travel = templeTravel(card.travel);
+  if (travel) root.append(travel);
+  if (card.reviews) root.append(templeReviews(card.reviews));
+  if (card.has_unverified_sources) {
+    root.append(h("p", { class: "card-foot", text: "部分来源未核实：以寺院或博物馆官方公告为准。" }));
+  }
+  root.append(h("p", { class: "card-foot", text: "距离为直线距离（非行车距离），实际车程看路况；开放时间与门票请临行复核。" }));
+  if (typeof ctx.reportTemple === "function" && items.length) {
+    const note = h("p", { class: "card-note", hidden: true });
+    root.append(
+      h("div", { class: "card-actions" }, [
+        h("button", {
+          type: "button",
+          class: "btn btn-ghost btn-sm",
+          text: "资料有误？",
+          onClick: async (event) => {
+            const target = event.currentTarget;
+            target.disabled = true;
+            try {
+              const msg = await ctx.reportTemple(items[0].name);
+              note.textContent = msg;
+              note.className = "card-note is-warn";
+              note.hidden = false;
+            } finally {
+              target.disabled = false;
+            }
+          },
+        }),
+      ]),
+      note
+    );
+  }
+  return root;
+}

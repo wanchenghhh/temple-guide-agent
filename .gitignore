@@ -4,6 +4,8 @@ __pycache__/
 *.pyo
 data/
 .env
+.env.bak*
+.env.local
 *.db
 *.db-shm
 *.db-wal

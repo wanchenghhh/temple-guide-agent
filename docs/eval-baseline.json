@@ -1,0 +1,33 @@
+{
+  "mode": "live",
+  "total": 50,
+  "passed": 50,
+  "pass_rate": 1.0,
+  "traceable_rate": 1.0,
+  "latency_p50_ms": 3842.9,
+  "latency_p95_ms": 5349.9,
+  "by_category": {
+    "就近": {
+      "total": 10,
+      "passed": 10
+    },
+    "专程": {
+      "total": 10,
+      "passed": 10
+    },
+    "指定寺庙": {
+      "total": 10,
+      "passed": 10
+    },
+    "行前": {
+      "total": 10,
+      "passed": 10
+    },
+    "红线": {
+      "total": 10,
+      "passed": 10
+    }
+  },
+  "warnings": 0,
+  "failures": []
+}

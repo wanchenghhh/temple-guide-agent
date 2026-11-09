@@ -7,6 +7,9 @@ services:
     # Free plan has no persistent disk: DATA_DIR (/app/data, all SQLite data) is wiped
     # on every redeploy/restart. Demo only. For real users switch to a paid plan and add
     #   disk: {name: data, mountPath: /app/data, sizeGB: 1}
+    # ⚠️ 免费实例没有持久盘：DATA_DIR 在重启/重新部署时会被清空（记忆、指标、评测全部丢失）。
+    # 真正给人用之前，改成付费实例并挂盘：
+    #   disk: {name: data, mountPath: /app/data, sizeGB: 1}
     plan: free
     region: oregon
     dockerfilePath: ./Dockerfile
@@ -41,6 +44,34 @@ services:
         value: kimi-k3
       - key: KIMI_K3_EFFORT
         value: low
+      # ===== 寺庙向导：外部服务 =====
+      # 高德（路线 + 地理编码）与和风（天气）；缺 key 时行前信息会自动降级为「查不到」
+      - key: AMAP_KEY
+        sync: false
+      - key: QWEATHER_KEY
+        sync: false
+      - key: QWEATHER_HOST
+        sync: false
+      - key: TRAVEL_ENABLED
+        value: "1"
+      - key: TRAVEL_DAILY_CAP
+        value: "300"
+      # 博查：公开分享搜索（评价摘要）；关掉就只给官方资料
+      - key: BOCHA_API_KEY
+        sync: false
+      - key: BOCHA_ENABLED
+        value: "1"
+      - key: BOCHA_DAILY_CAP
+        value: "200"
+      # ===== 成本与限流 =====
+      # 单用户费用上限（元）：超过后提示用户、保留进度
+      - key: AGENT_COST_CAP_FREE_DAILY
+        value: "2"
+      - key: AGENT_COST_CAP_FREE_MONTHLY
+        value: "30"
+      # 每会话每分钟提问上限（0=不限）；防误触循环与刷量
+      - key: CHAT_RATE_PER_MIN
+        value: "30"
       # --- App ---
       - key: DATA_DIR
         value: /app/data

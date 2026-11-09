@@ -279,6 +279,12 @@ export const api = {
   dismissProactive(id) {
     return request(`/api/proactive/items/${enc(id)}/dismiss`, { method: "POST" });
   },
+  reportTemple({ temple, field = "", note = "" }) {
+    return request("/api/temple/report", {
+      method: "POST",
+      json: { temple, field, note },
+    });
+  },
   feedback({ traceId, threadId = "", value, comment = "" }) {
     return request("/api/feedback", {
       method: "POST",

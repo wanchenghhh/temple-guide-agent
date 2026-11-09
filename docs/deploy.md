@@ -31,6 +31,35 @@ Blueprint 已预置：FAST/STRONG 都走 Kimi（`kimi-k2.6` / `kimi-k3`）、`CO
 
 不填任何 LLM Key 也能启动，但聊天走 **mock**（草稿为离线占位稿），仅便于冒烟。
 
+## 寺庙向导专属变量（本仓新增）
+
+| 变量 | 说明 |
+| --- | --- |
+| `AMAP_KEY` | 高德开放平台 Key：地理编码 + 路径规划（行前路线） |
+| `QWEATHER_KEY` / `QWEATHER_HOST` | 和风天气 Key + **专属 API Host**（控制台可见，形如 `https://xxxx.re.qweatherapi.com`） |
+| `TRAVEL_ENABLED` / `TRAVEL_DAILY_CAP` | 行前数据开关与每日额度（默认 1 / 300） |
+| `BOCHA_API_KEY` / `BOCHA_ENABLED` / `BOCHA_DAILY_CAP` | 公开分享搜索（评价摘要）开关与额度（默认 0 / 200） |
+| `CHAT_RATE_PER_MIN` | 每会话每分钟提问上限（建议 30，0=不限） |
+| `AGENT_COST_CAP_FREE_DAILY` / `_MONTHLY` | 单用户费用上限（建议 2 / 30 元） |
+
+> **开关和 key 必须配对**：开着 `TRAVEL_ENABLED=1` 却没配 `AMAP_KEY`，每一轮都会降级成"查不到"——
+> `scripts/preflight.py` 会把这种组合判 FAIL。
+
+## 上线前必读
+
+完整清单在 **[pre-launch-checklist.md](pre-launch-checklist.md)**，一条命令自检：
+
+```bash
+python scripts/preflight.py --online
+```
+
+其中两条最容易被忽略：
+
+1. **Render 免费实例没有持久盘**：`DATA_DIR`（记忆、指标、评测）重启即清空。
+   真正给人用必须换付费实例并挂盘：`disk: {name: data, mountPath: /app/data, sizeGB: 1}`。
+2. **每日备份**：`python scripts/backup_data.py --keep 7`（SQLite 热备份，不锁库），
+   并把 `data/backups` 同步到对象存储或网盘。
+
 ## 部署完成后
 
 1. Render 给一个 `https://xxx.onrender.com` 地址  

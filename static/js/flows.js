@@ -23,6 +23,7 @@ import {
   askCard,
   secretCard,
   memoryCard,
+  templeCard,
 } from "./cards.js?v=__APP_VERSION__";
 import { openSecretSandbox } from "./secret.js?v=__APP_VERSION__";
 import { confirmCard, draftFromResponse } from "./confirm.js?v=__APP_VERSION__";
@@ -46,7 +47,20 @@ const CARDS = {
   ask: askCard,
   secret: secretCard,
   memory: memoryCard,
+  temple: templeCard,
 };
+
+async function reportTemple(temple) {
+  const note = window.prompt("这条资料哪里不对？（例如：周一其实正常开放、门票价格变了）");
+  if (!note || !String(note).trim()) return "没有提交。";
+  try {
+    const res = await api.reportTemple({ temple, field: "资料", note: String(note).trim().slice(0, 300) });
+    const data = (res && res.data) || {};
+    return data.duplicate ? "这条已经有人报过了，谢谢。" : "已记录，谢谢你帮忙纠错。";
+  } catch (err) {
+    return "提交失败，稍后再试。";
+  }
+}
 
 function contextFor(entry, restored) {
   if (entry.type === "schedule_confirm") {
@@ -68,6 +82,7 @@ function contextFor(entry, restored) {
   }
   return {
     restored,
+    reportTemple,
     focusComposer,
     openDrawer: (field) => openDrawer({ focusField: field }),
     dismissProactive,
@@ -306,7 +321,13 @@ function handleChat(res, owner, revision) {
   if (reply || !ask) say(reply || "收到。", meta);
   if (ask) emitAsk(ask, reply);
   if (data.schedule_proposal) emit("schedule_confirm", { proposal: data.schedule_proposal });
+  if (data.temple_card) emitTemple(data.temple_card, res.thread_id);
   if (data.continue_card) emitContinue(data.continue_card, res.thread_id);
+}
+
+function emitTemple(card, threadId) {
+  if (!card || typeof card !== "object" || !Array.isArray(card.items) || !card.items.length) return null;
+  return emit("temple", { card, threadId: threadId || "" });
 }
 
 /* ---------------- Draft → confirm card ---------------- */

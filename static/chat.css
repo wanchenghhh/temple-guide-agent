@@ -666,6 +666,106 @@ textarea.field-input.draft-edit {
 }
 .card-memory .card-actions { margin-top: 12px; }
 
+/* ---------- One-time privacy notice ---------- */
+.privacy-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  max-width: var(--log-width);
+  margin: 10px auto 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-control);
+  background: var(--surface-soft);
+}
+.privacy-banner[hidden] { display: none; }
+.privacy-text { flex: 1 1 320px; margin: 0; font-size: 13px; line-height: 1.55; }
+.privacy-actions { display: flex; gap: 8px; }
+
+/* ---------- Temple recommendation card ---------- */
+.card-temple { border-left: 3px solid var(--accent); }
+.temple-item { margin-top: 14px; }
+.temple-item + .temple-item { border-top: 1px solid var(--border); padding-top: 12px; }
+.temple-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.temple-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+.temple-name { margin: 0; font-size: 15px; font-weight: 600; }
+.temple-district { font-size: 12.5px; color: var(--text-tertiary); }
+.temple-wish {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px;
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.temple-basis { color: var(--text-secondary); }
+.temple-claim { color: var(--text-secondary); }
+.temple-source { color: var(--accent); text-decoration: none; margin-right: 10px; }
+.temple-source:hover { text-decoration: underline; }
+
+.temple-travel {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.temple-travel-title {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.temple-travel-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 0;
+  font-size: 13.5px;
+}
+.temple-reviews {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.temple-reviews-title {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.temple-review {
+  padding: 8px 0;
+  border-top: 1px dashed var(--border);
+}
+.temple-review-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.temple-review-date { font-size: 12px; color: var(--text-tertiary); }
+.temple-review-title { margin: 4px 0 0; font-size: 13.5px; }
+.temple-review-snippet { margin: 2px 0 0; font-size: 12.5px; color: var(--text-secondary); }
+
 /* ---------- Reminder / continue cards ---------- */
 .card-proactive { border-left: 3px solid var(--amber); }
 .card-continue { border-left: 3px solid var(--text); }
