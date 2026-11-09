@@ -30,6 +30,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "app" / "agent" / "domain" / "temples.json"
 
+SOURCE_KINDS = {
+    "official": ("official", True),    # 政府/场所官网/官方公告 → 可升级
+    "media": ("media", False),         # 旅游平台/媒体 → 只记录，不升级
+    "folk": ("folk", False),           # 攻略/百科/UGC → 只记录，不升级
+}
+METHODS = {
+    "phone": "电话核对",
+    "official_web": "官方页面核查",
+    "media": "联网资料核查",
+}
+
 OPEN_CHOICES = {
     "yes": ("normal", "可正常参观/上香"),
     "no": ("closed", "不对外开放"),
@@ -60,7 +71,8 @@ def _check_url(url: str, timeout: float = 15.0) -> bool:
 
 
 def _open_note(args: argparse.Namespace, status_label: str) -> str:
-    bits = [f"电话核对（{date.today().isoformat()}）：{status_label}"]
+    method = METHODS.get(args.method, METHODS["media"])
+    bits = [f"{method}（{date.today().isoformat()}）：{status_label}"]
     if args.reservation == "yes":
         bits.append("需提前预约")
     elif args.reservation == "no":
@@ -82,6 +94,12 @@ def apply(args: argparse.Namespace) -> int:
         print(f"找不到寺庙：{args.temple}")
         return 2
 
+    if args.open == "reservation" and args.reservation == "no":
+        print("自相矛盾：--open reservation 表示必须预约，不能再 --reservation no")
+        return 2
+    if args.source and args.source_kind == "official" and not args.method == "phone" and args.no_verify:
+        print("提示：--source-kind official 建议保留 HTTP 校验（去掉 --no-verify）")
+
     changes: list[str] = []
     if args.open:
         key, label = OPEN_CHOICES[args.open]
@@ -94,9 +112,13 @@ def apply(args: argparse.Namespace) -> int:
             temple["open_note"] = note
     if args.closure:
         closure = CLOSURE_MAP[args.closure]
-        if temple.get("closure_rule") != closure:
-            changes.append(f"closure_rule: {temple.get('closure_rule')} → {closure}")
-            temple["closure_rule"] = closure
+        existing = list(temple.get("closure_rule") or [])
+        merged = list(dict.fromkeys(existing + closure)) if args.merge_closure else closure
+        if merged != existing:
+            changes.append(f"closure_rule: {existing} → {merged}")
+            temple["closure_rule"] = merged
+        elif existing:
+            changes.append("closure_rule 未变（已包含这些规则）")
 
     if args.source:
         ok = _check_url(args.source) if not args.no_verify else True
@@ -104,12 +126,27 @@ def apply(args: argparse.Namespace) -> int:
             print(f"来源链接打不开，未采纳：{args.source}")
             return 1
         publisher = args.publisher or "核对来源"
+        kind, upgrades = SOURCE_KINDS[args.source_kind]
         sources = temple.setdefault("sources", [])
         if all(s["url"] != args.source for s in sources):
             sources.append({"url": args.source, "publisher": publisher,
-                            "kind": "official", "checked_at": date.today().isoformat()})
-            changes.append(f"新增来源：{publisher}")
-        temple["sources_status"] = "verified"
+                            "kind": kind, "checked_at": date.today().isoformat()})
+            changes.append(f"新增来源（{kind}）：{publisher}")
+        # 只有官方来源或电话确认，才允许把「来源」升级为已核实
+        if upgrades or args.method == "phone":
+            temple["sources_status"] = "verified"
+        else:
+            changes.append(f"来源等级 {kind}：不改动 sources_status（避免把攻略当官方）")
+
+    # 4) 开放信息单独记录证据等级，不与 sources_status / checked_at 混用
+    if args.open or args.closure or args.ticket or args.hours:
+        temple["open_verified_at"] = date.today().isoformat()
+        temple["open_evidence"] = {
+            "method": args.method,
+            "grade": "A" if (args.source_kind == "official" or args.method == "phone") else "C",
+            "source": args.source or "",
+            "note": (args.note or "")[:160],
+        }
 
     if not changes:
         print("没有需要修改的内容（参数没变）")
@@ -147,8 +184,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--closure", choices=list(CLOSURE_MAP), help="闭馆规则")
     ap.add_argument("--ticket", default="", help="门票（如 免费 / 20 元）")
     ap.add_argument("--hours", default="", help="开放时段（如 8:30-16:30）")
-    ap.add_argument("--source", default="", help="官方来源 URL（会当场校验）")
+    ap.add_argument("--source", default="", help="来源 URL（会当场校验）")
+    ap.add_argument("--source-kind", choices=list(SOURCE_KINDS), default="media",
+                    help="来源等级：official 才升级为已核实（默认 media，避免把攻略当官方）")
+    ap.add_argument("--method", choices=list(METHODS), default="media",
+                    help="核实方式：phone 电话 / official_web 官方页面 / media 联网资料（默认）")
     ap.add_argument("--publisher", default="", help="来源名称（如 寺院官网）")
+    ap.add_argument("--merge-closure", action="store_true",
+                    help="把新规则并入已有闭馆规则（默认替换）")
     ap.add_argument("--note", default="", help="备注（会写进 open_note）")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-verify", action="store_true", help="跳过来源 HTTP 校验（不推荐）")

@@ -213,10 +213,10 @@
           "theme": "求子",
           "role": "secondary",
           "source_url": "",
-          "claim": "民间也有到此求子的说法。",
+          "claim": "民间到山上观音寺的送子观音殿求子；该殿供奉送子观音，景区官网自述此尊属中国民间创造、佛典观音三十三身中并无此尊。",
           "claim_evidence": "folk",
-          "basis": "",
-          "basis_source": ""
+          "basis": "观音寺·送子观音殿（送子观音）",
+          "basis_source": "http://hongluosi.com/?p=6463"
         }
       ],
       "atmosphere": "山清水秀，竹林与古寺相映，环境宜人，适合半日游。",
@@ -235,6 +235,12 @@
           "publisher": "红螺寺景区官网",
           "kind": "official",
           "checked_at": "2026-11-07"
+        },
+        {
+          "url": "http://hongluosi.com/?p=6463",
+          "publisher": "红螺寺景区官网（观音寺·观音路）",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "scenic",
@@ -257,7 +263,7 @@
         }
       ],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "红螺寺官网自我标识为「景区官网」，并注明「谢绝带香入园」，景区门票需预约。",
@@ -638,12 +644,18 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1729028/1729037/1729027/436356038/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "category": "汉传佛教（现为古钟博物馆）",
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -652,7 +664,7 @@
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
         "大钟寺古钟博物馆 公众号"
@@ -660,11 +672,18 @@
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "古钟博物馆，周一闭馆，需购票。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；无需预约；门票：30元（优惠15元）；开放时段：周二至周日9:00-17:00（16:30停止售票入馆）；古钟博物馆；官方明示无需预约",
       "lat": 39.96876,
       "lng": 116.33794,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%92%9F%E5%AF%BA"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E9%92%9F%E5%AF%BA",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1729028/1729037/1729027/436356038/index.html",
+        "note": "古钟博物馆；官方明示无需预约"
+      }
     },
     {
       "id": "wofosi",
@@ -699,18 +718,26 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://yllhj.beijing.gov.cn/ztxx/kpjd/202312/t20231222_3508032.shtml",
+          "publisher": "北京市园林绿化局",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "scenic",
       "status_label": "景区/民间信仰",
-      "open_status": "unverified",
-      "closure_rule": [],
+      "open_status": "normal",
+      "closure_rule": [
+        "周一闭馆"
+      ],
       "recommend_note": "此处可参观，但不是上香许愿的宗教活动场所。",
       "sect": "汉传佛教",
       "generic_wish_ok": true,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [],
       "finder_hint": [
         "国家植物园 公众号"
@@ -718,11 +745,18 @@
       "religious_registered": null,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "位于国家植物园内，进入需植物园门票；是否为宗教活动场所待核，按参观场所看待更稳。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；需提前预约；门票：卧佛寺5元；北园门票5元（通票10元）；开放时段：夏季8:00-17:30；冬季8:30-17:00；周一闭的是园中园（卧佛寺/温室），北园门区照常开放",
       "lat": 40.00727,
       "lng": 116.20683,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8D%81%E6%96%B9%E6%99%AE%E8%A7%89%E5%AF%BA"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8D%81%E6%96%B9%E6%99%AE%E8%A7%89%E5%AF%BA",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://yllhj.beijing.gov.cn/ztxx/kpjd/202312/t20231222_3508032.shtml",
+        "note": "周一闭的是园中园（卧佛寺/温室），北园门区照常开放"
+      }
     },
     {
       "id": "dajuesi",
@@ -747,18 +781,24 @@
           "publisher": "北京市文物局",
           "kind": "official",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1731063/1727765/1727766/index.html",
+          "publisher": "北京市文物局",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [],
       "recommend_note": "此处现为文博/参观场所，不是上香许愿的寺院；可以去看建筑与氛围，但别当成拜佛求愿的地方。",
       "sect": "汉传佛教",
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：北京大觉寺与团城管理处。",
@@ -773,11 +813,18 @@
       "religious_registered": false,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "文博开放场所（北京大觉寺与团城管理处），开放时间以官方公告为准。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；无需预约；门票：20元；开放时段：9:00-17:00（16:30停止售票）；大觉寺本体不闭周一；周一是同管理处的团城演武厅闭馆，勿混",
       "lat": 40.05247,
       "lng": 116.10657,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E8%A7%89%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E8%A7%89%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1731063/1727765/1727766/index.html",
+        "note": "大觉寺本体不闭周一；周一是同管理处的团城演武厅闭馆，勿混"
+      }
     },
     {
       "id": "lingguangsi",
@@ -1030,11 +1077,17 @@
           "publisher": "北京市文物局",
           "kind": "official",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://www.beijing.gov.cn/renwen/sy/whkb/202604/t20260422_4603150.html",
+          "publisher": "北京市人民政府",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -1043,7 +1096,7 @@
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：北京石刻艺术博物馆。",
@@ -1058,11 +1111,18 @@
       "religious_registered": false,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "同一地点两个运营主体：石刻艺术博物馆（售票、周一闭馆）与五塔寺公园（免费），开放时间不同。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；无需预约；门票：石刻馆20元；五塔寺公园免费；开放时段：石刻馆周二至周日9:00-17:00（16:30停止入馆）；公园24小时；同址两个主体：石刻艺术博物馆（售票、周一闭馆）与五塔寺公园（免费）",
       "lat": 39.94492,
       "lng": 116.33035,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E7%9C%9F%E8%A7%89%E5%AF%BA"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E7%9C%9F%E8%A7%89%E5%AF%BA",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://www.beijing.gov.cn/renwen/sy/whkb/202604/t20260422_4603150.html",
+        "note": "同址两个主体：石刻艺术博物馆（售票、周一闭馆）与五塔寺公园（免费）"
+      }
     },
     {
       "id": "wanshousi",
@@ -1088,11 +1148,17 @@
           "publisher": "北京市文物局",
           "kind": "official",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "http://wanshousimuseum.cn/service/index.htm",
+          "publisher": "万寿寺博物馆官网",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -1101,7 +1167,7 @@
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "列入北京市文物局「北京地区备案且正常开放博物馆」名单，名称：万寿寺博物馆。",
@@ -1111,16 +1177,23 @@
         }
       ],
       "finder_hint": [
-        "北京艺术博物馆 公众号"
+        "万寿寺博物馆 公众号（原北京艺术博物馆）"
       ],
       "religious_registered": false,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "北京艺术博物馆，周一闭馆，需购票。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；无需预约；门票：20元（学生10元）；开放时段：9:00-17:00（16:30停止入馆）；官网已更名为万寿寺博物馆；周一闭馆，法定节假日/寒暑假以公众号公示为准",
       "lat": 39.94528,
       "lng": 116.30523,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E4%B8%87%E5%AF%BF%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E4%B8%87%E5%AF%BF%E5%AF%BA%20%28%E5%8C%97%E4%BA%AC%29",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "http://wanshousimuseum.cn/service/index.htm",
+        "note": "官网已更名为万寿寺博物馆；周一闭馆，法定节假日/寒暑假以公众号公示为准"
+      }
     },
     {
       "id": "dahuisi",
@@ -1348,11 +1421,17 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://dym.com.cn/?p=8613/",
+          "publisher": "北京民俗博物馆官网",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -1392,7 +1471,7 @@
         }
       ],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "2008 年 5 月 3 日恢复道教活动场所并颁发宗教活动场所登记证；2015 年 5 月 16 日正式悬挂宗教活动场所标识牌。",
@@ -1413,11 +1492,18 @@
       "religious_registered": true,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "现为北京民俗博物馆，同时自 2008 年起恢复为道教活动场所；两套管理班子并存，中路神像区由道教界管理。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；无需预约；开放时段：8:30-16:30；对外以北京民俗博物馆为准；七十六司自 2025-05-20 封闭修缮；票价未在本次核到的官方页面列明",
       "lat": 39.92361,
       "lng": 116.43778,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E4%B8%9C%E5%B2%B3%E5%BA%99",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://dym.com.cn/?p=8613/",
+        "note": "对外以北京民俗博物馆为准；七十六司自 2025-05-20 封闭修缮；票价未在本次核到的官方页面列明"
+      }
     },
     {
       "id": "huodeshenmiao",
@@ -1574,12 +1660,20 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-06"
+        },
+        {
+          "url": "https://www.bjmtg.gov.cn/mtg11J205/bmdt52/202511/53f34c4c662e4aaf88e6b19db0f98496.shtml",
+          "publisher": "门头沟区妙峰山镇人民政府",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "status": "scenic",
       "status_label": "景区/民间信仰",
-      "open_status": "unverified",
-      "closure_rule": [],
+      "open_status": "normal",
+      "closure_rule": [
+        "冬季闭馆（以公告为准）"
+      ],
       "recommend_note": "此处可参观，但不是上香许愿的宗教活动场所。",
       "sect": "民间信仰",
       "generic_wish_ok": true,
@@ -1636,7 +1730,7 @@
         }
       ],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "妙峰山自重新对外开放之后，一直没有僧人或道士进驻，并非宗教活动场所，只是旅游景区。",
@@ -1669,11 +1763,18 @@
       "religious_registered": false,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "是景区与民间信仰庙宇，并非宗教活动场所（无僧道进驻）；庙会期间香火最盛。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；开放时段：金顶景区冬季8:30-16:30（以公告为准）；官方网站2025-11-17起闭园的是森林公园景区（冬季防火+检修），金顶娘娘庙景区另计；出行前必须电话确认",
       "lat": 39.9757,
       "lng": 116.05024,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%A6%99%E5%B3%B0%E5%B1%B1",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "https://www.bjmtg.gov.cn/mtg11J205/bmdt52/202511/53f34c4c662e4aaf88e6b19db0f98496.shtml",
+        "note": "官方网站2025-11-17起闭园的是森林公园景区（冬季防火+检修），金顶娘娘庙景区另计；出行前必须电话确认"
+      }
     },
     {
       "id": "kongmiao",
@@ -1723,12 +1824,18 @@
           "publisher": "维基百科",
           "kind": "reference",
           "checked_at": "2026-11-07"
+        },
+        {
+          "url": "http://www.kmgzj.com/cgzn/",
+          "publisher": "孔庙和国子监博物馆官网",
+          "kind": "official",
+          "checked_at": "2026-11-09"
         }
       ],
       "category": "儒家/文庙",
       "status": "heritage",
       "status_label": "文博点",
-      "open_status": "unverified",
+      "open_status": "normal",
       "closure_rule": [
         "周一闭馆"
       ],
@@ -1737,7 +1844,7 @@
       "generic_wish_ok": false,
       "halls": [],
       "sources_status": "verified",
-      "checked_at": "2026-11-07",
+      "checked_at": "2026-11-09",
       "place_facts": [
         {
           "text": "北京市文物局「北京孔庙」页面记录：东城区国子监街13号，孔庙和国子监博物馆。",
@@ -1765,11 +1872,18 @@
       "religious_registered": false,
       "visitable": true,
       "wish_recommendable": true,
-      "open_note": "文博开放场所，周一闭馆，需预约购票。",
+      "open_note": "官方页面核查（2026-11-09）：可正常参观/上香；需提前预约；门票：30元（半价15元）；开放时段：9:00-17:00（16:30停止入馆）；需通过官方公众号票务服务购票；全年周一闭馆（节日期间除外）",
       "lat": 39.94511,
       "lng": 116.40831,
       "coord_note": "",
-      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%AD%94%E5%BA%99"
+      "coord_source": "https://zh.wikipedia.org/wiki/%E5%8C%97%E4%BA%AC%E5%AD%94%E5%BA%99",
+      "open_verified_at": "2026-11-09",
+      "open_evidence": {
+        "method": "official_web",
+        "grade": "A",
+        "source": "http://www.kmgzj.com/cgzn/",
+        "note": "需通过官方公众号票务服务购票；全年周一闭馆（节日期间除外）"
+      }
     },
     {
       "id": "lidaidiwangmiao",

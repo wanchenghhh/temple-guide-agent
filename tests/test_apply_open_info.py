@@ -52,13 +52,64 @@ def test_partial_answer_is_allowed(sandbox, monkeypatch):
     assert temple["open_status"] == "unverified"      # limited 仍算未完全核实
 
 
+def test_only_official_source_upgrades_status(sandbox, monkeypatch):
+    """默认 media：能打开也不许把攻略当官方。"""
+    code = _run(monkeypatch, "--temple", "白云观", "--open", "yes",
+                "--source", "https://example.com/ctrip", "--publisher", "某攻略站")
+    assert code == 0
+    temple = _temple(sandbox, "白云观")
+    assert any(s["url"] == "https://example.com/ctrip" for s in temple["sources"])
+    assert temple["sources"].pop()["kind"] == "media"
+
+
+def test_media_source_does_not_upgrade_when_unverified(sandbox, monkeypatch):
+    data = json.loads(sandbox.read_text(encoding="utf-8"))
+    for t in data["temples"]:
+        if t["name"] == "大悲寺":
+            t["sources"] = []
+            t["sources_status"] = "unverified"
+    sandbox.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    _run(monkeypatch, "--temple", "大悲寺", "--open", "yes",
+         "--source", "https://example.com/blog", "--source-kind", "folk")
+    assert _temple(sandbox, "大悲寺")["sources_status"] == "unverified"
+
+
 def test_source_is_verified_before_adoption(sandbox, monkeypatch):
     code = _run(monkeypatch, "--temple", "白云观", "--open", "yes",
-                "--source", "https://example.com/baiyun", "--publisher", "白云观官网")
+                "--source", "https://example.com/baiyun", "--publisher", "白云观官网",
+                "--source-kind", "official", "--method", "official_web")
     assert code == 0
     temple = _temple(sandbox, "白云观")
     assert temple["sources_status"] == "verified"
     assert any(s["url"] == "https://example.com/baiyun" for s in temple["sources"])
+
+
+def test_method_decides_the_note_wording(sandbox, monkeypatch):
+    """联网查的不能写成「电话核对」——那是伪造证据来源。"""
+    _run(monkeypatch, "--temple", "万寿寺", "--open", "yes", "--method", "official_web")
+    note = _temple(sandbox, "万寿寺")["open_note"]
+    assert "官方页面核查" in note and "电话核对" not in note
+    assert _temple(sandbox, "万寿寺")["open_verified_at"]
+
+    _run(monkeypatch, "--temple", "法源寺", "--open", "yes", "--method", "phone")
+    assert "电话核对" in _temple(sandbox, "法源寺")["open_note"]
+
+
+def test_closure_merges_instead_of_overwriting(sandbox, monkeypatch):
+    data = json.loads(sandbox.read_text(encoding="utf-8"))
+    for t in data["temples"]:
+        if t["name"] == "孔庙和国子监":
+            t["closure_rule"] = ["周一闭馆"]
+    sandbox.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    _run(monkeypatch, "--temple", "孔庙和国子监", "--open", "yes",
+         "--closure", "mon-tue", "--merge-closure")
+    rules = _temple(sandbox, "孔庙和国子监")["closure_rule"]
+    assert "周一闭馆" in rules and "周二闭馆" in rules
+
+
+def test_contradictory_arguments_are_rejected(sandbox, monkeypatch):
+    code = _run(monkeypatch, "--temple", "白云观", "--open", "reservation", "--reservation", "no")
+    assert code == 2
 
 
 def test_dead_source_is_rejected_and_nothing_written(sandbox, monkeypatch):

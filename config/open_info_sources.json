@@ -1,0 +1,205 @@
+{
+  "schema": "open_info_sources.v1",
+  "generated_at": "2026-11-09",
+  "policy": {
+    "writable_source_kind": "official",
+    "request_delay_seconds": 2,
+    "timeout_seconds": 20,
+    "user_agent": "TempleGuide/open-info-weekly (public page audit)",
+    "note": "只登记无需登录、可公开访问的网页。kind=official 的链接才允许作为 --source 落地；kind=media 只作变更提示。微信公众号与小程序不纳入自动抓取：无公开历史文章列表 API、小程序请求带动态签名、临时链接会过期，且多数场所根本没有号/小程序。"
+  },
+  "sources": [
+    {
+      "temple": "灵光寺",
+      "publisher": "北京灵光寺官网",
+      "url": "http://www.lingguangsi.com/",
+      "kind": "official",
+      "fields": ["hours", "closure", "reservation"],
+      "note": "寺院通告列表：佛牙舍利瞻礼期、临时暂停开放公告在此发布。首页改版会导致解析失效。"
+    },
+    {
+      "temple": "灵光寺",
+      "publisher": "石景山区人民政府·八大处公园",
+      "url": "https://www.bjsjs.gov.cn/sjsfc/sjslycx/202502/t20250206_476028.shtml",
+      "kind": "official",
+      "fields": ["ticket", "hours"],
+      "note": "公园票价与分季止票时间；灵光寺、大悲寺共用这张票。"
+    },
+    {
+      "temple": "白云观",
+      "publisher": "北京白云观官网",
+      "url": "https://beijingbyg.com/index.html",
+      "kind": "official",
+      "fields": ["ticket", "hours", "reservation"],
+      "note": "开放类公告最新停留在 2021/2022；一旦出现新公告，优先级最高。"
+    },
+    {
+      "temple": "卧佛寺",
+      "publisher": "国家植物园官网",
+      "url": "https://www.chnbg.cn/",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "门区与卧佛寺分时列表；周一闭的是园中园，北园门区照常开放。"
+    },
+    {
+      "temple": "卧佛寺",
+      "publisher": "北京市园林绿化局",
+      "url": "https://yllhj.beijing.gov.cn/ztxx/kpjd/202312/t20231222_3508032.shtml",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure"],
+      "note": "卧佛寺另收 5 元、星期一闭馆的 A 级依据。"
+    },
+    {
+      "temple": "万寿寺",
+      "publisher": "万寿寺博物馆官网",
+      "url": "http://wanshousimuseum.cn/service/index.htm",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "2026-07-02 由「北京艺术博物馆」更名；旧名资料会误导。"
+    },
+    {
+      "temple": "东岳庙",
+      "publisher": "北京民俗博物馆官网",
+      "url": "https://dym.com.cn/",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "双主体，但售票与开放时间只认东岳庙管理处的公告。"
+    },
+    {
+      "temple": "五塔寺",
+      "publisher": "北京市人民政府·参观指南",
+      "url": "https://www.beijing.gov.cn/renwen/sy/whkb/202604/t20260422_4603150.html",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "石刻艺术博物馆口径；五塔寺公园是另一个免费主体。"
+    },
+    {
+      "temple": "五塔寺",
+      "publisher": "北京市园林绿化局·五塔寺公园",
+      "url": "https://yllhj.beijing.gov.cn/ggfw/bjsggml/yy/hdq/202507/t20250722_4155008.shtml",
+      "kind": "official",
+      "fields": ["hours", "reservation"],
+      "note": "免费、全天、无需预约的公园侧口径。"
+    },
+    {
+      "temple": "大觉寺",
+      "publisher": "北京市文物局·参观须知",
+      "url": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1731063/1727765/1727766/index.html",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "同页并列团城演武厅（周一闭馆、免费），勿把它的规则套到大觉寺。"
+    },
+    {
+      "temple": "大钟寺",
+      "publisher": "北京市文物局·参观须知",
+      "url": "https://wwj.beijing.gov.cn/bjww/wwjzzcslm/1729028/1729037/1729027/436356038/index.html",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "现行 30 元/9:00-17:00；首都之窗 2023 页的 20 元是旧价。"
+    },
+    {
+      "temple": "妙峰山",
+      "publisher": "门头沟政务网·冬季闭园公告",
+      "url": "https://www.bjmtg.gov.cn/mtg11J205/bmdt52/202511/53f34c4c662e4aaf88e6b19db0f98496.shtml",
+      "kind": "official",
+      "fields": ["closure", "hours"],
+      "note": "主语是妙峰山森林公园景区，不是金顶景区；两片区域规则不同。"
+    },
+    {
+      "temple": "妙峰山",
+      "publisher": "门头沟政务网·冬季营业时间",
+      "url": "https://www.bjmtg.gov.cn/mtg11J205/bmdt52/202610/5b41f8b5cca344dd9af46a51ca99606a.shtml",
+      "kind": "official",
+      "fields": ["hours", "ticket"],
+      "note": "金顶景区冬季 8:30 营业、16:30 止票。"
+    },
+    {
+      "temple": "妙应寺",
+      "publisher": "北京市文物局",
+      "url": "https://wwj.beijing.gov.cn/bjww/362679/483700/743575655/index.html",
+      "kind": "official",
+      "fields": ["hours", "closure"],
+      "note": "管理方为北京市白塔寺管理处；预约渠道主要在公众号，需人工投喂。"
+    },
+    {
+      "temple": "孔庙和国子监",
+      "publisher": "孔庙和国子监博物馆官网·参观指南",
+      "url": "http://www.kmgzj.com/cgzn/",
+      "kind": "official",
+      "fields": ["ticket", "hours", "closure", "reservation"],
+      "note": "该站常出现连接失败，抓取失败属预期，报告里会单列并提示人工看。"
+    },
+    {
+      "temple": "孔庙和国子监",
+      "publisher": "孔庙和国子监博物馆官网·2026-06-30 公告",
+      "url": "http://www.kmgzj.com/common/index.aspx?nodeid=63&page=ContentPage&contentid=1497",
+      "kind": "official",
+      "fields": ["hours", "closure"],
+      "note": "8/31 起恢复周一闭馆、9:00-17:00，是判定现行时段的最强依据。"
+    },
+    {
+      "temple": "慈寿寺",
+      "publisher": "北京市园林绿化局·玲珑公园",
+      "url": "https://yllhj.beijing.gov.cn/ggfw/bjsggml/zhgy/hdq/202206/t20220614_2740334.shtml",
+      "kind": "official",
+      "fields": ["hours", "reservation"],
+      "note": "寺院已毁，只监测公园；官网只写非全时开放，具体时刻无 A 级来源。"
+    },
+    {
+      "temple": "潭柘寺",
+      "publisher": "首都之窗·景区页",
+      "url": "https://www.beijing.gov.cn/renwen/rwzyd/lyjq/4A/tz/202210/t20221020_2839806.html",
+      "kind": "official",
+      "fields": ["ticket", "hours"],
+      "note": "页面自带「以景区当日实际公示为准」免责；预约口径以景区公众号为准。"
+    },
+    {
+      "temple": "云居寺",
+      "publisher": "北京市人民政府·2026-10-15 公告",
+      "url": "https://www.beijing.gov.cn/fuwu/bmfw/sy/jrts/202610/t20261015_4903302.html",
+      "kind": "official",
+      "fields": ["closure", "hours"],
+      "note": "仅为静态公告，预约与联票价格无 2026 官方明文，仍需人工确认。"
+    },
+    {
+      "temple": "戒台寺",
+      "publisher": "北京旅游网·景区页",
+      "url": "https://s.visitbeijing.com.cn/attraction/101507",
+      "kind": "media",
+      "fields": ["ticket", "hours"],
+      "note": "B 级：45 元缺政府定价一手页。仅作变更提示，严禁作为 --source 落地。"
+    },
+    {
+      "temple": "和平寺",
+      "publisher": "昌平区人民政府",
+      "url": "https://www.bjchp.gov.cn/cpqzf/ywdt26/zwxmt/apptt/2026110618540930153/index.html",
+      "kind": "official",
+      "fields": ["closure"],
+      "note": "只能佐证当前开放状态；开放时段三源冲突、无官方电话。"
+    },
+    {
+      "temple": "大悲寺",
+      "publisher": "北京市佛教协会·寺院简介",
+      "url": "https://www.beijingfojiao.com/bjsy/19.html",
+      "kind": "official",
+      "fields": ["closure"],
+      "note": "只证明宗教活动场所属性；寺院自身 08:00-14:30 仅 C 级，需电话。"
+    }
+  ],
+  "manual": [
+    {"temple": "法源寺", "priority": "P1", "reason": "中国佛学院官网只有沿革与殿堂，不写开放规则；教学区封闭范围、停止入场时间需电话", "channel": "法源寺 / 中国佛学院"},
+    {"temple": "天宁寺", "priority": "P1", "reason": "市佛协页只有寺院介绍；「无需预约 vs 预约平台」「无闭馆日 vs 周一闭馆」两组冲突", "channel": "北京市佛教协会"},
+    {"temple": "广化寺", "priority": "P0", "reason": "开放日依农历初一十五及佛菩萨圣诞逐月变动，公告只在「北京广化寺」公众号", "channel": "公众号人工投喂 + 电话"},
+    {"temple": "广济寺", "priority": "P1", "reason": "无官方页面，开放时段有 5 个版本；法会日提前开门", "channel": "中国佛教协会 / 电话"},
+    {"temple": "通教寺", "priority": "P0", "reason": "零 A 级来源；朔望日法会、平日仅前院、结夏安居三说对立，安居按农历换算", "channel": "电话（010-64055918 仅 C 级线索，需先验证）"},
+    {"temple": "云居寺", "priority": "P0", "reason": "2026 年是否仍强制实名预约、官方联票价、停止入园时间均无官方明文", "channel": "景区 010-61389604 / 61389612"},
+    {"temple": "和平寺", "priority": "P0", "reason": "免费但属宗教活动场所，修缮工程在建，时段三源冲突，无官方电话", "channel": "市佛协 / 昌平区文旅局转接"},
+    {"temple": "大悲寺", "priority": "P0", "reason": "寺院自身开放时段仅 C 级 OTA 标注 08:00-14:30，与公园 18:00 止票差 3.5 小时", "channel": "八大处公园 010-88964661"},
+    {"temple": "妙应寺", "priority": "P1", "reason": "预约渠道四个版本并存；淡旺季口径官方与攻略冲突", "channel": "白塔寺管理处 010-66166099"},
+    {"temple": "戒台寺", "priority": "P1", "reason": "45 元仅 B 级依据，停止入园时刻官方未单列；千佛阁、大悲殿修缮范围动态", "channel": "景区 010-69806611"},
+    {"temple": "潭柘寺", "priority": "P0", "reason": "预约口径最大冲突（实名分时 vs 现场窗口 vs 无窗口），渠道名 5 种", "channel": "景区 010-60861699"},
+    {"temple": "妙峰山", "priority": "P0", "reason": "冬季防火期，A 级闭园公告与 B 级「闭园状态」报道并存，当日是否开放必须问", "channel": "景区 010-61882936"},
+    {"temple": "慈寿寺", "priority": "P2", "reason": "无寺院可致电；冬季准确开闭园时刻有 4 个 B/C 版本", "channel": "海淀区公园管理中心 010-85230016"},
+    {"temple": "灵光寺", "priority": "P0", "reason": "佛牙舍利塔仅瞻礼期入塔，按批次公告；11 月安排需确认", "channel": "寺院 88960590 / 园区 010-88964661"}
+  ]
+}
