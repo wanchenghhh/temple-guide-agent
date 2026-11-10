@@ -448,7 +448,7 @@ function templeBooking(booking) {
   if (booking.window) box.append(note(`预约规则：${booking.window}`));
   if (booking.booking_opens_on) box.append(note(`按资料规则推算的预约起始日期：${booking.booking_opens_on}，以官方实际放票为准。`));
   if (booking.timing_note && ["required", "mixed"].includes(booking.reservation)) box.append(note(booking.timing_note));
-  if (booking.reservation !== "not_required") box.append(note(booking.availability_note));
+  if (booking.show_availability_note) box.append(note(booking.availability_note));
   if ((booking.channels || []).length) box.append(note(`核实渠道：${booking.channels.join("、")}`));
   const details = h("details", {}, [h("summary", { text: "查看已收录规则" })]);
   if (booking.recorded_rule) details.append(note(booking.recorded_rule));
@@ -461,7 +461,7 @@ function templeBooking(booking) {
   return box;
 }
 
-function templeItem(item, index) {
+function templeItem(item, index, ctx) {
   const headTags = [tag(item.place_type || "寺庙", item.prayable ? "" : "tag-amber")];
   if (item.distance_km != null) headTags.push(tag(`直线 ${item.distance_km} km`));
   const rows = [
@@ -472,6 +472,10 @@ function templeItem(item, index) {
       h("div", { class: "card-tags" }, headTags),
     ]),
   ];
+  if (item.atmosphere) rows.push(h("p", { class: "card-note", text: `环境描述：${item.atmosphere}` }));
+  if (item.accessibility && !(item.condition_checks || []).some((check) => ["no_climbing", "elderly"].includes(check.condition))) {
+    rows.push(h("p", { class: "card-note", text: `参访体力：${item.accessibility}` }));
+  }
   (item.wishes || []).forEach((wish) => rows.push(templeWishLine(wish)));
   if (item.recommend_note) rows.push(note(item.recommend_note, "warn"));
   if ((item.closure || []).length) rows.push(note(item.closure.join("、"), "warn"));
@@ -507,6 +511,12 @@ function templeItem(item, index) {
     rows.push(h("p", { class: "card-foot" }, [h("span", { text: "来源：" }), ...links]));
   } else {
     rows.push(h("p", { class: "card-foot", text: "来源：暂未核实，请以官方公告为准" }));
+  }
+  if (typeof ctx?.refineTemple === "function") {
+    rows.push(h("div", { class: "card-actions" }, [
+      h("button", { type: "button", class: "btn btn-ghost btn-sm", text: "了解这座寺庙", onClick: () => ctx.refineTemple(`想进一步了解${item.name}，它有什么特色和参访注意事项？`) }),
+      h("button", { type: "button", class: "btn btn-quiet btn-sm", text: "看看公开分享", onClick: () => ctx.refineTemple(`${item.name}有没有去过的人分享？`) }),
+    ]));
   }
   return h("div", { class: "temple-item" }, rows);
 }
@@ -588,16 +598,19 @@ export function templeCard(entry, ctx) {
     restored: ctx.restored,
     label: "寺庙候选",
   });
+  if (card.scope_note) root.append(note(card.scope_note));
   if (card.generic_note) root.append(note(card.generic_note));
   if (card.missing) root.append(note(card.missing, "warn"));
-  items.forEach((item, i) => root.append(templeItem(item, i)));
+  items.forEach((item, i) => root.append(templeItem(item, i, ctx)));
   const travel = templeTravel(card.travel);
   if (travel) root.append(travel);
   if (card.reviews) root.append(templeReviews(card.reviews));
   if (card.has_unverified_sources) {
     root.append(h("p", { class: "card-foot", text: "部分来源未核实：以寺院或博物馆官方公告为准。" }));
   }
-  root.append(h("p", { class: "card-foot", text: "距离为直线距离（非行车距离），实际车程看路况；开放时间与门票请临行复核。" }));
+  root.append(h("p", { class: "card-foot", text: items.some((item) => item.distance_km != null)
+    ? "距离为直线距离（非行车距离），实际车程看路况；开放时间与门票请临行复核。"
+    : "开放、预约和购票安排请在确定出行前向官方渠道核实。" }));
   if (typeof ctx.reportTemple === "function" && items.length) {
     const note = h("p", { class: "card-note", hidden: true });
     root.append(

@@ -240,7 +240,8 @@ def test_search_never_pads_and_has_no_fuzzy_back_door():
     assert domain.search_temples(wish_theme="不存在的主题") == []
     # 曾经用 note 子串兜底，导致“健康”虚胖命中（备注里出现“健康”就算）。
     # 现在只认显式依据：结果里每一座都必须真有一条“健康”依据，不能靠备注蹭。
-    rows = domain.search_temples(wish_theme="健康", district="房山区", limit=5)
+    assert domain.search_temples(wish_theme="健康", district="房山区", limit=5) == []
+    rows = domain.search_temples(wish_theme="健康", limit=5)
     assert rows
     for row in rows:
         assert domain.wish_evidence(row, "健康") is not None, row["id"]

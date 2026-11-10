@@ -1,6 +1,6 @@
 import { $ } from "./core.js?v=__APP_VERSION__";
 
-const DEFAULT_PLACEHOLDER = "和我聊聊，或者说「帮我写一封邮件」";
+const DEFAULT_PLACEHOLDER = "说说你的心愿，或者直接让我推荐寺庙";
 
 let busy = false;
 let submitHandler = null;

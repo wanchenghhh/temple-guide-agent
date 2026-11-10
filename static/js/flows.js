@@ -27,7 +27,7 @@ import {
 } from "./cards.js?v=__APP_VERSION__";
 import { openSecretSandbox } from "./secret.js?v=__APP_VERSION__";
 import { confirmCard, draftFromResponse } from "./confirm.js?v=__APP_VERSION__";
-import { focusComposer } from "./composer.js?v=__APP_VERSION__";
+import { focusComposer, prefillComposer } from "./composer.js?v=__APP_VERSION__";
 import { getProfile, setProfile, openDrawer, refreshSecrets, loadProfile } from "./drawer.js?v=__APP_VERSION__";
 import { cleanAssistantText } from "./text.js?v=__APP_VERSION__";
 
@@ -83,6 +83,7 @@ function contextFor(entry, restored) {
   return {
     restored,
     reportTemple,
+    refineTemple: (text) => prefillComposer(text),
     focusComposer,
     openDrawer: (field) => openDrawer({ focusField: field }),
     dismissProactive,

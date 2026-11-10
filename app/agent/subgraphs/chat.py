@@ -24,7 +24,7 @@ from app.agent.crisis_rules import has_crisis_signal
 from app.agent.router import current_turn_inputs, intent_result_for
 from app.tools.prompt_data import UNTRUSTED_DATA_RULE
 
-PERSONA = load_prompt("chat.persona", "v5")
+PERSONA = load_prompt("chat.persona", "v6")
 
 CRISIS_NOTE = load_prompt("chat.crisis_note", "v1")
 HOTLINE_MARK = "010-82951332"
@@ -220,6 +220,16 @@ def node_chat(state: AgentState) -> dict[str, Any]:
             msg, state.get("profile") or load_profile(state),
             session=conversation.get("temple_session") or {},
         )
+        active_session = conversation.get("temple_session") or {}
+        if built is None and active_session:
+            from app.agent.temple_followup import interpret_followup
+
+            interpretation = interpret_followup(msg, conversation.get("turns") or [])
+            if interpretation is None:
+                interpretation = {"related": True, "clarification": "你想继续调整刚才的寺庙推荐吗？也可以直接说你更在意什么。"}
+            if interpretation.get("related"):
+                built = build_temple_context(msg, state.get("profile") or load_profile(state),
+                                             session=active_session, interpretation=interpretation)
         if built:
             system += built["block"]
             temple_payload = built["payload"]
@@ -298,10 +308,19 @@ def node_chat(state: AgentState) -> dict[str, Any]:
                     # configure a model) instead of pretending the model was slow.
                     fallback=FALLBACK_REPLY if has_llm() else "",
                 )
+        if not crisis and temple_payload:
+            from app.agent.recommendation_reply import recover_recommendation
+
+            raw = recover_recommendation(raw, temple_payload)
         # Scan before parsing can discard or rewrite leaked prompt text.
         profile = load_profile(state)
         raw = guard_text(raw, user_id=uid, profile=profile, inputs=(msg,), where="chat_raw")
         reply, ask = split_reply(raw)
+        if (ask and ask.get("type") in ("single", "multi")
+                and (temple_payload or {}).get("mode") == "recommend"
+                and (temple_payload or {}).get("items")
+                and not any(word in msg for word in ("选项", "选择题", "单选", "多选"))):
+            ask = None
         # Guard before anything is persisted to memory (summary/episodic feed later prompts).
         reply = guard_text(reply, user_id=uid, profile=profile, inputs=(msg,), where="chat_reply")
         # 引用校验：编造的链接直接删，资料里没有的价格/距离/时间标记出来并加提示。

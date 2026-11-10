@@ -282,23 +282,23 @@ export function renderHero({ onChip, onMemory }) {
     h("button", { type: "button", class: "hero-chip", onClick }, [icon(iconName), h("span", { text: label })]);
   const hero = h("section", { class: "hero enter", id: "hero", "aria-labelledby": "heroTitle" }, [
     h("div", { class: "hero-mark", "aria-hidden": "true", text: "助" }),
-    h("h2", { id: "heroTitle", text: "今天有什么我可以帮忙的？" }),
+    h("h2", { id: "heroTitle", text: "想找一处怎样的寺庙？" }),
     h("p", {
       class: "hero-sub",
-      text: "我是你的寺庙寻访向导。说说你的心愿和所在地，我帮你挑能上香、离得近的寺庙，每条都带来源；查不到的我会直说。",
+      text: "说说你的心愿，或直接了解某座寺庙。我会给你几个有来源的选择，再一起比较。",
     }),
     h("p", {
       class: "hero-sub",
-      text: "也可以让我到点提醒你，或者按你的要求定时做点事。",
+      text: "目前收录北京的寺庙与参访场所。不用先填出发地，想就近找时再告诉我位置。",
     }),
     h("div", { class: "hero-actions" }, [
-      chip("doc", "记住我下周三出差", () => onChip("记住我下周三出差")),
-      chip("edit", "帮我写一封请假邮件", () => onChip("帮我写一封请假邮件")),
-      chip("bell", "明早八点提醒我", () => onChip("明早八点提醒我")),
-      chip("sun", "最近有点累", () => onChip("最近有点累")),
+      chip("doc", "周六想去求平安", () => onChip("周六想去寺庙求平安，推荐一下")),
+      chip("edit", "找个安静的地方", () => onChip("想找个安静的寺庙祈福，不限区域")),
+      chip("bell", "带长辈去祈福", () => onChip("想带长辈去祈福，不想爬山")),
+      chip("sun", "了解雍和宫", () => onChip("想先了解雍和宫，再决定去不去")),
       onMemory ? chip("doc", "你记得我什么", onMemory) : null,
     ]),
-    h("p", { class: "hero-note", text: "草稿确认卡不过期，后点的决定会覆盖先点的 · 档案在右上角「档案」里随时可改" }),
+    h("p", { class: "hero-note", text: "可以直接输入，也可以点一个例子开始；条件随时可以调整。" }),
   ]);
   $("log").appendChild(hero);
 }

@@ -143,6 +143,8 @@ def search_temples(
     for order, t in enumerate(all_temples()):
         if not include_unrecommendable and not t.get("wish_recommendable", False):
             continue
+        if dist and dist not in (t.get("district") or ""):
+            continue
         if t.get("open_status") == "closed":
             continue
         if generic and t.get("status") not in PRAYER_STATUSES:

@@ -5,15 +5,15 @@ from app.agent import temple_context as tc
 from app.agent.temple_card import build_card
 
 
-def test_peace_without_location_asks_one_question_instead_of_reporting_no_match():
+def test_peace_without_location_recommends_before_optional_refinement():
     built = tc.build_temple_context('我想找个求平安的')
     payload = built['payload']
     assert payload['query']['message_theme'] == '平安'
-    assert payload['clarification']
-    assert payload['items'] == []
+    assert not payload['clarification']
+    assert payload['items']
     assert 'missing' not in payload
     assert '没有专门' not in built['block']
-    assert build_card(payload) is None
+    assert build_card(payload)
 
 
 def test_location_answer_continues_peace_wish():
@@ -76,8 +76,7 @@ def test_chat_api_clarification_then_location_then_review(client, fake_llm, monk
     monkeypatch.setattr(bocha, 'search_for_temple', search)
     uid = 'peace-flow-' + uuid.uuid4().hex
     first = client.post('/api/chat', json={'user_id': uid, 'message': '我想找个求平安的'}).json()
-    assert '出发' in first['data']['messages'][-1]['content']
-    assert not first['data'].get('temple_card')
+    assert first['data']['temple_card']['items']
     tid = first['thread_id']
     second = client.post('/api/chat', json={'user_id': uid, 'thread_id': tid, 'message': '国贸'}).json()
     card = second['data']['temple_card']
@@ -93,8 +92,8 @@ def test_chat_api_clarification_then_location_then_review(client, fake_llm, monk
 
 def test_district_only_answer_resolves_location_question():
     first = tc.build_temple_context('想求平安')
-    second = tc.build_temple_context('朝阳区', session=first['session'])
-    assert second['payload']['query']['district'] == '朝阳区'
+    second = tc.build_temple_context('东城区', session=first['session'])
+    assert second['payload']['query']['district'] == '东城区'
     assert not second['payload']['clarification']
     assert second['payload']['items']
 

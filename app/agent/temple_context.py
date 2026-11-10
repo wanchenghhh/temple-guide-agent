@@ -187,7 +187,7 @@ def _compact(t: dict[str, Any], origin: dict[str, Any] | None = None,
         "condition_checks": assess_conditions(t, conditions)["checks"],
         "distance_km": km,
         "distance_note": (
-            "未提供可识别的出发地" if origin is None else
+            "" if origin is None else
             (f"距{origin['name']}直线约 {km} 公里（非行车距离）" if km is not None
              else "暂未取到可靠坐标，不能说距离")
         ),
@@ -253,6 +253,18 @@ TEMPLE_DATA_RULE = (
 )
 
 
+def mentioned_district(message: str) -> str | None:
+    return next((district for district in sorted({t["district"] for t in domain.all_temples()})
+                 if district and district in message), None)
+
+
+def location_scope(message: str) -> dict[str, bool]:
+    text = re.sub(r"[，,。！!\s]", "", message or "")
+    anywhere = bool(re.search(r"(?:哪个区|哪些区|哪儿|哪里|区域|地区|地点).{0,4}(?:都行|都可以|不限|无所谓)|(?:不限|不限制|不限定)(?:区域|地区|地点|距离)|全北京", text))
+    ignore_origin = anywhere or bool(re.search(r"(?:不用|不必|不要|不需要|无需|不考虑|别管|不用管).{0,8}(?:出发|距离|位置)|不管.{0,8}出发|直接.{0,6}推荐", text))
+    return {"anywhere": anywhere, "ignore_origin": ignore_origin}
+
+
 def _resolve_followup(message: str, session: dict[str, Any]) -> tuple[str, str]:
     """Resolve only explicit references to candidates from this thread."""
     if mentioned_temples(message) or not session:
@@ -283,7 +295,8 @@ def _resolve_followup(message: str, session: dict[str, Any]) -> tuple[str, str]:
 
 
 def build_temple_context(message: str, profile: dict[str, Any] | None = None,
-                         session: dict[str, Any] | None = None) -> dict[str, Any] | None:
+                         session: dict[str, Any] | None = None,
+                         interpretation: dict[str, Any] | None = None) -> dict[str, Any] | None:
     """Build the grounded payload + prompt block for this turn.
 
     Returns ``None`` when the turn is not temple-related, so the generic agent
@@ -292,17 +305,24 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
     """
     original = (message or "").strip()
     session = dict(session or {})
+    interpretation = interpretation or {}
+    scope = location_scope(original)
+    if interpretation.get("unrestricted"):
+        scope = {"anywhere": True, "ignore_origin": True}
+    explicit_district = mentioned_district(original)
     text, clarification = _resolve_followup(original, session)
+    if interpretation.get("clarification"):
+        clarification = interpretation["clarification"]
     condition_update = is_condition_update(original)
     if not is_temple_turn(original) and any(word in original for word in ("写邮件", "写封", "代码", "翻译", "合同", "文案")):
         return None
-    continuation = bool(session) and (
-        condition_update
+    continuation = bool(session or (profile or {}).get("wish")) and (
+        condition_update or scope["ignore_origin"] or interpretation.get("related")
         or bool(detect_origin(text)) or bool(clarification)
         or any(t['district'] in text for t in domain.all_temples() if t.get('district'))
-        or any(word in text for word in ("近一点", "近点", "附近", "不爬山", "带父母", "带老人", "安静一点", "哪里都行", "都可以", "不怕远", "专程"))
+        or any(word in text for word in ("近一点", "近点", "附近", "就近", "不爬山", "带父母", "带老人", "安静一点", "哪里都行", "都可以", "不怕远", "专程"))
     )
-    if not is_temple_turn(text) and not continuation:
+    if not is_temple_turn(text) and not continuation and not explicit_district:
         return None
 
     profile = {**(profile or {}), **{k: session[k] for k in ("wish", "origin") if session.get(k)}}
@@ -312,23 +332,24 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
     conditions = extract_conditions(original, session.get("conditions"))
     if not clarification:
         clarification = conditions.get("date_clarification") or ""
-    district = None if detect_origin(text) else session.get("district")
-    for d in sorted({t["district"] for t in domain.all_temples()}):
-        if d and d in text:
-            district = d
-            break
-
-    origin_text = detect_origin(text) or str(profile.get("origin") or "").strip()
+    district = explicit_district or (None if detect_origin(text) or scope["anywhere"] else session.get("district"))
+    provided_origin = detect_origin(text)
+    origin_text = provided_origin or ("" if scope["ignore_origin"] or session.get("ignore_origin") else str(profile.get("origin") or "").strip())
+    if scope["ignore_origin"]:
+        origin_text = ""
+    ignore_origin = scope["ignore_origin"] or (bool(session.get("ignore_origin")) and not provided_origin)
     matched_origin = origin_index.match_origin(origin_text)
 
     named_list = mentioned_temples(text)[:3]
     named = named_list[0] if named_list else None
     nearby = any(word in text for word in ("附近", "就近", "越近", "近一点", "近点", "离我近"))
     nearby = nearby or (bool(session.get("nearby")) and not any(word in text for word in ("不怕远", "远一点", "专程")))
-    location_optional = bool(session.get("location_optional")) or any(
+    if scope["ignore_origin"]:
+        nearby = False
+    location_optional = scope["ignore_origin"] or (bool(session.get("location_optional")) and not nearby) or any(
         word in text for word in ("哪里都行", "都可以", "不怕远", "专程", "不限距离")
     )
-    if not clarification and not named_list and not origin_text and not district and not location_optional and (generic or nearby):
+    if not clarification and not named_list and not origin_text and not district and not location_optional and nearby:
         clarification = "可以帮你找适合祈福的地方。你想在北京哪个区域找，或从哪里出发？" if generic else "你想在北京哪里附近找？告诉我大致出发地就可以。"
     rows: list[dict[str, Any]] = []
     if named_list:
@@ -340,16 +361,25 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
         rows = [_compact(t, matched_origin, conditions) for t in matches]
         mode = "recommend"
 
+    if generic and mode == "recommend":
+        for row in rows:
+            row["wish_themes"] = []
+            row["halls"] = []
     if conditions.get("visit_date") or any(word in text for word in ("预约", "买票", "购票", "门票", "放票")):
         for row in rows:
             row["booking_guidance"] = booking_guidance(domain.get_temple(row["name"]), conditions.get("visit_date") or "")
+            row["booking_guidance"]["show_availability_note"] = any(word in text for word in ("余票", "还有票", "剩余名额", "能约到"))
     if clarification:
         rows = []
 
     payload = {
         "clarification": clarification,
+        "scope_note": (
+            f"先按{district or '北京'}范围推荐，暂不按出发距离比较。" if not origin_text else ""
+        ),
         "query": {
             "conditions": conditions,
+            "ignore_origin": ignore_origin,
             "message_theme": theme,
             "generic_wish": generic,
             "district": district,
@@ -371,7 +401,7 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
     }
     if generic:
         payload["generic_note"] = (
-            f"想为自己或家人祈求{theme}，可以结合出发地、参访条件和环境偏好来选择。"
+            f"想为自己或家人祈求{theme}，可以结合参访条件和环境偏好来选择。"
         )
     if origin_text and not matched_origin:
         payload["origin_missing"] = (
@@ -385,6 +415,20 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
             "没有匹配的候选：请如实说明暂未收录，不要凑数，也不要编造寺庙。"
         )
 
+    if not rows and not clarification and district:
+        local_places = [t for t in domain.all_temples() if t.get("district") == district and t.get("visitable")]
+        payload["scope_summary"] = {
+            "district": district,
+            "recorded_places": [{"name": t["name"], "type": t.get("status_label"),
+                                 "note": t.get("recommend_note", "")} for t in local_places[:3]],
+        }
+        names = "、".join(t["name"] for t in local_places[:3])
+        detail = f"目前收录了{names}等参观场所。" if names else "该区目前收录较少。"
+        payload["empty_result_reply"] = (
+            f"{district}在当前资料库中，暂未找到同时符合本次祈福和出行条件的候选。{detail}"
+            "你可以继续了解这些场所的参观信息，或放宽区域后再比较祈福地点。"
+        )
+
     block = (
         "\n\n" + TEMPLE_DATA_RULE + "\n<temple_data>\n"
         + escape(json.dumps(payload, ensure_ascii=False), quote=False)
@@ -392,7 +436,7 @@ def build_temple_context(message: str, profile: dict[str, Any] | None = None,
     )
     next_session = {
         "wish": theme or "", "origin": origin_text, "nearby": nearby, "district": district,
-        "location_optional": location_optional,
+        "location_optional": location_optional, "ignore_origin": ignore_origin,
         "conditions": conditions, "visit_date": conditions.get("visit_date") or "",
         "candidates": [t["id"] for t in named_list] if named_list else [t["id"] for t in matches],
         "focus": named["id"] if named and len(named_list) == 1 else "",
