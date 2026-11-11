@@ -28,5 +28,35 @@
     "source": "https://commons.wikimedia.org/wiki/File:Tanzhe_Temple_.pic.jpg",
     "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
     "src": "/static/images/temples/tanzhe.jpg"
+  },
+  {
+    "id": "hongluo",
+    "name": "红螺寺",
+    "author": "WU Yuchen",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%8C%97%E4%BA%AC%E7%BA%A2%E8%9E%BA%E5%AF%BA.JPG",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/hongluo.jpg"
+  },
+  {
+    "id": "tanzhe-gate",
+    "name": "潭柘寺",
+    "author": "rheins",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:%E6%BD%AD%E6%9F%98%E5%AF%BA%E5%B1%B1%E9%97%A8_-_Entrance_of_Tanzhe_Temple_-_2012.04_-_panoramio.jpg",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/tanzhe-gate.jpg"
+  },
+  {
+    "id": "tanzhe-entry",
+    "name": "潭柘寺",
+    "author": "N509FZ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Entrance_gatetower_of_Tanzhe_Temple_(20251109144630).jpg",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/tanzhe-entry.jpg"
   }
 ]
