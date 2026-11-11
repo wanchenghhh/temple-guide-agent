@@ -24,7 +24,7 @@ from app.agent.crisis_rules import has_crisis_signal
 from app.agent.router import current_turn_inputs, intent_result_for
 from app.tools.prompt_data import UNTRUSTED_DATA_RULE
 
-PERSONA = load_prompt("chat.persona", "v6")
+PERSONA = load_prompt("chat.persona", "v8")
 
 CRISIS_NOTE = load_prompt("chat.crisis_note", "v1")
 HOTLINE_MARK = "010-82951332"
@@ -311,7 +311,7 @@ def node_chat(state: AgentState) -> dict[str, Any]:
         if not crisis and temple_payload:
             from app.agent.recommendation_reply import recover_recommendation
 
-            raw = recover_recommendation(raw, temple_payload)
+            raw = recover_recommendation(raw, temple_payload, concise=not any(word in msg for word in ("详细", "全面", "完整", "展开", "逐一", "分别")))
         # Scan before parsing can discard or rewrite leaked prompt text.
         profile = load_profile(state)
         raw = guard_text(raw, user_id=uid, profile=profile, inputs=(msg,), where="chat_raw")

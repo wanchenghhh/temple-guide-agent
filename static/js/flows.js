@@ -1,3 +1,5 @@
+import { enterWorkspace } from "./experience.js?v=__APP_VERSION__";
+import { renderWorkspaceEntry, resetTempleWorkspace, showConversation, messageWithTempleContext, isNewTempleSearch } from "./temple_workspace.js?v=__APP_VERSION__";
 import { currentUserId } from "./identity.js?v=__APP_VERSION__";
 import { scheduleConfirmCard } from "./schedules.js?v=__APP_VERSION__";
 import { DEBUG, nextId, announce, toast, parseTime, debugBlock } from "./core.js?v=__APP_VERSION__";
@@ -31,7 +33,7 @@ import { focusComposer, prefillComposer } from "./composer.js?v=__APP_VERSION__"
 import { getProfile, setProfile, openDrawer, refreshSecrets, loadProfile } from "./drawer.js?v=__APP_VERSION__";
 import { cleanAssistantText } from "./text.js?v=__APP_VERSION__";
 
-const SLOW_HINT = "还在处理…写草稿通常需要 10–30 秒";
+const SLOW_HINT = "还在整理资料，马上回来…";
 const MAX_STORED_TEXT = 1500;
 
 const nodes = new Map();
@@ -83,7 +85,7 @@ function contextFor(entry, restored) {
   return {
     restored,
     reportTemple,
-    refineTemple: (text) => prefillComposer(text),
+    refineTemple: (text) => { showConversation(); return prefillComposer(text); },
     focusComposer,
     openDrawer: (field) => openDrawer({ focusField: field }),
     dismissProactive,
@@ -121,6 +123,11 @@ function renderEntry(entry, { restored = false, live = null } = {}) {
     });
   }
   else if (entry.type === "system") node = systemLine(d.text, { scroll: !restored });
+  else if (entry.type === "temple_reset") resetTempleWorkspace(d.note || "");
+  else if (entry.type === "temple") {
+    const receipt = renderWorkspaceEntry(entry, contextFor(entry, restored), { restored });
+    if (receipt) node = append(receipt, { scroll: !restored });
+  }
   else {
     const card = buildCard(entry, restored);
     if (card) node = append(card, { scroll: !restored });
@@ -233,6 +240,7 @@ const timeOf = (value) => {
 export async function sendComposer({ text }) {
   const value = String(text || "").trim();
   if (!value) return;
+  enterWorkspace();
   echoUser(value);
   await sendText(value);
 }
@@ -242,7 +250,7 @@ async function sendText(text, { replyTo = null } = {}) {
   const revision = displayRevision;
   let res;
   try {
-    res = await withTyping(() => api.chat(text, { replyTo }), { slowHint: SLOW_HINT });
+    res = await withTyping(() => api.chat(messageWithTempleContext(text), { replyTo }), { slowHint: SLOW_HINT });
   } catch (err) {
     if (owner !== currentUserId()) return false;
     showError(err, "chat", () => sendText(text, { replyTo }));
@@ -251,6 +259,9 @@ async function sendText(text, { replyTo = null } = {}) {
   if (owner !== currentUserId()) return false;
   debugResponse(`/api/chat → ${res.status}`, res);
   handleChat(res, owner, revision);
+  if (revision === displayRevision && res.status !== "error" && !res.data?.temple_card && isNewTempleSearch(text)) {
+    emit("temple_reset", { note: "这次还没有新的候选。可以根据对话中的说明，补充或调整条件。" });
+  }
   return true;
 }
 
@@ -672,7 +683,7 @@ export function restoreTranscript() {
     }
   }
   systemLine("以上是之前的对话", { divider: true, scroll: false });
-  requestAnimationFrame(() => scrollToBottom());
+  requestAnimationFrame(() => scrollToBottom({ replyStart: true }));
   syncDecisions();
   return true;
 }
@@ -680,6 +691,7 @@ export function restoreTranscript() {
 export function resetThread() {
   displayRevision++;
   nodes.clear();
+  resetTempleWorkspace();
   clearLog();
 }
 

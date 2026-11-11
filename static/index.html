@@ -4,16 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="light" />
-  <meta name="theme-color" content="#FCFCFC" />
+  <meta name="theme-color" content="#f6f5f0" />
   <meta name="app-version" content="__APP_VERSION__" />
-  <title>寺庙寻访向导</title>
+  <title>寺庙寻访向导 · 找一处适合你的地方</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23191919'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E5%AF%BA%3C/text%3E%3C/svg%3E" />
   <link rel="preload" href="/static/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/static/design.css?v=__APP_VERSION__" />
   <link rel="stylesheet" href="/static/chat.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="/static/workspace.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="/static/experience.css?v=__APP_VERSION__" />
   <script type="module" src="/static/js/app.js?v=__APP_VERSION__"></script>
 </head>
-<body class="app chat-app">
+<body class="app chat-app" data-screen="home">
   <a class="skip-link" href="#composerInput">跳到输入框</a>
 
   <!-- 一次性告知：只在本机记一个标记，不发给服务端 -->
@@ -34,7 +36,10 @@
       <h1>寺庙寻访向导</h1>
     </div>
     <div class="debug-badges debug-only" id="debugBadges" aria-label="调试信息"></div>
+    <button type="button" id="btnHome" class="home-link">首页</button>
     <span class="header-spacer"></span>
+    <span class="header-location">北京 · 寻访与祈福</span>
+    <details class="account-menu" id="accountMenu"><summary>我的 <span aria-hidden="true">⌄</span></summary>
     <div class="header-actions">
       <button type="button" class="btn btn-quiet btn-sm header-btn" id="btnMemory" aria-label="我记得的">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12a1 1 0 011 1v16l-7-4-7 4V5a1 1 0 011-1z"/></svg>
@@ -49,14 +54,37 @@
         <span class="header-btn-label">档案</span>
       </button>
     </div>
+    </details>
   </header>
 
+  <section class="landing" id="landing" aria-labelledby="landingTitle">
+    <div class="temple-gallery" aria-label="北京寺庙影像展示">
+      <figure class="temple-photo photo-one"><img src="/static/images/temples/yonghe.jpg" alt="冬日的雍和宫建筑" width="1000" height="667" fetchpriority="high" /><figcaption><span>雍和宫</span><span>北京 · 东城</span></figcaption></figure>
+      <figure class="temple-photo photo-two"><img src="/static/images/temples/tanzhe.jpg" alt="潭柘寺的建筑与庭院" width="1000" height="750" /><figcaption><span>潭柘寺</span><span>北京 · 门头沟</span></figcaption></figure>
+      <figure class="temple-photo photo-three"><img src="/static/images/temples/jietai.jpg" alt="戒台寺院内的建筑与经幡" width="1000" height="747" /><figcaption><span>戒台寺</span><span>北京 · 门头沟</span></figcaption></figure>
+    </div>
+    <div class="landing-center">
+      <p class="landing-kicker"><span></span> 一处寺庙，一份心意 <span></span></p>
+      <h2 id="landingTitle">带着心愿，<br />找一处适合你的寺庙。</h2>
+      <p class="landing-description">了解一座寺庙，参考他人分享，再决定是否出发。</p>
+      <div id="landingComposer" class="landing-composer"></div>
+      <div class="landing-context"><span>目前支持北京寺庙</span><span>出发地可以稍后补充</span></div>
+      <button type="button" id="resumeConversation" class="resume-conversation" hidden>继续上次对话 <span aria-hidden="true">↗</span></button>
+    </div>
+    <footer class="landing-footer"><span>循着心意，慢慢寻访。</span><div><a href="/static/images/temples/credits.html" target="_blank" rel="noopener">图片来源</a><button type="button" id="pauseGallery" aria-pressed="false">暂停画面</button></div></footer>
+  </section>
+
+  <nav class="workspace-tabs" role="tablist" aria-label="切换对话与候选">
+    <button id="workspaceChatTab" type="button" role="tab" aria-selected="true" aria-controls="main">对话</button>
+    <button id="workspaceResultsTab" type="button" role="tab" aria-selected="false" aria-controls="templeWorkspace" disabled>候选</button>
+  </nav>
   <div class="layout">
     <main class="chat-main" id="main">
       <div class="log-scroll" id="logScroll">
         <div class="log" id="log" role="log" aria-live="off" aria-label="对话记录"></div>
       </div>
 
+      <div id="templeFocus" class="temple-focus" hidden></div>
       <form class="composer" id="composer" autocomplete="off">
         <button type="button" class="jump-latest" id="jumpLatest" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/></svg>
@@ -66,7 +94,7 @@
           <div class="composer-shell" id="composerShell">
             <label class="sr-only" for="composerInput">给向导发消息</label>
             <textarea id="composerInput" rows="1" enterkeyhint="send"
-              placeholder="说说你的心愿，或者问我某座寺庙"
+              placeholder="周六想为家人求平安，带老人，不想爬山……"
               aria-describedby="composerHint"></textarea>
             <button type="submit" class="btn btn-primary btn-send" id="btnSend" aria-label="发送">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
@@ -75,11 +103,16 @@
           <div class="composer-error" id="composerError" role="alert" hidden></div>
           <div class="composer-hint" id="composerHint">
             <span id="composerHintKeys">Enter 发送 · Shift + Enter 换行</span>
-            <span class="hint-right">可以直接推荐，也可以随时补充条件</span>
+            <span class="hint-right">条件随时可以调整</span>
           </div>
         </div>
       </form>
     </main>
+
+    <section id="templeWorkspace" class="temple-workspace" aria-label="当前寺庙候选与详情"></section>
+
+
+  </div>
 
     <aside class="drawer" id="drawer" aria-labelledby="drawerTitle" inert>
       <div class="drawer-inner">
@@ -103,7 +136,6 @@
         </section>
       </div>
     </aside>
-  </div>
 
   <div class="backdrop" id="backdrop"></div>
 

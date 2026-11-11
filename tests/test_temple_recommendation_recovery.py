@@ -156,3 +156,44 @@ def test_recommendation_card_explains_environment_and_effort_from_the_same_recor
     for row, item in zip(payload['items'], card['items']):
         assert item['atmosphere'] == row['atmosphere']
         assert item['accessibility'] == row['accessibility']
+
+
+def test_long_ordinary_recommendation_is_brief_but_detailed_request_is_preserved():
+    payload = tc.build_temple_context('周六求平安，直接推荐')['payload']
+    long = '下面逐一介绍：' + '开放时间、票务、环境和历史介绍。' * 60
+    brief = recover_recommendation(long, payload, concise=True)
+    assert len(brief) < 300
+    assert all(item['name'] in brief for item in payload['items'])
+    assert recover_recommendation(long, payload, concise=False) == long
+
+
+def test_brief_recommendation_preserves_place_status_and_unknown_date():
+    payload = {'mode': 'recommend', 'query': {'message_theme': '求子'}, 'items': [
+        {'name': '示例景区', 'district': '测试区', 'status': 'scenic_area', 'status_label': '景区',
+         'condition_checks': [{'condition': 'visit_date', 'status': 'unknown', 'text': '开放待核'}]},
+    ]}
+    brief = recover_recommendation('详细文字。' * 100, payload, concise=True)
+    assert '景区' in brief and '宗教祈福' in brief
+    assert '计划日期能否参访仍待确认' in brief
+    assert '不替代专业医疗判断' in brief
+
+
+def test_followup_detail_and_structured_question_are_not_truncated():
+    long = '开放安排如下。' * 80
+    assert recover_recommendation(long, {'mode': 'detail', 'items': []}, concise=True) == long
+    payload = tc.build_temple_context('求平安，直接推荐')['payload']
+    with_ask = long + '<ask>{"question":"请选择"}</ask>'
+    assert recover_recommendation(with_ask, payload, concise=True) == with_ask
+
+
+def test_api_bounds_ordinary_reply_but_preserves_explicit_detailed_followup(client, fake_llm, monkeypatch):
+    from app.agent.subgraphs import chat
+    monkeypatch.setattr(chat, '_llm_risk', lambda msg: False)
+    fake_llm.reply = '这是一段需要详细阅读的测试介绍。' * 45
+    uid = 'brief-reply-' + uuid.uuid4().hex
+    first = client.post('/api/chat', json={'user_id': uid, 'message': '周六求平安，直接推荐'}).json()
+    assert first['data']['temple_card']['items']
+    assert len(first['data']['messages'][-1]['content']) < 300
+    second = client.post('/api/chat', json={'user_id': uid, 'thread_id': first['thread_id'],
+                                          'message': '详细介绍雍和宫'}).json()
+    assert len(second['data']['messages'][-1]['content']) > 500

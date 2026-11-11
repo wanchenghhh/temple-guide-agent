@@ -33,7 +33,7 @@ export function renderMarkdown(text) {
   const blocks = [];
   let list = null;
   let quote = null;
-  const lines = escaped.replace(/\r\n?/g, "\n").split("\n");
+  const lines = escaped.replace(/\r\n?/g, "\n").replace(/\n{3,}/g, "\n\n").split("\n");
   for (let index = 0; index < lines.length; index++) {
     const line = lines[index];
     const header = tableCells(line);

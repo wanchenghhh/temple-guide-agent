@@ -1,9 +1,11 @@
+import { initExperience, showHome } from "./experience.js?v=__APP_VERSION__";
+import { initTempleWorkspace } from "./temple_workspace.js?v=__APP_VERSION__";
 import { initSchedules } from "./schedules.js?v=__APP_VERSION__";
 import { $, h, DEBUG, VERSION, toast } from "./core.js?v=__APP_VERSION__";
 import { api } from "./api.js?v=__APP_VERSION__";
 import { currentUserId, ensureSession } from "./identity.js?v=__APP_VERSION__";
 import { store } from "./store.js?v=__APP_VERSION__";
-import { initThread } from "./thread.js?v=__APP_VERSION__";
+import { initThread, scrollToBottom } from "./thread.js?v=__APP_VERSION__";
 import { initComposer, focusComposer } from "./composer.js?v=__APP_VERSION__";
 import { initDrawer, loadProfile, resetDrawer } from "./drawer.js?v=__APP_VERSION__";
 import {
@@ -17,6 +19,7 @@ import {
 } from "./flows.js?v=__APP_VERSION__";
 
 let health = null;
+let conversationStarted = false;
 let lastUserId = currentUserId();
 
 function badge(text, cls = "") {
@@ -53,26 +56,30 @@ async function loadHealth() {
 }
 
 function startConversation() {
+  conversationStarted = true;
   if (!restoreTranscript()) showHero();
+  showHome();
   loadProactive();
 }
 
 function onUserChange() {
   const uid = currentUserId();
   if (uid === lastUserId) return;
+  const hadUser = lastUserId !== "pending";
   lastUserId = uid;
   store.reload();
   resetThread();
   resetDrawer();
   startConversation();
   renderDebugBadges();
-  toast("已切换账号，档案和对话记录随之切换");
+  if (hadUser) toast("已切换账号，档案和对话记录随之切换");
 }
 
 function onClearLocal() {
   store.clear();
   resetThread();
   showHero();
+  showHome();
   toast("已清除这台设备上的对话记录");
   focusComposer();
 }
@@ -99,6 +106,8 @@ function initPrivacyNotice() {
 async function boot() {
   if (DEBUG) document.body.classList.add("is-debug");
   initThread();
+  initTempleWorkspace();
+  initExperience({ onResume: () => requestAnimationFrame(() => scrollToBottom({ force: true, replyStart: true })) });
   initSchedules();
   initComposer({ onSubmit: sendComposer });
   initDrawer({ onUserChange, onProfileEdited: noteProfileEdited, onClearLocal });
@@ -114,8 +123,8 @@ async function boot() {
   const healthReady = loadHealth();
   loadProfile();
   await Promise.race([healthReady, new Promise((resolve) => window.setTimeout(resolve, 1500))]);
-  startConversation();
-  if (window.matchMedia("(pointer: fine)").matches) focusComposer();
+  if (!conversationStarted) startConversation();
+  if (document.body.dataset.screen !== "home" && window.matchMedia("(pointer: fine)").matches) focusComposer();
 }
 
 boot();

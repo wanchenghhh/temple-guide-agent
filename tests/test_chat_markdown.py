@@ -142,16 +142,12 @@ assert.equal(renderMarkdown(''), '');
 ''')
 
 
-def test_long_assistant_reply_keeps_collapse_toggle():
+def test_long_assistant_reply_is_readable_in_full_without_expanding():
     run_thread("**synthetic** " * 60, r'''
 const row = assistantMessage(value, {speak: false});
 const body = find(row, 'bubble-text');
-const toggle = find(row, 'more-toggle');
 assert.ok(body.innerHTML.includes('<strong>synthetic</strong>'));
-toggle.click();
-assert.equal(toggle['aria-expanded'], 'true');
-assert.equal(toggle.textContent, '收起');
-toggle.click();
-assert.equal(toggle['aria-expanded'], 'false');
-assert.equal(toggle.textContent, '展开全文');
+assert.equal((body.innerHTML.match(/<strong>/g)||[]).length, 60);
+assert.equal(find(row, 'more-toggle'), undefined);
+assert.equal(renderMarkdown('start\n\n\n\nend'), 'start<br><br>end');
 ''')

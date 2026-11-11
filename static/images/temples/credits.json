@@ -1,0 +1,32 @@
+[
+  {
+    "id": "yonghe",
+    "name": "雍和宫",
+    "author": "Balon Greyjoy",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:20200109_Yonghe_Temple-1.jpg",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/yonghe.jpg"
+  },
+  {
+    "id": "jietai",
+    "name": "戒台寺",
+    "author": "N509FZ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Jietai_Temple_(20150117134744).JPG",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/jietai.jpg"
+  },
+  {
+    "id": "tanzhe",
+    "name": "潭柘寺",
+    "author": "Kikolipu",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": "https://commons.wikimedia.org/wiki/File:Tanzhe_Temple_.pic.jpg",
+    "changes": "Resized and JPEG compressed; displayed with CSS cropping.",
+    "src": "/static/images/temples/tanzhe.jpg"
+  }
+]

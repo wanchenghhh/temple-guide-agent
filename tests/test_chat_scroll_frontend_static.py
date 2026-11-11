@@ -108,7 +108,7 @@ def test_append_respects_reader_and_opens_tall_nodes_at_top():
     append = block(THREAD, "export function append(", "export function clearLog(")
     assert append.index("updateJumpLatest();") < append.index("requestAnimationFrame")
     pending = append.split("requestAnimationFrame", 1)[1]
-    assert pending.index("if (!stickToBottom)") < pending.index("return;") < pending.index("scrollToBottom()")
+    assert pending.index("if (!stickToBottom && !(anchorStart && pendingReplyStart))") < pending.index("return;") < pending.index("scrollToBottom()")
     assert "node.offsetHeight > scroller.clientHeight" in pending
     assert "programmaticScroll(() => { scroller.scrollTop = node.offsetTop - 16; });" in pending
 
@@ -125,12 +125,12 @@ def test_automatic_reveal_neither_scrolls_nor_focuses_while_reading():
 
 def test_restore_scrolls_once_and_rerenders_preserve_position():
     render = block(FLOWS, "function renderEntry(", "function rerender(")
-    assert render.count("scroll: !restored") == 4
+    assert render.count("scroll: !restored") == 5
     user_message = block(THREAD, "export function userMessage(", "export function userRow(")
     assert "append(userRow(data, { animate }), { scroll: false });" in user_message
     assert "if (scroll) scrollToBottom({ force: true });" in user_message
     assert user_message.index("append(") < user_message.index("scrollToBottom(")
-    assert "return append(row, { scroll });" in THREAD
+    assert "return append(row, { scroll, anchorStart: true });" in THREAD
     assert 'role: "note" }, [h("span", { text })]), { scroll });' in THREAD
     restore = block(FLOWS, "export function restoreTranscript(", "export function resetThread(")
     assert "renderEntry(entry, { restored: true })" in restore
@@ -282,3 +282,31 @@ def test_jump_waits_for_bottom_and_input_does_not_force_visibility():
     assert "updateJumpLatest();" in stop
     clear = block(THREAD, "export function clearLog()", "export function collapsible(")
     assert clear.index("replaceChildren();") < clear.index("updateJumpLatest();")
+
+
+def test_answer_start_stays_visible_after_candidate_receipt_and_later_updates():
+    policy = 'let stickToBottom' + block(THREAD, 'let stickToBottom', 'export function clearLog(')
+    result = subprocess.run(['node', '-e', policy.replace('export function', 'function') + r'''
+const assert = require('node:assert/strict');
+const frames=[];
+const requestAnimationFrame=fn=>frames.push(fn);
+const flush=()=>{while(frames.length)frames.shift()();};
+const setTimeout=()=>1, clearTimeout=()=>{}, removeHero=()=>{};
+const prefersReducedMotion=()=>true;
+const scroller={scrollHeight:2400,clientHeight:400,scrollTop:2000,scrollTo({top}){this.scrollTop=top;}};
+const button={};
+const log={appendChild(n){scroller.scrollHeight+=n.offsetHeight;}};
+const $=id=>({logScroll:scroller,jumpLatest:button,log})[id];
+const answer={isConnected:true,offsetHeight:1200,offsetTop:2400};
+append(answer,{anchorStart:true});flush();
+assert.equal(scroller.scrollTop,2384,'a long answer opens at its beginning');
+endProgrammaticScroll();
+append({isConnected:true,offsetHeight:50,offsetTop:3600});flush();
+assert.equal(scroller.scrollTop,2384,'the candidate receipt must not pull the answer to its end');
+scroller.scrollTop=1000; // The user is reading an earlier part of the conversation.
+append({isConnected:true,offsetHeight:200,offsetTop:3650},{anchorStart:true});flush();
+assert.equal(scroller.scrollTop,1000,'another answer does not steal the reading position');
+scrollToBottom({force:true});
+assert.equal(scroller.scrollTop,scroller.scrollHeight,'an explicit jump resumes following');
+'''], capture_output=True, text=True)
+    assert result.returncode == 0, result.stdout + result.stderr

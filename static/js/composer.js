@@ -30,7 +30,7 @@ export function initComposer({ onSubmit }) {
 
 export function focusComposer(placeholder = "") {
   const input = $("composerInput");
-  input.placeholder = placeholder || DEFAULT_PLACEHOLDER;
+  input.placeholder = placeholder || (document.body.dataset.screen === "home" ? "周六想为家人求平安，带老人，不想爬山……" : DEFAULT_PLACEHOLDER);
   input.focus();
 }
 
@@ -49,7 +49,7 @@ export function prefillComposer(text, placeholder = "") {
   }
   input.value = text;
   lastPrefill = text;
-  input.placeholder = placeholder || DEFAULT_PLACEHOLDER;
+  input.placeholder = placeholder || (document.body.dataset.screen === "home" ? "周六想为家人求平安，带老人，不想爬山……" : DEFAULT_PLACEHOLDER);
   hideComposerError();
   autoGrow();
   input.focus();

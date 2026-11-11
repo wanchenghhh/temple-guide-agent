@@ -4,6 +4,8 @@ import { renderMarkdown } from "./markdown.js?v=__APP_VERSION__";
 const COLLAPSE_CHARS = 520;
 const COLLAPSE_LINES = 9;
 let stickToBottom = true;
+let pendingReplyStart = false;
+let scrollTurn = 0;
 let isProgrammatic = false;
 let programmaticTimer;
 
@@ -35,9 +37,13 @@ export function initThread() {
   scroller.addEventListener("scrollend", endProgrammaticScroll);
   const stopSticking = () => {
     stickToBottom = false;
+    pendingReplyStart = false;
     updateJumpLatest();
     endProgrammaticScroll();
   };
+  scroller.addEventListener("pointerdown", (event) => {
+    if (event.target === scroller) stopSticking();
+  });
   scroller.addEventListener("wheel", (event) => {
     if (event.deltaY < 0) stopSticking();
   }, { passive: true });
@@ -77,14 +83,15 @@ function isNearBottom() {
   return s.scrollHeight - s.scrollTop - s.clientHeight <= 80;
 }
 
-export function scrollToBottom({ force = false, smooth = false } = {}) {
+export function scrollToBottom({ force = false, smooth = false, replyStart = false } = {}) {
   if (force) stickToBottom = true;
   const s = $("logScroll");
   if (!stickToBottom) {
     updateJumpLatest();
     return;
   }
-  programmaticScroll(() => s.scrollTo({ top: s.scrollHeight, behavior: smooth && !prefersReducedMotion() ? "smooth" : "auto" }));
+  const latest = replyStart ? [...$("log").querySelectorAll(".msg-assistant:not(.msg-typing)")].at(-1) : null;
+  programmaticScroll(() => s.scrollTo({ top: latest ? Math.max(0, latest.offsetTop - 16) : s.scrollHeight, behavior: smooth && !prefersReducedMotion() ? "smooth" : "auto" }));
   updateJumpLatest();
 }
 
@@ -98,18 +105,25 @@ export function reveal(node, { focus = null, user = false } = {}) {
   if (focus) focus.focus({ preventScroll: true });
 }
 
-export function append(node, { scroll = true } = {}) {
+export function append(node, { scroll = true, anchorStart = false } = {}) {
+  const turnAtAppend = scrollTurn;
   removeHero();
   $("log").appendChild(node);
   updateJumpLatest();
   if (scroll) requestAnimationFrame(() => {
-    if (!stickToBottom) {
+    if (!stickToBottom && !(anchorStart && pendingReplyStart)) {
       updateJumpLatest();
       return;
     }
+    if (anchorStart && turnAtAppend !== scrollTurn) return;
     if (!node.isConnected) return;
     const scroller = $("logScroll");
-    if (node.offsetHeight > scroller.clientHeight) {
+    if (anchorStart) {
+      programmaticScroll(() => { scroller.scrollTop = Math.max(0, node.offsetTop - 16); });
+      // Keep the beginning of this answer visible when a receipt/card arrives next.
+      stickToBottom = false;
+      pendingReplyStart = false;
+    } else if (node.offsetHeight > scroller.clientHeight) {
       programmaticScroll(() => { scroller.scrollTop = node.offsetTop - 16; });
     } else {
       scrollToBottom();
@@ -121,15 +135,17 @@ export function append(node, { scroll = true } = {}) {
 export function clearLog() {
   $("log").replaceChildren();
   stickToBottom = true;
+  pendingReplyStart = false;
+  scrollTurn++;
   updateJumpLatest();
 }
 
-export function collapsible(text, cls = "bubble-text", { markdown = false } = {}) {
+export function collapsible(text, cls = "bubble-text", { markdown = false, collapse = true } = {}) {
   const value = String(text || "");
   const long = value.length > COLLAPSE_CHARS || value.split("\n").length > COLLAPSE_LINES;
   const body = h("div", { class: cls, text: value });
   if (markdown) body.innerHTML = renderMarkdown(value);
-  if (!long) return body;
+  if (!long || !collapse) return body;
   body.classList.add("is-clamped");
   const toggle = h("button", {
     type: "button",
@@ -150,6 +166,7 @@ function avatar() {
 }
 
 export function userMessage(data, { animate = true, scroll = true } = {}) {
+  if (scroll) { pendingReplyStart = true; scrollTurn++; }
   const node = append(userRow(data, { animate }), { scroll: false });
   // A new send resumes following immediately; restored rows stay in place.
   if (scroll) scrollToBottom({ force: true });
@@ -213,12 +230,12 @@ export function assistantMessage(text, { scroll = true, animate = true, speak = 
     avatar(),
     h("div", { class: "bubble bubble-assistant" }, [
       h("span", { class: "sr-only", text: "向导：" }),
-      collapsible(text, "bubble-text", { markdown: true }),
+      collapsible(text, "bubble-text", { markdown: true, collapse: false }),
       onFeedback ? feedbackBar(feedback, onFeedback) : null,
     ]),
   ]);
   if (speak) announce(`向导：${text}`);
-  return append(row, { scroll });
+  return append(row, { scroll, anchorStart: true });
 }
 
 export function systemLine(text, { divider = false, scroll = true } = {}) {
@@ -281,24 +298,22 @@ export function renderHero({ onChip, onMemory }) {
   const chip = (iconName, label, onClick) =>
     h("button", { type: "button", class: "hero-chip", onClick }, [icon(iconName), h("span", { text: label })]);
   const hero = h("section", { class: "hero enter", id: "hero", "aria-labelledby": "heroTitle" }, [
-    h("div", { class: "hero-mark", "aria-hidden": "true", text: "助" }),
-    h("h2", { id: "heroTitle", text: "想找一处怎样的寺庙？" }),
+    h("div", { class: "hero-kicker", text: "从一个心愿开始" }),
+    h("h2", { id: "heroTitle", text: "想找一处\n怎样的寺庙？" }),
     h("p", {
       class: "hero-sub",
-      text: "说说你的心愿，或直接了解某座寺庙。我会给你几个有来源的选择，再一起比较。",
+      text: "说说你心里在意的事，或先了解一座寺庙。我们一起找适合你的选择。",
     }),
     h("p", {
       class: "hero-sub",
-      text: "目前收录北京的寺庙与参访场所。不用先填出发地，想就近找时再告诉我位置。",
+      text: "目前提供北京范围的资料。出发地可以稍后补充。",
     }),
     h("div", { class: "hero-actions" }, [
       chip("doc", "周六想去求平安", () => onChip("周六想去寺庙求平安，推荐一下")),
       chip("edit", "找个安静的地方", () => onChip("想找个安静的寺庙祈福，不限区域")),
-      chip("bell", "带长辈去祈福", () => onChip("想带长辈去祈福，不想爬山")),
       chip("sun", "了解雍和宫", () => onChip("想先了解雍和宫，再决定去不去")),
-      onMemory ? chip("doc", "你记得我什么", onMemory) : null,
     ]),
-    h("p", { class: "hero-note", text: "可以直接输入，也可以点一个例子开始；条件随时可以调整。" }),
+    h("p", { class: "hero-note", text: "每个选择，都可以继续问下去。" }),
   ]);
   $("log").appendChild(hero);
 }

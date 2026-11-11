@@ -1,0 +1,90 @@
+/* Welcome: real temple photography surrounds a stable, single composer. */
+.home-link { border: 0; background: transparent; color: #687561; cursor: pointer; font-size: 12px; padding: 8px 12px; margin-left: 16px; }
+.home-link:hover { color: #26362e; }
+.landing { display: none; }
+body[data-screen="home"] .landing { display: flex; flex: 1; min-height: 0; position: relative; align-items: center; justify-content: center; isolation: isolate; overflow: hidden; }
+body[data-screen="home"] .layout, body[data-screen="home"] .workspace-tabs { display: none; }
+body[data-screen="home"] .home-link { visibility: hidden; }
+.temple-gallery { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+.temple-photo { position: absolute; margin: 0; overflow: hidden; border-radius: 5px 5px 28px 5px; box-shadow: 0 20px 50px #26362e12; background: #e7e9df; animation: temple-drift 18s ease-in-out infinite alternate; }
+.temple-photo img { height: 100%; width: 100%; object-fit: cover; filter: saturate(.72); }
+.temple-photo::after { content: ""; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent,#1422198c); }
+.temple-photo figcaption { position: absolute; inset: auto 17px 15px; display: flex; flex-direction: column; gap: 3px; color: #fff; z-index: 1; font-family: "Songti SC",serif; font-size: 17px; letter-spacing: .08em; }
+.temple-photo figcaption span + span { font-family: inherit; font-size: 10px; opacity: .8; letter-spacing: .1em; }
+.photo-one { left: -2%; top: 6%; width: 21%; height: 48%; --angle: -7deg; transform: rotate(var(--angle)); }
+.photo-two { right: -2%; top: 17%; width: 22%; height: 59%; --angle: 7deg; animation-delay: -9s; }
+.photo-three { left: 5%; bottom: -8%; width: 24%; height: 36%; --angle: 4deg; animation-delay: -4s; }
+.landing::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(ellipse at 50% 43%,#f6f5f0 28%,#f6f5f0e8 43%,#f6f5f000 70%); }
+.landing-center { width: min(620px,54vw); text-align: center; padding: 20px 0 68px; }
+.landing-kicker { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 11px; letter-spacing: .2em; color: #916b51; margin: 0 0 22px; }
+.landing-kicker span { width: 25px; height: 1px; background: #a88c6c73; }
+.landing h2 { font-family: "Songti SC",STSong,serif; font-size: clamp(34px,4.1vw,60px); font-weight: 500; line-height: 1.5; letter-spacing: .025em; margin: 0; }
+.landing-description { font-size: 13px; line-height: 1.8; color: #78816e; margin: 20px 0 26px; }
+.landing-composer .composer { padding: 0; background: transparent; }
+.landing-composer .composer-shell { background: #fffefa; border-color: #d3dac9; border-radius: 20px; box-shadow: 0 8px 35px #26362e0a; padding: 18px; }
+.landing-composer #composerInput { min-height: 68px; font-size: 14px; line-height: 1.8; }
+.landing-composer #composerInput::placeholder { color: #939a8c; }
+.landing-composer .btn-send { width: 39px; height: 39px; flex: 0 0 39px; }
+.landing-composer .composer-hint, .landing-composer .jump-latest { display: none; }
+.landing-context { display: flex; justify-content: center; gap: 18px; margin-top: 16px; color: #7c8671; font-size: 10.5px; }
+.landing-context span + span { padding-left: 18px; border-left: 1px solid #d9ddcf; }
+.resume-conversation { border: 0; background: transparent; color: #4e6749; font-size: 12px; cursor: pointer; margin-top: 21px; padding: 6px 12px; }
+.resume-conversation:hover { text-decoration: underline; text-underline-offset: 5px; }
+.landing-footer { position: absolute; inset: auto 38px 21px; display: flex; justify-content: space-between; color: #859079; font-size: 10px; letter-spacing: .08em; }
+.landing-footer > div { display: flex; gap: 18px; }
+.landing-footer a, .landing-footer button { font: inherit; color: inherit; background: transparent; border: 0; padding: 0; text-decoration: none; cursor: pointer; }
+.landing-footer a:hover, .landing-footer button:hover { color: #344b3d; }
+body:has(.landing-center:focus-within) .temple-photo, .gallery-paused .temple-photo { animation-play-state: paused; }
+@keyframes temple-drift { from { transform: translateY(-10px) rotate(var(--angle)); } to { transform: translateY(16px) rotate(calc(var(--angle) + 2deg)); } }
+/* Work area: restrained spacing, full answers with an explicit reading start. */
+.layout { grid-template-columns: minmax(380px,1fr) minmax(0,1.05fr); }
+.log { gap: 16px; }
+.bubble-assistant .bubble-text { white-space: normal; line-height: 1.85; }
+.bubble-assistant .bubble-text ul, .bubble-assistant .bubble-text ol { padding-left: 1.35em; margin: 8px 0; }
+.bubble-assistant .bubble-text li { margin: 4px 0; }
+.bubble-assistant .bubble-text blockquote { margin: 8px 0; padding-left: 12px; border-left: 2px solid #d9dfcf; }
+.msg-assistant .bubble { max-width: calc(100% - 25px); }
+.chat-main:has(#hero) .jump-latest { display: none; }
+body[data-screen="workspace"] .chat-main { animation: workspace-enter .3s ease both; }
+@keyframes workspace-enter { from { opacity: .5; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 821px) and (max-height: 720px) {
+  .landing-center { padding-bottom: 35px; }
+  .landing-kicker { margin-bottom: 12px; }
+  .landing h2 { font-size: 42px; line-height: 1.4; }
+  .landing-description { margin: 14px 0 20px; font-size: 12px; }
+  .landing-composer #composerInput { min-height: 45px; }
+  .landing-composer .composer-shell { padding: 15px; }
+  .landing-footer { bottom: 15px; }
+}
+@media (max-width: 1000px) and (min-width: 821px) { .layout { grid-template-columns: minmax(340px,1fr) minmax(0,1fr); } }
+@media (max-width: 820px) {
+  .home-link { padding: 6px 8px; margin-left: 7px; font-size: 11px; }
+  .landing-center { width: calc(100% - 38px); padding: 90px 0 65px; align-self: center; }
+  .landing h2 { font-size: clamp(30px,7vw,42px); line-height: 1.5; }
+  .landing-kicker { font-size: 10px; margin-bottom: 14px; }
+  .landing-description { font-size: 12px; margin: 14px auto 22px; max-width: 270px; }
+  .landing-composer #composerInput { font-size: 16px; min-height: 64px; }
+  .landing-context { font-size: 10px; gap: 12px; }
+  .landing-context span + span { padding-left: 12px; }
+  .photo-one { left: -5%; top: 1%; width: 33%; height: 23%; opacity: .7; }
+  .photo-two { right: -4%; top: -2%; width: 36%; height: 28%; opacity: .7; }
+  .photo-three { left: -2%; bottom: -6%; width: 35%; height: 22%; opacity: .45; }
+  .temple-photo figcaption { inset: auto 10px 10px; font-size: 12px; }
+  .temple-photo figcaption span + span { display: none; }
+  .landing::before { background: linear-gradient(transparent,#f6f5f0 24%,#f6f5f0 78%,#f6f5f040); }
+  .landing-footer { inset: auto 20px 16px; }
+  .landing-footer > span { visibility: hidden; }
+  .landing-footer > div { gap: 12px; }
+  .landing-center:focus-within { padding-top: 30px; }
+  .layout { display: flex; }
+}
+@media (max-width: 820px) and (max-height: 650px) {
+  .landing-center { padding-top: 20px; padding-bottom: 45px; }
+  .landing-kicker { display: none; }
+  .landing h2 { font-size: 29px; }
+  .landing-description { margin: 8px 0 14px; }
+  .landing-composer #composerInput { min-height: 44px; }
+  .landing-context { margin-top: 10px; }
+  .resume-conversation { margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .temple-photo, body[data-screen="workspace"] .chat-main { animation: none; } #pauseGallery { display: none; } }

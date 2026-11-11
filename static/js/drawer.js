@@ -3,7 +3,7 @@ import { api, friendlyError, debugText } from "./api.js?v=__APP_VERSION__";
 import { kindLabel, memoryText } from "./text.js?v=__APP_VERSION__";
 import { currentUserId } from "./identity.js?v=__APP_VERSION__";
 
-const OVERLAY_MQ = window.matchMedia("(max-width: 900px)");
+const OVERLAY_MQ = window.matchMedia("all");
 const SCALARS = [
   ["name", "姓名", "比如：李四"],
   ["city", "城市", "比如：杭州"],
@@ -185,7 +185,10 @@ export function closeDrawer() {
   document.body.classList.remove("drawer-open");
   $("backdrop").classList.remove("is-open");
   $("btnProfile").setAttribute("aria-expanded", "false");
-  if (hadFocus || document.activeElement === document.body) $("btnProfile").focus();
+  if (hadFocus || document.activeElement === document.body) {
+    const menu = $("accountMenu");
+    (menu && !menu.open ? menu.querySelector("summary") : $("btnProfile"))?.focus();
+  }
 }
 
 function syncMode() {
