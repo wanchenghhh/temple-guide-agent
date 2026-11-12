@@ -2,61 +2,30 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f5f3ec">
-  <meta name="description" content="一个面向北京寺庙寻访的对话式向导，帮你理解心愿、比较条件，并为出行做好准备。">
-  <title>寺庙寻访向导 · 带着心愿，慢慢寻找</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="寺庙寻访向导：根据心愿和参访条件，了解与选择北京寺庙。">
+  <title>寺庙寻访向导</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; background: #f6f5ef; color: #28392e; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
+    main { width: min(100%, 680px); }
+    .mark { display: grid; place-items: center; width: 42px; height: 46px; border-radius: 22px 22px 5px 5px; background: #344b3d; color: white; font: 19px "Songti SC", serif; }
+    .label { margin: 52px 0 14px; color: #92735d; font-size: 12px; letter-spacing: .15em; }
+    h1 { margin: 0; font: 500 clamp(38px, 7vw, 64px)/1.4 "Songti SC", "STSong", serif; }
+    p { max-width: 560px; margin: 22px 0 32px; color: #677365; font-size: 15px; line-height: 2; }
+    a { display: inline-block; padding: 12px 18px; background: #344b3d; color: #fff; text-decoration: none; font-size: 14px; }
+    a:focus-visible { outline: 2px solid #9b614a; outline-offset: 4px; }
+    small { display: block; margin-top: 48px; color: #85907f; line-height: 1.8; }
+  </style>
 </head>
 <body>
-<a class="skip" href="#main">跳到正文</a>
-<header class="header wrap">
-  <a class="brand" href="#top"><span class="brand-mark">寺</span><span>寺庙寻访向导 <small>TEMPLE NOTES</small></span></a>
-  <nav aria-label="页面导航"><a href="#experience">如何使用</a><a href="#principles">资料与边界</a><a href="#start">开始使用</a></nav>
-  <a class="header-link" href="https://github.com/wanchenghhh/temple-guide-agent">查看项目 <span aria-hidden="true">↗</span></a>
-</header>
-<main id="main">
-<section class="hero wrap" id="top">
-  <div class="hero-copy">
-    <div class="eyebrow"><i></i> 一份心意，一次寻访</div>
-    <h1>带着心愿，<br><em>慢慢寻找。</em></h1>
-    <p class="hero-lead">一个懂你心愿的寺庙寻访向导。<br>从想去的地方，到适合自己的选择。</p>
-    <div class="hero-actions"><a class="button dark" href="#experience">了解如何使用 <span aria-hidden="true">↘</span></a><a class="text-link" href="https://github.com/wanchenghhh/temple-guide-agent#本地运行">本地运行向导 <span aria-hidden="true">↗</span></a></div>
-    <div class="hero-note"><span>北京</span><span>寺庙 · 习俗 · 参访</span><span>持续整理中</span></div>
-  </div>
-  <figure class="hero-image"><img src="assets/tanzhe-gate.jpg" alt="北京潭柘寺的山门" width="960" height="720"><figcaption><span>01 / 北京</span><span>潭柘寺 · 山门</span></figcaption></figure>
-  <span class="hero-side" aria-hidden="true">A QUIETER WAY TO EXPLORE</span>
-</section>
-<section class="intro wrap" id="experience">
-  <div class="section-marker"><span>01</span><span>从心愿出发</span></div>
-  <div class="intro-copy"><p class="overline">MORE THAN A DESTINATION</p><h2>每次出发，<br>都有自己的理由。</h2><p>有人希望离家近一点，有人愿意专程前往，也有人想先了解清楚，再决定是否出发。说出你在意的事，向导会根据现有资料帮你整理选择。</p></div>
-  <div class="wish-list" aria-label="常见寻访需求"><span>为家人求平安</span><span>周末祈求姻缘</span><span>想找一处安静的地方</span><span>带长辈一起出行</span></div>
-</section>
-<section class="journey wrap">
-  <div class="section-heading"><div><p class="overline">A THOUGHTFUL JOURNEY</p><h2>从了解，到决定。</h2></div><p>你可以从心愿、条件，或者一座已经想去的寺庙开始。每一步都允许继续追问。</p></div>
-  <div class="steps">
-    <article><span class="step-number">01</span><h3>说说你的想法</h3><p>心愿、日期、同行人或出行偏好，都可以用自己的话告诉向导。出发地可以稍后补充。</p></article>
-    <article><span class="step-number">02</span><h3>比较适合的选择</h3><p>查看候选的习俗线索、环境和体力要求，理解推荐理由以及需要权衡的地方。</p></article>
-    <article><span class="step-number">03</span><h3>准备出发</h3><p>了解已收录的开放规则和预约购票指引，临行前再核实官方最新安排。</p></article>
-  </div>
-</section>
-<section class="feature">
-  <div class="feature-photo"><img src="assets/yonghe.jpg" alt="雍和宫内的建筑" width="960" height="640" loading="lazy"><span>北京 · 雍和宫</span></div>
-  <div class="feature-copy"><p class="overline">IN THE DETAILS</p><h2>走近一座寺庙，<br>也了解它的故事。</h2><p>在候选资料里，看看场所与哪些习俗有关、环境是什么样，以及参访时可能需要注意什么。对你关心的部分，继续问下去。</p><div class="feature-rule"></div><p class="feature-caption">习俗与个人分享是理解地方文化的线索。<br>它们不代表祈愿结果。</p></div>
-</section>
-<section class="trust wrap" id="principles">
-  <div class="section-marker"><span>02</span><span>关于资料</span></div>
-  <div class="trust-main"><p class="overline">KNOW BEFORE YOU GO</p><h2>让每个决定，<br>多一份依据。</h2><div class="trust-grid">
-    <article><h3>有出处的了解</h3><p>场所资料保留已有来源，民俗说法与场所事实分开呈现。可选的公开搜索能够提供分享摘要和原文链接，结果取决于配置与实际搜索。</p></article>
-    <article><h3>说清楚不确定</h3><p>目前聚焦北京；开放时间、预约要求可能变化。指定日期的检查依据已收录的常规规则，具体安排仍需向官方核实。</p></article>
-    <article><h3>尊重个人选择</h3><p>不承诺祈愿效果，不提供实时余票或代购。涉及健康和求子的内容仅作民俗文化参考，不代替专业医疗判断。</p></article>
-  </div></div>
-</section>
-<section class="closing wrap" id="start">
-  <div class="closing-text"><p class="overline">BEGIN WITH A WISH</p><h2>想去的地方，<br><em>值得慢慢了解。</em></h2><p>项目目前以北京为起点。查看仓库，了解产品和本地运行方式。</p><div class="hero-actions"><a class="button dark" href="https://github.com/wanchenghhh/temple-guide-agent">查看 GitHub 仓库 <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/wanchenghhh/temple-guide-agent#本地运行">本地运行 <span aria-hidden="true">↗</span></a></div><p class="static-note">本页是项目介绍，实际对话需要运行项目服务。</p></div>
-  <figure class="closing-photo"><img src="assets/hongluo.jpg" alt="北京红螺寺的参访环境" width="960" height="720" loading="lazy"><figcaption>北京 · 红螺寺</figcaption></figure>
-</section>
-</main>
-<footer class="footer wrap"><div><a class="brand" href="#top"><span class="brand-mark">寺</span><span>寺庙寻访向导 <small>TEMPLE NOTES</small></span></a><p>循着心意，慢慢寻访。</p></div><div class="footer-links"><a href="https://github.com/wanchenghhh/temple-guide-agent">GitHub</a><a href="https://github.com/wanchenghhh/temple-guide-agent/blob/main/README.md">项目说明</a><a href="#image-credits">图片来源</a></div><div class="credits" id="image-credits">照片来源：<a href="https://commons.wikimedia.org/wiki/File:%E6%BD%AD%E6%9F%98%E5%AF%BA%E5%B1%B1%E9%97%A8_-_Entrance_of_Tanzhe_Temple_-_2012.04_-_panoramio.jpg">潭柘寺 · rheins，CC BY 3.0</a>；<a href="https://commons.wikimedia.org/wiki/File:20200109_Yonghe_Temple-1.jpg">雍和宫 · Balon Greyjoy，CC0</a>；<a href="https://commons.wikimedia.org/wiki/File:%E5%8C%97%E4%BA%AC%E7%BA%A2%E8%9E%BA%E5%AF%BA.JPG">红螺寺 · WU Yuchen，CC BY-SA 3.0</a>。图片经压缩及裁切。 <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a></div></footer>
+  <main>
+    <span class="mark" aria-hidden="true">寺</span>
+    <div class="label">北京 · 寺庙寻访</div>
+    <h1>寺庙寻访向导</h1>
+    <p>根据心愿和参访条件，了解寺庙、比较选择，并为出行做好准备。</p>
+    <a href="https://github.com/wanchenghhh/temple-guide-agent">查看项目与运行说明 ↗</a>
+    <small>项目页面持续完善中。对话向导需要运行项目服务。</small>
+  </main>
 </body>
 </html>
