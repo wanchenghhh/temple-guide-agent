@@ -65,6 +65,14 @@ const sandbox = {
     return {status: 'chat', data: {messages: [{role: 'assistant', content: 'Backend agent reply'}]}};
   }},
 };
+// 新界面把「候选追问」包装进了 messageWithTempleContext；这里给出与真实实现一致的透传：
+// 没有候选工作区状态时，消息原样返回（所以下面的断言仍然成立）。
+sandbox.messageWithTempleContext = text => text;
+sandbox.isNewTempleSearch = () => false;
+sandbox.enterWorkspace = () => {};
+sandbox.renderWorkspaceEntry = () => {};
+sandbox.resetTempleWorkspace = () => {};
+sandbox.showConversation = () => {};
 const flows = source('flows');
 for (const match of flows.matchAll(/import\s+\{([\s\S]*?)\}\s+from/g)) {
   for (const name of match[1].split(',').map(s => s.trim()).filter(Boolean)) {
