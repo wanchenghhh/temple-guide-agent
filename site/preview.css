@@ -1,0 +1,4 @@
+.preview-notice { flex-shrink: 0; padding: 7px 24px; text-align: center; background: #e8eee2; color: #425b45; font-size: 11px; line-height: 1.5; }
+.preview-notice a { color: #405e46; text-decoration: underline; text-underline-offset: 3px; margin-left: 8px; }
+.account-menu { display: none; }
+@media (max-width: 600px) { .preview-notice { padding: 6px 10px; font-size: 10px; } }

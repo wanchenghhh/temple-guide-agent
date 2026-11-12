@@ -21,9 +21,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/configure-pages@v5
+      - name: Build static product preview
+        run: bash site/build-preview.sh "$RUNNER_TEMP/temple-product-preview"
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: ${{ runner.temp }}/temple-product-preview
       - id: deployment
         uses: actions/deploy-pages@v4

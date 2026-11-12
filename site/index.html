@@ -1,31 +1,159 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="寺庙寻访向导：根据心愿和参访条件，了解与选择北京寺庙。">
-  <title>寺庙寻访向导</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 32px; background: #f6f5ef; color: #28392e; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif; }
-    main { width: min(100%, 680px); }
-    .mark { display: grid; place-items: center; width: 42px; height: 46px; border-radius: 22px 22px 5px 5px; background: #344b3d; color: white; font: 19px "Songti SC", serif; }
-    .label { margin: 52px 0 14px; color: #92735d; font-size: 12px; letter-spacing: .15em; }
-    h1 { margin: 0; font: 500 clamp(38px, 7vw, 64px)/1.4 "Songti SC", "STSong", serif; }
-    p { max-width: 560px; margin: 22px 0 32px; color: #677365; font-size: 15px; line-height: 2; }
-    a { display: inline-block; padding: 12px 18px; background: #344b3d; color: #fff; text-decoration: none; font-size: 14px; }
-    a:focus-visible { outline: 2px solid #9b614a; outline-offset: 4px; }
-    small { display: block; margin-top: 48px; color: #85907f; line-height: 1.8; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light" />
+  <meta name="theme-color" content="#f6f5f0" />
+  <meta name="app-version" content="__APP_VERSION__" />
+  <title>寺庙寻访向导 · 找一处适合你的地方</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23191919'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E5%AF%BA%3C/text%3E%3C/svg%3E" />
+  <link rel="preload" href="static/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="static/design.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="static/chat.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="static/workspace.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="static/experience.css?v=__APP_VERSION__" />
+  <link rel="stylesheet" href="preview.css" />
+  <script type="module" src="preview.js"></script>
 </head>
-<body>
-  <main>
-    <span class="mark" aria-hidden="true">寺</span>
-    <div class="label">北京 · 寺庙寻访</div>
-    <h1>寺庙寻访向导</h1>
-    <p>根据心愿和参访条件，了解寺庙、比较选择，并为出行做好准备。</p>
-    <a href="https://github.com/wanchenghhh/temple-guide-agent">查看项目与运行说明 ↗</a>
-    <small>项目页面持续完善中。对话向导需要运行项目服务。</small>
-  </main>
+<body class="app chat-app" data-screen="home">
+  <a class="skip-link" href="#composerInput">跳到输入框</a>
+
+  <!-- 一次性告知：只在本机记一个标记，不发给服务端 -->
+  <div class="privacy-banner" id="privacyBanner" hidden>
+    <p class="privacy-text">
+      你告诉我的心愿、出发地和同行人会被记住，用来下次直接给你推荐；
+      可以随时在「记忆」里查看、修改或删除。
+    </p>
+    <div class="privacy-actions">
+      <button type="button" class="btn btn-quiet btn-sm" id="privacyOpenMemory">看看记住了什么</button>
+      <button type="button" class="btn btn-primary btn-sm" id="privacyDismiss">知道了</button>
+    </div>
+  </div>
+
+  <div class="preview-notice" role="note">静态界面预览 · 对话推荐需要运行后端服务 <a href="https://github.com/wanchenghhh/temple-guide-agent#本地运行">查看运行方式 ↗</a></div>
+
+  <header class="app-header chat-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">寺</span>
+      <h1>寺庙寻访向导</h1>
+    </div>
+    <div class="debug-badges debug-only" id="debugBadges" aria-label="调试信息"></div>
+    <button type="button" id="btnHome" class="home-link">首页</button>
+    <span class="header-spacer"></span>
+    <span class="header-location">北京 · 寻访与祈福</span>
+    <details class="account-menu" id="accountMenu"><summary>我的 <span aria-hidden="true">⌄</span></summary>
+    <div class="header-actions">
+      <button type="button" class="btn btn-quiet btn-sm header-btn" id="btnMemory" aria-label="我记得的">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12a1 1 0 011 1v16l-7-4-7 4V5a1 1 0 011-1z"/></svg>
+        <span class="header-btn-label">记忆</span>
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm header-btn" id="btnSchedules" aria-label="定时任务" aria-expanded="false" aria-controls="schedulesPanel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span class="header-btn-label">定时</span>
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm header-btn" id="btnProfile" aria-label="我的个人档案" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+        <span class="header-btn-label">档案</span>
+      </button>
+    </div>
+    </details>
+  </header>
+
+  <section class="landing" id="landing" aria-labelledby="landingTitle">
+    <div class="temple-gallery" aria-label="北京寺庙影像展示">
+      <figure class="temple-photo photo-one"><img src="static/images/temples/yonghe.jpg" alt="冬日的雍和宫建筑" width="1000" height="667" fetchpriority="high" /><figcaption><span>雍和宫</span><span>北京 · 东城</span></figcaption></figure>
+      <figure class="temple-photo photo-two"><img src="static/images/temples/tanzhe.jpg" alt="潭柘寺的建筑与庭院" width="1000" height="750" /><figcaption><span>潭柘寺</span><span>北京 · 门头沟</span></figcaption></figure>
+      <figure class="temple-photo photo-three"><img src="static/images/temples/jietai.jpg" alt="戒台寺院内的建筑与经幡" width="1000" height="747" /><figcaption><span>戒台寺</span><span>北京 · 门头沟</span></figcaption></figure>
+    </div>
+    <div class="landing-center">
+      <p class="landing-kicker"><span></span> 一处寺庙，一份心意 <span></span></p>
+      <h2 id="landingTitle">带着心愿，<br />找一处适合你的寺庙。</h2>
+      <p class="landing-description">了解一座寺庙，参考他人分享，再决定是否出发。</p>
+      <div id="landingComposer" class="landing-composer"></div>
+      <div class="landing-context"><span>目前支持北京寺庙</span><span>出发地可以稍后补充</span></div>
+      <button type="button" id="resumeConversation" class="resume-conversation" hidden>继续上次对话 <span aria-hidden="true">↗</span></button>
+    </div>
+    <footer class="landing-footer"><span>循着心意，慢慢寻访。</span><div><a href="static/images/temples/credits.html" target="_blank" rel="noopener">图片来源</a><button type="button" id="pauseGallery" aria-pressed="false">暂停画面</button></div></footer>
+  </section>
+
+  <nav class="workspace-tabs" role="tablist" aria-label="切换对话与候选">
+    <button id="workspaceChatTab" type="button" role="tab" aria-selected="true" aria-controls="main">对话</button>
+    <button id="workspaceResultsTab" type="button" role="tab" aria-selected="false" aria-controls="templeWorkspace" disabled>候选</button>
+  </nav>
+  <div class="layout">
+    <main class="chat-main" id="main">
+      <div class="log-scroll" id="logScroll">
+        <div class="log" id="log" role="log" aria-live="off" aria-label="对话记录"></div>
+      </div>
+
+      <div id="templeFocus" class="temple-focus" hidden></div>
+      <form class="composer" id="composer" autocomplete="off">
+        <button type="button" class="jump-latest" id="jumpLatest" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M19 12l-7 7-7-7"/></svg>
+          新消息
+        </button>
+        <div class="composer-inner">
+          <div class="composer-shell" id="composerShell">
+            <label class="sr-only" for="composerInput">给向导发消息</label>
+            <textarea id="composerInput" rows="1" enterkeyhint="send"
+              placeholder="周六想为家人求平安，带老人，不想爬山……"
+              aria-describedby="composerHint"></textarea>
+            <button type="submit" class="btn btn-primary btn-send" id="btnSend" aria-label="发送">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+            </button>
+          </div>
+          <div class="composer-error" id="composerError" role="alert" hidden></div>
+          <div class="composer-hint" id="composerHint">
+            <span id="composerHintKeys">Enter 发送 · Shift + Enter 换行</span>
+            <span class="hint-right">条件随时可以调整</span>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <section id="templeWorkspace" class="temple-workspace" aria-label="当前寺庙候选与详情"></section>
+
+
+  </div>
+
+    <aside class="drawer" id="drawer" aria-labelledby="drawerTitle" inert>
+      <div class="drawer-inner">
+        <div class="drawer-head">
+          <h2 id="drawerTitle">我的个人档案</h2>
+          <button type="button" class="btn-icon" id="btnDrawerClose" aria-label="收起档案">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="drawer-body" id="drawerBody"></div>
+        <section class="drawer-section drawer-account" aria-labelledby="accountTitle">
+          <h3 class="drawer-section-title" id="accountTitle">账号与本机数据</h3>
+          <label class="dw-field-label debug-only" for="userId">User ID</label>
+          <input class="field-input debug-only" id="userId" value="" readonly spellcheck="false" autocapitalize="off" aria-describedby="userIdHint" />
+          <p class="dw-note debug-only" id="userIdHint">由服务器会话决定，只读。</p>
+          <div class="dw-account-actions">
+            <button type="button" class="btn btn-ghost btn-sm" id="btnClearLocal">清除本机对话记录</button>
+          </div>
+          <p class="dw-note">档案保存在服务端；对话记录只保存在这台设备的浏览器里。</p>
+          <p class="dw-version">寺庙寻访向导 v__APP_VERSION__</p>
+        </section>
+      </div>
+    </aside>
+
+  <div class="backdrop" id="backdrop"></div>
+
+  <div class="toast-wrap" id="toastWrap" role="status" aria-live="polite"></div>
+  <div class="sr-only" id="srAnnounce" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="schedulesPanel" class="schedules-panel" aria-labelledby="schedulesTitle">
+    <div class="drawer-head">
+      <h2 id="schedulesTitle">定时任务</h2>
+      <button type="button" class="btn btn-ghost btn-sm" id="btnSchedulesClose" aria-label="关闭定时任务">关闭</button>
+    </div>
+    <div id="schedulesBody" class="drawer-body"></div>
+  </dialog>
+  <noscript>
+    <p class="noscript">需要开启 JavaScript 才能和向导对话。</p>
+  </noscript>
 </body>
 </html>
