@@ -129,9 +129,12 @@ export function renderWorkspaceEntry(entry, ctx, { restored = false } = {}) {
   if (!panel() || !card?.items?.length) return null;
   context = ctx;
   if (card.kind === "temple_detail") {
-    const item = card.items[0];
+    const incoming = card.items[0];
+    const known = items().find(item => item.name === incoming.name);
+    // Operational follow-ups refresh facts, not the visible scope of folk customs.
+    const item = known ? { ...known, ...incoming, wishes: known.wishes || [] } : incoming;
     selected = item;
-    detail = entry;
+    detail = { ...entry, data: { ...entry.data, card: { ...card, items: [item] } } };
     if (!candidates) {
       candidates = entry;
       detailOpen = true;

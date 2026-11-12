@@ -182,6 +182,11 @@ export const api = {
   capabilities() {
     return request("/api/capabilities");
   },
+  beginNewChat() {
+    const owner = currentUserId();
+    chatThreads.set(owner, "");
+    try { localStorage.removeItem(`ja.chat.thread.v1:${owner}`); } catch { /* tab only */ }
+  },
   async chat(message, { replyTo, threadId } = {}) {
     const owner = currentUserId();
     const res = await turnRequest("/api/chat", {

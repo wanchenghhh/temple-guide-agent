@@ -29,7 +29,7 @@ import {
 } from "./cards.js?v=__APP_VERSION__";
 import { openSecretSandbox } from "./secret.js?v=__APP_VERSION__";
 import { confirmCard, draftFromResponse } from "./confirm.js?v=__APP_VERSION__";
-import { focusComposer, prefillComposer } from "./composer.js?v=__APP_VERSION__";
+import { focusComposer, submitPrompt } from "./composer.js?v=__APP_VERSION__";
 import { getProfile, setProfile, openDrawer, refreshSecrets, loadProfile } from "./drawer.js?v=__APP_VERSION__";
 import { cleanAssistantText } from "./text.js?v=__APP_VERSION__";
 
@@ -85,7 +85,7 @@ function contextFor(entry, restored) {
   return {
     restored,
     reportTemple,
-    refineTemple: (text) => { showConversation(); return prefillComposer(text); },
+    refineTemple: (text) => { showConversation(); return submitPrompt(text); },
     focusComposer,
     openDrawer: (field) => openDrawer({ focusField: field }),
     dismissProactive,
@@ -240,6 +240,13 @@ const timeOf = (value) => {
 export async function sendComposer({ text }) {
   const value = String(text || "").trim();
   if (!value) return;
+  // Home starts a separate visit; resume enters the workspace before sending.
+  if (typeof document !== "undefined" && document.body?.dataset.screen === "home") {
+    api.beginNewChat();
+    resetThread();
+    store.add({ id: nextId("e"), type: "conversation_start", at: new Date().toISOString(), data: {} });
+    resetTempleWorkspace("正在按这次需求寻找候选…");
+  }
   enterWorkspace();
   echoUser(value);
   await sendText(value);
@@ -672,7 +679,9 @@ async function syncDecisions() {
 }
 
 export function restoreTranscript() {
-  const entries = store.entries();
+  const saved = store.entries();
+  const boundary = saved.map(entry => entry.type).lastIndexOf("conversation_start");
+  const entries = saved.slice(boundary + 1);
   if (!entries.length) return false;
   nodes.clear();
   for (const entry of entries) {

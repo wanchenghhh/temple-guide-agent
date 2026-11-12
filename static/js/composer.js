@@ -85,9 +85,14 @@ function autoGrow() {
   input.style.height = `${Math.min(input.scrollHeight, max)}px`;
 }
 
-async function submit() {
+// Detail shortcuts send their question immediately without replacing an unfinished draft.
+export function submitPrompt(text) {
+  return submit(text);
+}
+
+async function submit(prompt = null) {
   const input = $("composerInput");
-  const text = input.value.trim();
+  const text = (prompt === null ? input.value : String(prompt)).trim();
   if (busy) {
     showComposerError("上一条还在处理，稍等一下再发。");
     return;
@@ -98,9 +103,11 @@ async function submit() {
     return;
   }
   hideComposerError();
-  input.value = "";
-  input.placeholder = DEFAULT_PLACEHOLDER;
-  autoGrow();
+  if (prompt === null) {
+    input.value = "";
+    input.placeholder = DEFAULT_PLACEHOLDER;
+    autoGrow();
+  }
   setComposerBusy(true);
   try {
     await submitHandler({ text, attachments: [] });

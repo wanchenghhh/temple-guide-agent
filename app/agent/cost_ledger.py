@@ -220,10 +220,11 @@ def check(user_id: str, *, extra: float = 0.0, now: Optional[datetime] = None) -
 
 
 def cap_message(st: CapStatus) -> str:
-    label = "今天" if st.scope == "daily" else "这个月"
+    label = "今日" if st.scope == "daily" else "本月"
     cap = st.daily_cap if st.scope == "daily" else st.monthly_cap
-    plan = "免费版" if st.plan == FREE else "付费版"
+    used = st.today if st.scope == "daily" else st.month
     return (
-        f"{label}的用量额度到了（{plan}上限 ¥{cap:g}），我先停在这里。"
-        f"额度会在 {st.reset_text}（{_tz_label()}）恢复；进度已经保存，恢复后点「继续」我从这里接着做。"
+        f"本应用为当前用户设置的{label}模型调用预算已达上限（上限 ¥{cap:g}，累计估算用量 ¥{used:.2f}），已暂停调用。"
+        f"这是应用内部的预算限制，不代表模型服务商账户余额不足。"
+        f"预算将在 {st.reset_text}（{_tz_label()}）恢复；进度已保存，恢复后可继续提问。"
     )

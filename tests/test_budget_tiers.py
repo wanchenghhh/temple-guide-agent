@@ -486,7 +486,7 @@ def test_cost_cap_stops_task_saves_checkpoint_and_resumes_after_reset(uid, fake_
     out = _draft(uid)
     state = out["state"]
     assert state["error"] == "loop_budget:cost_cap" and fake_drafts == []
-    assert "额度" in state["messages"][-1]["content"] and "恢复" in state["messages"][-1]["content"]
+    assert "预算" in state["messages"][-1]["content"] and "恢复" in state["messages"][-1]["content"]
     card = out["loop"]["continue_card"]
     assert card["kind"] == "cost_cap" and card["can_continue"] is False and card["resume_after"]
     snap = get_thread_snapshot(out["thread_id"])
@@ -548,3 +548,18 @@ def test_confirm_wait_still_excluded_from_time_budget(uid, fake_drafts, monkeypa
     assert o2["awaiting_confirm"] is True
     assert fake_drafts == [1, 1]
     assert {"source": "user_reject", "reason": "短一点"} in o2["state"]["loop_feedback"]
+
+
+def test_local_five_yuan_cap_and_explicit_message(uid, monkeypatch):
+    monkeypatch.setenv("AGENT_COST_CAP_FREE_DAILY", "5")
+    now = datetime(2026, 10, 16, 15, 30, tzinfo=SHANGHAI)
+    cost_ledger.record_spend(uid, 2.1, now=now)
+    assert cost_ledger.check(uid, now=now).ok
+    cost_ledger.record_spend(uid, 3.0, now=now)
+    status = cost_ledger.check(uid, now=now)
+    assert not status.ok and status.daily_cap == 5
+    message = cost_ledger.cap_message(status)
+    assert "当前用户" in message and "上限 ¥5" in message
+    assert "累计估算用量 ¥5.10" in message
+    assert "不代表模型服务商账户余额不足" in message
+    assert "免费版" not in message

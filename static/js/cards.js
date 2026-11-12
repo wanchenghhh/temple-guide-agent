@@ -67,11 +67,11 @@ export function continueCard(entry, ctx) {
   const card = d.card || {};
   const capped = card.kind === "cost_cap";
   const { root } = cardShell("continue", {
-    title: capped ? "今天的用量到上限了" : "这一步先停在这里",
+    title: capped ? `本应用${card.user_cost?.scope === "monthly" ? "本月" : "今日"}调用预算已达上限` : "这一步先停在这里",
     tags: [d.result ? tag(d.result === "continued" ? "已继续" : "已停止", d.result === "continued" ? "tag-ok" : "") : tag(card.tier_zh || "预算", "tag-ink")],
     restored: ctx.restored,
   });
-  if (card.reason) root.append(h("p", { class: "card-sub", text: String(card.reason) }));
+  if (card.reason && !capped) root.append(h("p", { class: "card-sub", text: String(card.reason) }));
   const done = (card.done || []).map(String).filter(Boolean);
   const todo = (card.todo || []).map(String).filter(Boolean);
   if (done.length) root.append(h("div", { class: "card-group" }, [h("span", { class: "card-group-label", text: "已完成" }), h("ul", { class: "card-list" }, done.map((t) => h("li", { text: t })))]));
@@ -79,7 +79,14 @@ export function continueCard(entry, ctx) {
   const spent = card.spent || {};
   const ext = card.extension || {};
   const spentText = [spent.steps ? `${spent.steps} 步` : "", cny(spent.cost_cny) ? `约 ${cny(spent.cost_cny)}` : ""].filter(Boolean).join(" · ");
-  if (spentText) root.append(h("p", { class: "card-foot", text: `已用：${spentText}` }));
+  if (capped) {
+    const usage = card.user_cost || {};
+    const monthly = usage.scope === "monthly";
+    const used = monthly ? usage.month : usage.today;
+    const limit = monthly ? usage.monthly_cap : usage.daily_cap;
+    root.append(note(`当前用户${monthly ? "本月" : "今日"}累计估算用量：${used == null ? "待核实" : cny(used)}；预算上限：${limit == null ? "待核实" : cny(limit)}`));
+    root.append(note("这是本应用的模型调用预算限制，不代表模型服务商账户余额不足。"));
+  } else if (spentText) root.append(h("p", { class: "card-foot", text: `已用：${spentText}` }));
   if (!capped && ext.steps) {
     root.append(h("p", { class: "card-foot", text: `继续会再给 ${ext.steps} 步${cny(card.estimate_cny) ? `，预计 ${cny(card.estimate_cny)}` : ""}。` }));
   }
@@ -476,7 +483,12 @@ function templeItem(item, index, ctx) {
   if (item.accessibility && !(item.condition_checks || []).some((check) => ["no_climbing", "elderly"].includes(check.condition))) {
     rows.push(h("p", { class: "card-note", text: `参访体力：${item.accessibility}` }));
   }
-  (item.wishes || []).forEach((wish) => rows.push(templeWishLine(wish)));
+  if (item.wishes?.length) {
+    rows.push(h("details", { class: "temple-customs" }, [
+      h("summary", { text: "相关习俗" }),
+      ...item.wishes.map(templeWishLine),
+    ]));
+  }
   if (item.recommend_note) rows.push(note(item.recommend_note, "warn"));
   if ((item.closure || []).length) rows.push(note(item.closure.join("、"), "warn"));
   const checks = item.condition_checks || [];
