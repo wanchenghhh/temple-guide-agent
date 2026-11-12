@@ -1,3 +1,4 @@
+import { initHomeDirectory } from "./home_directory.js?v=__APP_VERSION__";
 import { initExperience, showHome } from "./experience.js?v=__APP_VERSION__";
 import { initTempleWorkspace } from "./temple_workspace.js?v=__APP_VERSION__";
 import { initSchedules } from "./schedules.js?v=__APP_VERSION__";
@@ -6,7 +7,7 @@ import { api } from "./api.js?v=__APP_VERSION__";
 import { currentUserId, ensureSession } from "./identity.js?v=__APP_VERSION__";
 import { store } from "./store.js?v=__APP_VERSION__";
 import { initThread, scrollToBottom } from "./thread.js?v=__APP_VERSION__";
-import { initComposer, focusComposer } from "./composer.js?v=__APP_VERSION__";
+import { initComposer, focusComposer, prefillComposer } from "./composer.js?v=__APP_VERSION__";
 import { initDrawer, loadProfile, resetDrawer } from "./drawer.js?v=__APP_VERSION__";
 import {
   sendComposer,
@@ -110,6 +111,10 @@ async function boot() {
   initExperience({ onResume: () => requestAnimationFrame(() => scrollToBottom({ force: true, replyStart: true })) });
   initSchedules();
   initComposer({ onSubmit: sendComposer });
+  initHomeDirectory({ onPrompt: text => {
+    if (prefillComposer(text)) $("composer").requestSubmit();
+    else toast("已保留输入框中的草稿，请先发送或清空后再选择。");
+  } });
   initDrawer({ onUserChange, onProfileEdited: noteProfileEdited, onClearLocal });
   $("btnMemory").addEventListener("click", () => askMemory());
   initPrivacyNotice();

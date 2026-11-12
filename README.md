@@ -75,7 +75,7 @@ cp .env.example .env
 uvicorn app.main:app --host 127.0.0.1 --port 8787
 ```
 
-打开 **http://127.0.0.1:8787/**。没有配置模型密钥时可以启动页面，但不能把离线占位回复当成真实模型效果。GitHub Pages 展示 `353e373` 版本的静态界面，运行对话向导需要启动本项目服务。
+打开 **http://127.0.0.1:8787/**。没有配置模型密钥时可以启动页面，但不能把离线占位回复当成真实模型效果。GitHub Pages 展示与当前产品前端同步的静态界面，运行对话向导需要启动本项目服务。
 
 不要将填写了密钥的 `.env` 提交到仓库。完整配置见 [`.env.example`](.env.example)。
 
@@ -89,6 +89,6 @@ uvicorn app.main:app --host 127.0.0.1 --port 8787
 | `app/agent/temple_card.py` | 组织候选、详情、来源和行前信息 |
 | `app/agent/reviews.py` | 按需组织公开搜索结果与原文链接 |
 | `static/` | 对话界面、候选资料面板与首页 |
-| `site/` | GitHub Pages 项目介绍页 |
+| `site/` | GitHub Pages 静态产品预览 |
 
 技术栈：Python、FastAPI、LangGraph 和原生 HTML / CSS / JavaScript。项目采用 [MIT 许可证](LICENSE)；照片使用各自标注的开放许可。

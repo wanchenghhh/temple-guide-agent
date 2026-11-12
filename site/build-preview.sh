@@ -6,17 +6,20 @@ if [ -e "$out" ]; then
   exit 1
 fi
 mkdir -p "$out"
-git archive 353e373 static | tar -x -C "$out"
+git archive HEAD static | tar -x -C "$out"
 src=${PREVIEW_SOURCE:-site}
 cp "$src/index.html" "$src/preview.js" "$src/preview.css" "$out/"
-python3 - "$out" <<'PY'
+# Local previews may overlay an edited source directory; CI uses the committed tree.
+if [ -n "${PREVIEW_STATIC:-}" ]; then cp -R "$PREVIEW_STATIC/." "$out/static/"; fi
+python3 - "$out" "$(git rev-parse --short HEAD)" <<'PY'
 from pathlib import Path
 import sys
 out = Path(sys.argv[1])
-for path in [out / 'index.html', *out.joinpath('static').rglob('*')]:
+version = 'pages-' + sys.argv[2]
+for path in [out / 'index.html', out / 'preview.js', *out.joinpath('static').rglob('*')]:
     if not path.is_file() or path.suffix not in {'.html', '.css', '.js'}:
         continue
-    text = path.read_text(encoding='utf-8').replace('__APP_VERSION__', 'pages-353e373')
+    text = path.read_text(encoding='utf-8').replace('__APP_VERSION__', version)
     if path.suffix == '.css':
         text = text.replace('/static/', './')
     if path.name == 'credits.html':

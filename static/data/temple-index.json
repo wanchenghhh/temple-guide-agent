@@ -1,0 +1,245 @@
+{
+  "updated_at": "2026-11-07",
+  "items": [
+    {
+      "name": "雍和宫",
+      "district": "东城区",
+      "sect": "藏传佛教",
+      "status": "religious_site",
+      "open_status": "reservation",
+      "atmosphere": "香火最旺、人气最高，殿宇宏伟，节假日常需排队，氛围庄严而热烈。"
+    },
+    {
+      "name": "潭柘寺",
+      "district": "门头沟区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "深山古刹，古树众多（帝王树、配王树），清幽宁静，四季景色佳。"
+    },
+    {
+      "name": "戒台寺",
+      "district": "门头沟区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "古松众多，环境清幽，游客相对潭柘寺少，更显宁静。"
+    },
+    {
+      "name": "红螺寺",
+      "district": "怀柔区",
+      "sect": "汉传佛教",
+      "status": "scenic",
+      "open_status": "reservation",
+      "atmosphere": "山清水秀，竹林与古寺相映，环境宜人，适合半日游。"
+    },
+    {
+      "name": "法源寺",
+      "district": "西城区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "unverified",
+      "atmosphere": "闹中取静，文化气息浓厚，游客少而清幽，春日丁香闻名。"
+    },
+    {
+      "name": "广济寺",
+      "district": "西城区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "位于闹市，香火旺但规模不大，氛围亲切。"
+    },
+    {
+      "name": "广化寺",
+      "district": "西城区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "unverified",
+      "atmosphere": "临后海，环境清幽，兼具市井与禅意。"
+    },
+    {
+      "name": "智化寺",
+      "district": "东城区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "reservation",
+      "atmosphere": "藏于胡同中，古乐与建筑闻名，游客少，适合静心。"
+    },
+    {
+      "name": "妙应寺",
+      "district": "西城区",
+      "sect": "藏传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "白塔地标，胡同风情浓厚，周边咖啡馆与老北京生活气息交织。"
+    },
+    {
+      "name": "天宁寺",
+      "district": "西城区",
+      "sect": "汉传佛教（尼众）",
+      "status": "religious_site",
+      "open_status": "unverified",
+      "atmosphere": "古塔高耸，环境安静，游客少。"
+    },
+    {
+      "name": "大钟寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "以古钟收藏与展示为主，文化氛围浓。"
+    },
+    {
+      "name": "卧佛寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "scenic",
+      "open_status": "normal",
+      "atmosphere": "位于植物园内，古木参天，环境清幽，可顺带游园。"
+    },
+    {
+      "name": "大觉寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "古玉兰与千年银杏闻名，春日赏花、秋日赏叶者多，环境雅致。"
+    },
+    {
+      "name": "灵光寺",
+      "district": "石景山区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "地处八大处山林间，庄严肃穆，香客与游客交织。"
+    },
+    {
+      "name": "云居寺",
+      "district": "房山区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "unverified",
+      "atmosphere": "石经文化厚重，环境清幽，游客相对少。"
+    },
+    {
+      "name": "法海寺",
+      "district": "石景山区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "壁画艺术震撼，环境清幽，需预约参观。"
+    },
+    {
+      "name": "碧云寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "香山景致优美，秋日红叶闻名，游客多。"
+    },
+    {
+      "name": "五塔寺",
+      "district": "海淀区",
+      "sect": "藏传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "石刻与古塔结合，文化氛围浓，环境安静。"
+    },
+    {
+      "name": "万寿寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "建筑精美，艺术藏品丰富，文化氛围浓。"
+    },
+    {
+      "name": "大慧寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "closed",
+      "open_status": "closed",
+      "atmosphere": "仅存一座大悲宝殿，被居民区包围，不对公众开放。"
+    },
+    {
+      "name": "白云观",
+      "district": "西城区",
+      "sect": "道教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "道教宫观，香火旺，年节庙会热闹，氛围独特。"
+    },
+    {
+      "name": "东岳庙",
+      "district": "朝阳区",
+      "sect": "道教",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "民俗文化氛围浓，古建保存完好，年节活动丰富。"
+    },
+    {
+      "name": "火德真君庙",
+      "district": "西城区",
+      "sect": "道教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "临什刹海，闹中取静，环境宜人。"
+    },
+    {
+      "name": "妙峰山",
+      "district": "门头沟区",
+      "sect": "民间信仰",
+      "status": "scenic",
+      "open_status": "normal",
+      "atmosphere": "山高景阔，庙会与民间信仰活动有特色。"
+    },
+    {
+      "name": "孔庙和国子监",
+      "district": "东城区",
+      "sect": "儒家",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "古柏参天，文化底蕴深厚，庄重安静。"
+    },
+    {
+      "name": "历代帝王庙",
+      "district": "西城区",
+      "sect": "无",
+      "status": "heritage",
+      "open_status": "normal",
+      "atmosphere": "皇家庙宇气派，游客少，安静庄重。"
+    },
+    {
+      "name": "慈寿寺",
+      "district": "海淀区",
+      "sect": "汉传佛教",
+      "status": "relic",
+      "open_status": "unverified",
+      "atmosphere": "仅存的玲珑塔位于玲珑公园内，公园环境清静，适合散步看塔。"
+    },
+    {
+      "name": "和平寺",
+      "district": "昌平区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "地处山间，清幽安静，游客少。"
+    },
+    {
+      "name": "通教寺",
+      "district": "东城区",
+      "sect": "汉传佛教（尼众）",
+      "status": "religious_site",
+      "open_status": "unverified",
+      "atmosphere": "闹中取静，尼寺清幽。"
+    },
+    {
+      "name": "大悲寺",
+      "district": "石景山区",
+      "sect": "汉传佛教",
+      "status": "religious_site",
+      "open_status": "normal",
+      "atmosphere": "位于八大处山腰，环境清幽，是八大处诸寺之一。"
+    }
+  ]
+}
