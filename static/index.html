@@ -66,8 +66,8 @@
       </h2>
 
       <div class="b-ask">
-        <p class="b-eyebrow"><span class="b-no">01</span>说说你在意的事</p>
-        <p class="b-lead">为谁祈福，和谁同行，哪天出发。<br>向导给出候选，讲清取舍，标明待核实之处。</p>
+        <p class="b-eyebrow"><span class="b-no">01</span>开始寻访</p>
+        <p class="b-lead">说说你的心愿，或先了解一座寺庙。</p>
         <div id="landingComposer" class="landing-composer"></div>
         <ul class="b-prompts" aria-label="可以这样问">
           <li><button type="button" class="prompt-chip" data-prompt="周六想为家人求平安，带老人，不想爬山"><span>周六想为家人求平安，带老人，不想爬山</span><i aria-hidden="true">→</i></button></li>
@@ -98,21 +98,23 @@
         <div>
           <p class="b-eyebrow"><span class="b-no">02</span>或者，先翻翻名录</p>
           <h3 id="indexTitle">北京寺观名录<span class="b-count" id="indexCount" aria-live="polite">…</span></h3>
+          <details class="b-info">
+            <summary><span class="b-info-icon" aria-hidden="true">ⓘ</span>资料与参访说明</summary>
+            <ul>
+              <li>民俗说法与场所资料分别标注。</li>
+              <li>名录包含寺观、文博点和景区，不等同于祈福推荐。</li>
+              <li>开放与预约以官方最新公告为准。</li>
+            </ul>
+          </details>
           <p class="b-legend" aria-label="颜色图例"><span class="kind-han">汉传佛教</span><span class="kind-zang">藏传佛教</span><span class="kind-dao">道教</span><span class="kind-other">其他</span></p>
         </div>
         <div class="b-filters" id="indexFilters" role="group" aria-label="按区域筛选"></div>
       </div>
-      <p class="b-directory-note">已收录场所包括寺观、文博点与景区，名录不等同于祈福推荐。开放与预约信息来自资料快照，请临行确认。</p>
       <p id="indexStatus" class="b-index-status" role="status">正在整理名录…</p>
       <ol class="b-list" id="templeIndex"></ol>
     </div>
 
     <footer class="b-foot">
-      <ul class="b-principles" aria-label="向导的原则">
-        <li><strong>事实与民俗分开</strong><span>殿宇资料与民间说法，分别标注依据。</span></li>
-        <li><strong>条件真正参与筛选</strong><span>长辈同行、少爬山、想安静，都会进入取舍。</span></li>
-        <li><strong>不确定就直说</strong><span>开放与预约以官方公告为准，向导不代订。</span></li>
-      </ul>
       <p class="b-colophon"><span>资料快照不代表实时开放状态。</span><a href="/static/images/temples/credits.html" target="_blank" rel="noopener">图片来源</a></p>
     </footer>
   </section>

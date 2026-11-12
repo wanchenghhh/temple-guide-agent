@@ -464,3 +464,13 @@ body[data-screen="home"] .landing {
   .candidate-copy { gap: 3px; }
   .candidate-heading strong { font-size: 20px; }
 }
+
+/* A quiet, keyboard-accessible explanation beside the directory heading. */
+.b-info { margin-top: 12px; color: var(--ink-3); max-width: 550px; }
+.b-info summary { display: flex; align-items: center; gap: 7px; width: fit-content; min-height: 32px; padding: 4px 0; list-style: none; cursor: pointer; font-size: 12.5px; line-height: 1.7; }
+.b-info summary::-webkit-details-marker { display: none; }
+.b-info summary:hover, .b-info[open] summary { color: var(--ink); }
+.b-info-icon { color: var(--song); font-size: 15px; line-height: 1; }
+.b-info ul { margin: 6px 0 4px 22px; padding: 0 0 0 15px; font-size: 12.5px; line-height: 1.9; }
+.b-info li + li { margin-top: 3px; }
+@media (max-width: 820px) { .b-info summary { min-height: 44px; font-size: 13px; } .b-info ul { font-size: 13px; } }
